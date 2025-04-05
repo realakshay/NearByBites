@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="120dp"
+    android:viewportWidth="200"
+    android:viewportHeight="120">
+
+    <!-- Background -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M0,0 L200,0 L200,120 L0,120 z" />
+
+    <!-- Building shape -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M40,50 L160,50 L160,110 L40,110 z" />
+
+    <!-- Roof -->
+    <path
+        android:fillColor="#D0D0D0"
+        android:pathData="M30,50 L100,30 L170,50 z" />
+
+    <!-- Door -->
+    <path
+        android:fillColor="#A0A0A0"
+        android:pathData="M90,80 L110,80 L110,110 L90,110 z" />
+
+    <!-- Windows -->
+    <path
+        android:fillColor="#B0B0B0"
+        android:pathData="M50,70 L70,70 L70,90 L50,90 z" />
+
+    <path
+        android:fillColor="#B0B0B0"
+        android:pathData="M130,70 L150,70 L150,90 L130,90 z" />
+
+    <!-- Restaurant text -->
+    <path
+        android:fillColor="#34C759"
+        android:pathData="M60,20 L140,20 L140,40 L60,40 z" />
+</vector>

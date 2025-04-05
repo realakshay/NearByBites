@@ -11,4 +11,5 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorOrange">#FF9500</color>
+    <color name="colorPromoRed">#FF3B30</color>
 </resources>

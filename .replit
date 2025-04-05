@@ -13,26 +13,11 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Android Build and Run"
+args = "app_test"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "app_test"
-
-[[workflows.workflow]]
-name = "Android Build and Run"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "packager.installForAll"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "./gradlew assembleDebug && echo \"Build completed. Android application ready!\""
-waitForPort = 5000
+args = "Project Info"
 
 [[workflows.workflow]]
 name = "app_test"
@@ -47,6 +32,21 @@ task = "packager.installForAll"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "echo \"Simulating Android app launch...\" && ./gradlew installDebug && echo \"App launched successfully on emulated device!\""
+
+[[workflows.workflow]]
+name = "Project Info"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "find . -type f -name \"*.gradle\" | sort && echo \"===== Project Structure =====\" && find . -type d | sort && echo \"===== Main Files =====\" && ls -la && echo \"===== App build.gradle =====\" && cat app/build.gradle 2>/dev/null || echo \"No app/build.gradle found\" && python -m http.server 5000"
+waitForPort = 5000
 
 [deployment]
 run = ["sh", "-c", "./gradlew assembleDebug && echo \"Build completed. Android application ready!\""]

@@ -1,0 +1,60 @@
+> Task :app:processDebugMainManifest
+package="com.foodapp" found in source AndroidManifest.xml: /home/runner/work/NearByBites/NearByBites/app/src/main/AndroidManifest.xml.
+Setting the namespace via a source AndroidManifest.xml's package attribute is deprecated.
+Please instead set the namespace (or testNamespace) in the module's build.gradle file, as described here: https://developer.android.com/studio/build/configure-app-module#set-namespace
+This migration can be done automatically using the AGP Upgrade Assistant, please refer to https://developer.android.com/studio/build/agp-upgrade-assistant for more information.
+
+> Task :app:mergeDebugResources
+> Task :app:processDebugManifest
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:processDebugManifestForPackage
+> Task :app:compressDebugAssets
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:processDebugResources FAILED
+> Task :app:checkDebugDuplicateClasses
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:processDebugResources'.
+> A failure occurred while executing com.android.build.gradle.internal.res.LinkApplicationAndroidResourcesTask$TaskAction
+   > Android resource linking failed
+> Task :app:mergeDebugJavaResource
+17 actionable tasks: 17 executed
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_order_confirmation.xml:187: AAPT: error: resource string/return_to_home (aka com.foodapp:string/return_to_home) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_profile.xml:191: AAPT: error: resource color/bottom_nav_item_color (aka com.foodapp:color/bottom_nav_item_color) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_restaurant_detail.xml:18: AAPT: error: resource string/restaurant_image (aka com.foodapp:string/restaurant_image) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_restaurant_detail.xml:97: AAPT: error: resource string/address (aka com.foodapp:string/address) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_restaurant_detail.xml:124: AAPT: error: resource string/view_menu (aka com.foodapp:string/view_menu) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_restaurant_list.xml:20: AAPT: error: resource string/restaurant_list (aka com.foodapp:string/restaurant_list) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_tour_guide.xml:56: AAPT: error: resource string/next (aka com.foodapp:string/next) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_tour_guide.xml:69: AAPT: error: resource string/skip (aka com.foodapp:string/skip) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/item_favorite_restaurant.xml:22: AAPT: error: resource drawable/restaurant_1 (aka com.foodapp:drawable/restaurant_1) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/item_promo.xml:59: AAPT: error: resource color/colorPromoRed (aka com.foodapp:color/colorPromoRed) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/item_restaurant_list.xml:22: AAPT: error: resource drawable/restaurant_1 (aka com.foodapp:drawable/restaurant_1) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/item_search_restaurant.xml:22: AAPT: error: resource drawable/restaurant_1 (aka com.foodapp:drawable/restaurant_1) not found.
+         
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 33s
+Error: Process completed with exit code 1.

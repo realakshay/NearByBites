@@ -12,4 +12,11 @@
     <string name="subtotal">Subtotal</string>
     <string name="delivery_fee">Delivery Fee</string>
     <string name="total">Total</string>
+    <string name="return_to_home">Return to Home</string>
+    <string name="restaurant_image">Restaurant Image</string>
+    <string name="address">Address</string>
+    <string name="view_menu">View Menu</string>
+    <string name="restaurant_list">Restaurant List</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
 </resources>
