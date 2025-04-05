@@ -1,39 +1,26 @@
 package com.foodapp.models;
 
-import java.io.Serializable;
-
-public class MenuItem implements Serializable {
+/**
+ * Model class to represent a menu item
+ */
+public class MenuItem {
     private int id;
     private String name;
     private String description;
     private double price;
-    private String imageUrl;
-    private String category;
-    private boolean isRecommended;
-    private boolean isPopular;
+    private int imageResourceId;
+    private int quantity;
     
-    public MenuItem(int id, String name, String description, double price, String imageUrl, String category) {
+    public MenuItem(int id, String name, String description, double price, int imageResourceId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.imageUrl = imageUrl;
-        this.category = category;
-        this.isRecommended = false;
-        this.isPopular = false;
+        this.imageResourceId = imageResourceId;
+        this.quantity = 0;
     }
     
-    public MenuItem(int id, String name, String description, double price, String imageUrl, String category, boolean isRecommended, boolean isPopular) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.category = category;
-        this.isRecommended = isRecommended;
-        this.isPopular = isPopular;
-    }
-    
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -66,35 +53,33 @@ public class MenuItem implements Serializable {
         this.price = price;
     }
     
-    public String getImageUrl() {
-        return imageUrl;
+    public int getImageResourceId() {
+        return imageResourceId;
     }
     
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageResourceId(int imageResourceId) {
+        this.imageResourceId = imageResourceId;
     }
     
-    public String getCategory() {
-        return category;
+    public int getQuantity() {
+        return quantity;
     }
     
-    public void setCategory(String category) {
-        this.category = category;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
     
-    public boolean isRecommended() {
-        return isRecommended;
+    public void incrementQuantity() {
+        this.quantity++;
     }
     
-    public void setRecommended(boolean recommended) {
-        isRecommended = recommended;
+    public void decrementQuantity() {
+        if (this.quantity > 0) {
+            this.quantity--;
+        }
     }
     
-    public boolean isPopular() {
-        return isPopular;
-    }
-    
-    public void setPopular(boolean popular) {
-        isPopular = popular;
+    public double getTotalPrice() {
+        return this.price * this.quantity;
     }
 }

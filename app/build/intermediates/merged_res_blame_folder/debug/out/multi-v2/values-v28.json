@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.foodapp-mergeDebugResources-19:/values-v28/values-v28.xml",
+            "outputFile": "com.foodapp-mergeDebugResources-20:/values-v28/values-v28.xml",
             "map": [
                 {
                     "source": "/home/runner/.gradle/caches/transforms-3/49dd37bf10937f4a5031c2e2032cd3be/transformed/material-1.4.0/res/values-v28/values-v28.xml",

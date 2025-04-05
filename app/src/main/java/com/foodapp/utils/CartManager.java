@@ -3,7 +3,7 @@ package com.foodapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.foodapp.models.Restaurant;
+import com.foodapp.models.MenuItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,166 +14,124 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Singleton class to manage shopping cart
+ * Manages the shopping cart
  */
 public class CartManager {
     
-    private static CartManager instance;
-    
-    private static final String PREF_CART = "grub_cart_preferences";
+    private static final String PREF_NAME = "cart_prefs";
     private static final String KEY_CART_ITEMS = "cart_items";
-    private static final String KEY_CART_RESTAURANT = "cart_restaurant";
     
-    private final SharedPreferences cartPref;
-    private final SharedPreferences.Editor cartEditor;
-    private final Gson gson;
+    private static CartManager instance;
+    private SharedPreferences preferences;
+    private Map<Integer, MenuItem> cartItems;
     
-    private Map<Integer, Restaurant.MenuItem> cartItems;
-    private Restaurant cartRestaurant;
+    private CartManager(Context context) {
+        preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        loadCartItems();
+    }
     
     public static synchronized CartManager getInstance(Context context) {
         if (instance == null) {
-            instance = new CartManager(context);
+            instance = new CartManager(context.getApplicationContext());
         }
         return instance;
     }
     
-    private CartManager(Context context) {
-        cartPref = context.getSharedPreferences(PREF_CART, Context.MODE_PRIVATE);
-        cartEditor = cartPref.edit();
-        gson = new Gson();
+    private void loadCartItems() {
+        String cartJson = preferences.getString(KEY_CART_ITEMS, null);
+        if (cartJson != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<Map<Integer, MenuItem>>() {}.getType();
+            cartItems = gson.fromJson(cartJson, type);
+        }
         
-        // Load cart data
-        loadCartData();
-    }
-    
-    private void loadCartData() {
-        String itemsJson = cartPref.getString(KEY_CART_ITEMS, null);
-        String restaurantJson = cartPref.getString(KEY_CART_RESTAURANT, null);
-        
-        if (itemsJson != null) {
-            try {
-                Type type = new TypeToken<Map<Integer, Restaurant.MenuItem>>(){}.getType();
-                cartItems = gson.fromJson(itemsJson, type);
-            } catch (Exception e) {
-                cartItems = new HashMap<>();
-            }
-        } else {
+        if (cartItems == null) {
             cartItems = new HashMap<>();
         }
-        
-        if (restaurantJson != null) {
-            try {
-                cartRestaurant = gson.fromJson(restaurantJson, Restaurant.class);
-            } catch (Exception e) {
-                cartRestaurant = null;
-            }
+    }
+    
+    private void saveCartItems() {
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String cartJson = gson.toJson(cartItems);
+        editor.putString(KEY_CART_ITEMS, cartJson);
+        editor.apply();
+    }
+    
+    public void addItem(MenuItem menuItem) {
+        int itemId = menuItem.getId();
+        if (cartItems.containsKey(itemId)) {
+            MenuItem existingItem = cartItems.get(itemId);
+            existingItem.setQuantity(menuItem.getQuantity());
         } else {
-            cartRestaurant = null;
+            cartItems.put(itemId, menuItem);
         }
+        saveCartItems();
     }
     
-    private void saveCartData() {
-        String itemsJson = gson.toJson(cartItems);
-        String restaurantJson = gson.toJson(cartRestaurant);
-        
-        cartEditor.putString(KEY_CART_ITEMS, itemsJson);
-        cartEditor.putString(KEY_CART_RESTAURANT, restaurantJson);
-        cartEditor.apply();
+    public void removeItem(int itemId) {
+        cartItems.remove(itemId);
+        saveCartItems();
     }
     
-    public void addToCart(Restaurant restaurant, Restaurant.MenuItem menuItem) {
-        // If cart is empty, set the restaurant
-        if (cartRestaurant == null) {
-            cartRestaurant = restaurant;
-        }
-        
-        // Don't allow items from different restaurants
-        if (cartRestaurant.getId() != restaurant.getId()) {
-            return;
-        }
-        
-        // Add to cart or increment quantity
-        if (cartItems.containsKey(menuItem.getId())) {
-            Restaurant.MenuItem existingItem = cartItems.get(menuItem.getId());
-            existingItem.setQuantity(existingItem.getQuantity() + 1);
-        } else {
-            menuItem.setQuantity(1);
-            cartItems.put(menuItem.getId(), menuItem);
-        }
-        
-        // Save cart data
-        saveCartData();
-    }
-    
-    public void updateCartItemQuantity(int menuItemId, int quantity) {
-        if (cartItems.containsKey(menuItemId)) {
+    public void updateItemQuantity(int itemId, int quantity) {
+        if (cartItems.containsKey(itemId)) {
+            MenuItem item = cartItems.get(itemId);
+            item.setQuantity(quantity);
             if (quantity <= 0) {
-                cartItems.remove(menuItemId);
-            } else {
-                Restaurant.MenuItem menuItem = cartItems.get(menuItemId);
-                menuItem.setQuantity(quantity);
+                cartItems.remove(itemId);
             }
-            
-            // Check if cart is now empty
-            if (cartItems.isEmpty()) {
-                cartRestaurant = null;
-            }
-            
-            // Save cart data
-            saveCartData();
+            saveCartItems();
         }
     }
     
-    public void removeFromCart(int menuItemId) {
-        cartItems.remove(menuItemId);
-        
-        // Check if cart is now empty
-        if (cartItems.isEmpty()) {
-            cartRestaurant = null;
+    public int getItemQuantity(int itemId) {
+        if (cartItems.containsKey(itemId)) {
+            return cartItems.get(itemId).getQuantity();
         }
-        
-        // Save cart data
-        saveCartData();
+        return 0;
     }
     
-    public void clearCart() {
-        cartItems.clear();
-        cartRestaurant = null;
-        
-        // Save cart data
-        saveCartData();
-    }
-    
-    public Map<Integer, Restaurant.MenuItem> getCartItems() {
-        return cartItems;
-    }
-    
-    public List<Restaurant.MenuItem> getCartItemsList() {
+    public List<MenuItem> getCartItems() {
         return new ArrayList<>(cartItems.values());
     }
     
-    public Restaurant getCartRestaurant() {
-        return cartRestaurant;
-    }
-    
-    public int getCartItemCount() {
-        int count = 0;
-        for (Restaurant.MenuItem menuItem : cartItems.values()) {
-            count += menuItem.getQuantity();
-        }
-        return count;
-    }
-    
-    public double getCartTotal() {
-        double total = 0;
-        for (Restaurant.MenuItem menuItem : cartItems.values()) {
-            total += menuItem.getPrice() * menuItem.getQuantity();
+    public int getTotalItems() {
+        int total = 0;
+        for (MenuItem item : cartItems.values()) {
+            total += item.getQuantity();
         }
         return total;
     }
     
-    public boolean isCartEmpty() {
+    public double getSubtotal() {
+        double subtotal = 0;
+        for (MenuItem item : cartItems.values()) {
+            subtotal += item.getPrice() * item.getQuantity();
+        }
+        return subtotal;
+    }
+    
+    public double getDeliveryFee() {
+        // Simple calculation: $2 base fee + 5% of subtotal
+        return 2.0 + (getSubtotal() * 0.05);
+    }
+    
+    public double getTax() {
+        // Simple tax calculation: 8% of subtotal
+        return getSubtotal() * 0.08;
+    }
+    
+    public double getTotal() {
+        return getSubtotal() + getDeliveryFee() + getTax();
+    }
+    
+    public void clearCart() {
+        cartItems.clear();
+        saveCartItems();
+    }
+    
+    public boolean isEmpty() {
         return cartItems.isEmpty();
     }
 }

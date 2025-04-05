@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.foodapp-mergeDebugResources-19:/values-de/values-de.xml",
+            "outputFile": "com.foodapp-mergeDebugResources-20:/values-de/values-de.xml",
             "map": [
                 {
                     "source": "/home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/res/values-de/values-de.xml",

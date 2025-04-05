@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="#222222"
+    android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="2dp">
 
@@ -16,31 +14,99 @@
         android:padding="12dp">
 
         <ImageView
-            android:id="@+id/ivItemImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/placeholder_food" />
+            android:id="@+id/ivMenuItem"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/tvItemName"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginStart="12dp"
             android:layout_weight="1"
-            android:text="Big Mac"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvItemPrice"
+            <TextView
+                android:id="@+id/tvMenuItemName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Menu Item Name"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMenuItemDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Menu Item Description"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvMenuItemPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="$0.00"
+                android:textColor="#4CAF50"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="$35"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_gravity="bottom">
+
+            <Button
+                android:id="@+id/btnAddToCart"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:background="#4CAF50"
+                android:text="Add"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnDecrement"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="#4CAF50"
+                    android:text="-"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tvQuantity"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnIncrement"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="#4CAF50"
+                    android:text="+"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

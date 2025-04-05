@@ -20,11 +20,8 @@ public class User implements Parcelable {
         this.phone = phone;
     }
     
-    // Constructor for social login (name may be combined)
-    public User(String fullName, String empty, String email, String phone) {
-        this.email = email;
-        this.phone = phone;
-        
+    // Constructor for processing a full name
+    private void processFullName(String fullName) {
         // Parse full name
         if (fullName != null && !fullName.isEmpty()) {
             if (fullName.contains(" ")) {
@@ -37,6 +34,13 @@ public class User implements Parcelable {
                 this.lastName = "";
             }
         }
+    }
+    
+    // Constructor for social login where first parameter is the full name
+    public User(String fullName, boolean isSocialLogin, String email, String phone) {
+        this.email = email;
+        this.phone = phone;
+        processFullName(fullName);
     }
     
     protected User(Parcel in) {

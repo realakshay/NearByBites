@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.foodapp.adapters.MenuItemAdapter;
-import com.foodapp.adapters.PromoItemAdapter;
-import com.foodapp.models.CartItem;
+import com.bumptech.glide.Glide;
+import com.foodapp.adapter.MenuItemAdapter;
+import com.foodapp.adapter.PromoItemAdapter;
 import com.foodapp.models.MenuItem;
 import com.foodapp.models.PromoItem;
 import com.foodapp.models.Restaurant;
@@ -113,11 +113,10 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Menu
             restaurant = new Restaurant(restaurantId, restaurantName, "", cuisine, rating, deliveryTime, distance, restaurantImage);
             
             // Debug message
-            System.out.println("Restaurant details loaded: " + restaurantName + ", ID: " + restaurantId);
+            Toast.makeText(this, "Loading " + restaurantName, Toast.LENGTH_SHORT).show();
         } else {
-            // Default restaurant if no data
+            // Mock data for testing
             restaurant = new Restaurant(1, "Restaurant", "", "Cuisine", 4.5f, 30, 1.5f, R.drawable.restaurant_1);
-            System.out.println("No restaurant data found in intent, using default");
         }
     }
     
@@ -134,36 +133,44 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Menu
         rvMenuItems = findViewById(R.id.rvMenuItems);
         progressBar = findViewById(R.id.progressBar);
         btnViewCart = findViewById(R.id.btnViewCart);
+        
+        // Set up RecyclerViews
+        rvPromoItems.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rvMenuItems.setLayoutManager(new LinearLayoutManager(this));
     }
     
     private void setupFavoriteButton() {
-        // Check if restaurant is in favorites
-        boolean isFavorite = favoriteManager.isRestaurantFavorite(restaurantId);
+        // Check if restaurant is favorite
+        boolean isFavorite = favoriteManager.isFavorite(restaurant.getId());
+        restaurant.setFavorite(isFavorite);
         
-        // Set initial icon
-        updateFavoriteIcon(isFavorite);
+        // Update UI
+        updateFavoriteIcon();
         
         // Set click listener
         ivFavorite.setOnClickListener(v -> {
             // Toggle favorite status
-            boolean newStatus = !favoriteManager.isRestaurantFavorite(restaurantId);
+            boolean newStatus = !restaurant.isFavorite();
+            restaurant.setFavorite(newStatus);
             
+            // Update in manager
             if (newStatus) {
-                favoriteManager.addFavoriteRestaurant(restaurant);
-                Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
+                favoriteManager.addFavorite(restaurant.getId());
             } else {
-                favoriteManager.removeFavoriteRestaurant(restaurantId);
-                Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show();
+                favoriteManager.removeFavorite(restaurant.getId());
             }
             
-            // Update icon
-            updateFavoriteIcon(newStatus);
+            // Update UI
+            updateFavoriteIcon();
         });
     }
     
-    private void updateFavoriteIcon(boolean isFavorite) {
-        ivFavorite.setImageResource(isFavorite ? 
-                R.drawable.ic_heart_filled : R.drawable.ic_heart_outline);
+    private void updateFavoriteIcon() {
+        if (restaurant.isFavorite()) {
+            ivFavorite.setImageResource(R.drawable.ic_favorite);
+        } else {
+            ivFavorite.setImageResource(R.drawable.ic_favorite_border);
+        }
     }
     
     private void showLoading(boolean isLoading) {
@@ -179,122 +186,79 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Menu
     }
     
     private void loadData() {
-        // Set restaurant data
+        // Initialize lists
+        promoItems = new ArrayList<>();
+        menuItems = new ArrayList<>();
+        
+        // Populate restaurant data
         tvRestaurantName.setText(restaurant.getName());
         tvRestaurantCuisine.setText(restaurant.getCuisine());
         tvRestaurantRating.setText(String.valueOf(restaurant.getRating()));
         tvDeliveryTime.setText(restaurant.getDeliveryTime() + " min");
-        tvDeliveryFee.setText("$" + String.format("%.2f", 2.99));
+        tvDeliveryFee.setText("$" + String.format("%.2f", restaurant.getDistance() * 1.5));
         
-        // Set restaurant image
-        ivRestaurantImage.setImageResource(restaurant.getImageResourceId());
+        // Load restaurant image
+        Glide.with(this)
+                .load(restaurant.getImageResourceId())
+                .placeholder(R.drawable.restaurant_1)
+                .into(ivRestaurantImage);
         
-        // Load promo items
-        loadPromoItems();
-        
-        // Load menu items
-        loadMenuItems();
-        
-        // Simulate network delay
-        new android.os.Handler().postDelayed(() -> {
-            showLoading(false);
-        }, 1000);
-    }
-    
-    private void loadPromoItems() {
-        // In a real app, these would come from an API or database
-        promoItems = new ArrayList<>();
+        // Add promo items (mock data)
         promoItems.add(new PromoItem(1, "Special Offer", "Get 20% off on your first order", R.drawable.promo_1));
         promoItems.add(new PromoItem(2, "Free Delivery", "On orders above $20", R.drawable.promo_2));
         promoItems.add(new PromoItem(3, "Loyalty Rewards", "Earn points with every order", R.drawable.promo_3));
         
-        // Set up promo items RecyclerView
-        rvPromoItems.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        PromoItemAdapter promoItemAdapter = new PromoItemAdapter(this, promoItems);
+        // Set up promo adapter
+        PromoItemAdapter promoItemAdapter = new PromoItemAdapter(promoItems);
         rvPromoItems.setAdapter(promoItemAdapter);
-    }
-    
-    private void loadMenuItems() {
-        // In a real app, these would come from an API or database
-        menuItems = new ArrayList<>();
+        
+        // Add menu items (mock data)
         menuItems.add(new MenuItem(1, "Burger", "Classic beef burger with cheese", 8.99, R.drawable.menu_burger));
         menuItems.add(new MenuItem(2, "Pizza", "Pepperoni pizza with extra cheese", 12.99, R.drawable.menu_pizza));
         menuItems.add(new MenuItem(3, "Pasta", "Spaghetti with meatballs", 10.99, R.drawable.menu_pasta));
         menuItems.add(new MenuItem(4, "Salad", "Fresh garden salad", 6.99, R.drawable.menu_salad));
         menuItems.add(new MenuItem(5, "Drink", "Soft drink of your choice", 2.99, R.drawable.menu_drink));
         
-        // Set up menu items RecyclerView
-        rvMenuItems.setLayoutManager(new LinearLayoutManager(this));
-        MenuItemAdapter menuItemAdapter = new MenuItemAdapter(this, menuItems, this);
+        // Set up menu adapter
+        MenuItemAdapter menuItemAdapter = new MenuItemAdapter(menuItems, this);
         rvMenuItems.setAdapter(menuItemAdapter);
+        
+        // Update quantities from cart
+        updateMenuItemQuantities();
+        
+        // Hide loading after a delay (simulate network request)
+        rvMenuItems.postDelayed(() -> {
+            showLoading(false);
+        }, 1000);
+    }
+    
+    private void updateMenuItemQuantities() {
+        // Update quantities from cart
+        for (MenuItem menuItem : menuItems) {
+            int quantity = cartManager.getItemQuantity(menuItem.getId());
+            menuItem.setQuantity(quantity);
+        }
     }
     
     private void updateCartButton() {
-        if (cartManager.getCartItems().isEmpty()) {
-            btnViewCart.setVisibility(View.GONE);
-        } else {
+        int totalItems = cartManager.getTotalItems();
+        if (totalItems > 0) {
             btnViewCart.setVisibility(View.VISIBLE);
-            btnViewCart.setText("VIEW CART (" + cartManager.getCartItemCount() + ")");
+            btnViewCart.setText("View Cart (" + totalItems + ")");
+        } else {
+            btnViewCart.setVisibility(View.GONE);
         }
     }
     
     @Override
-    public void onMenuItemClicked(MenuItem menuItem) {
-        selectedMenuItem = menuItem;
-        showAddToCartBottomSheet(menuItem);
-    }
-    
-    private void showAddToCartBottomSheet(MenuItem menuItem) {
-        bottomSheetDialog = new BottomSheetDialog(this);
-        View bottomSheetView = getLayoutInflater().inflate(R.layout.layout_add_to_cart_bottom_sheet, null);
-        bottomSheetDialog.setContentView(bottomSheetView);
+    public void onAddToCartClicked(MenuItem menuItem) {
+        // Add to cart
+        cartManager.addItem(menuItem);
         
-        // Initialize bottom sheet views
-        ImageView ivItemImage = bottomSheetView.findViewById(R.id.ivItemImage);
-        TextView tvItemName = bottomSheetView.findViewById(R.id.tvItemName);
-        TextView tvItemDescription = bottomSheetView.findViewById(R.id.tvItemDescription);
-        TextView tvItemPrice = bottomSheetView.findViewById(R.id.tvItemPrice);
-        TextView tvQuantity = bottomSheetView.findViewById(R.id.tvQuantity);
-        ImageView ivMinus = bottomSheetView.findViewById(R.id.ivMinus);
-        ImageView ivPlus = bottomSheetView.findViewById(R.id.ivPlus);
-        Button btnAddToCart = bottomSheetView.findViewById(R.id.btnAddToCart);
+        // Update UI
+        updateCartButton();
         
-        // Set menu item data
-        ivItemImage.setImageResource(menuItem.getImageResourceId());
-        tvItemName.setText(menuItem.getName());
-        tvItemDescription.setText(menuItem.getDescription());
-        tvItemPrice.setText("$" + String.format("%.2f", menuItem.getPrice()));
-        
-        // Get current quantity from cart
-        int currentQuantity = cartManager.getItemQuantity(menuItem.getId());
-        tvQuantity.setText(String.valueOf(currentQuantity > 0 ? currentQuantity : 1));
-        
-        // Set quantity controls
-        ivMinus.setOnClickListener(v -> {
-            int quantity = Integer.parseInt(tvQuantity.getText().toString());
-            if (quantity > 1) {
-                tvQuantity.setText(String.valueOf(quantity - 1));
-            }
-        });
-        
-        ivPlus.setOnClickListener(v -> {
-            int quantity = Integer.parseInt(tvQuantity.getText().toString());
-            tvQuantity.setText(String.valueOf(quantity + 1));
-        });
-        
-        // Set add to cart button
-        btnAddToCart.setOnClickListener(v -> {
-            int quantity = Integer.parseInt(tvQuantity.getText().toString());
-            cartManager.addToCart(menuItem, quantity);
-            bottomSheetDialog.dismiss();
-            
-            // Update cart button
-            updateCartButton();
-            
-            // Show toast
-            Toast.makeText(this, menuItem.getName() + " added to cart", Toast.LENGTH_SHORT).show();
-        });
-        
-        bottomSheetDialog.show();
+        // Show message
+        Toast.makeText(this, menuItem.getName() + " added to cart", Toast.LENGTH_SHORT).show();
     }
 }

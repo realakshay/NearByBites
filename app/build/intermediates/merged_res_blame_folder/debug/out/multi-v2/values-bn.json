@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.foodapp-mergeDebugResources-19:/values-bn/values-bn.xml",
+            "outputFile": "com.foodapp-mergeDebugResources-20:/values-bn/values-bn.xml",
             "map": [
                 {
                     "source": "/home/runner/.gradle/caches/transforms-3/6182fe6d65ef8961a040b52a46bdfbf6/transformed/core-1.5.0/res/values-bn/values-bn.xml",

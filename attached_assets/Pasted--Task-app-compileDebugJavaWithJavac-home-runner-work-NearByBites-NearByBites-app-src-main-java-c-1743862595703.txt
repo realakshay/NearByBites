@@ -1,0 +1,488 @@
+> Task :app:compileDebugJavaWithJavac
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/models/User.java:24: error: constructor User(String,String,String,String) is already defined in class User
+    public User(String fullName, String empty, String email, String phone) {
+           ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:20: error: cannot find symbol
+import com.foodapp.models.PromoItem;
+                         ^
+  symbol:   class PromoItem
+  location: package com.foodapp.models
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:29: error: cannot find symbol
+public class RestaurantDetailsActivity extends AppCompatActivity implements MenuItemAdapter.MenuItemListener {
+                                                                                           ^
+  symbol:   class MenuItemListener
+  location: class MenuItemAdapter
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:49: error: cannot find symbol
+    private List<PromoItem> promoItems;
+                 ^
+  symbol:   class PromoItem
+  location: class RestaurantDetailsActivity
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapter/MenuAdapter.java:13: error: package com.bumptech.glide does not exist
+import com.bumptech.glide.Glide;
+                         ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapter/RestaurantAdapter.java:12: error: package com.bumptech.glide does not exist
+import com.bumptech.glide.Glide;
+                         ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/MenuActivity.java:25: error: package retrofit2 does not exist
+import retrofit2.Call;
+                ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/MenuActivity.java:26: error: package retrofit2 does not exist
+import retrofit2.Callback;
+                ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/MenuActivity.java:27: error: package retrofit2 does not exist
+import retrofit2.Response;
+                ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:8: error: package retrofit2 does not exist
+import retrofit2.Call;
+                ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:9: error: package retrofit2.http does not exist
+import retrofit2.http.GET;
+                     ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:10: error: package retrofit2.http does not exist
+import retrofit2.http.Path;
+                     ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:11: error: package retrofit2.http does not exist
+import retrofit2.http.Query;
+                     ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:15: error: cannot find symbol
+    Call<List<Restaurant>> getRestaurants();
+    ^
+  symbol:   class Call
+  location: interface FoodService
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:18: error: cannot find symbol
+    Call<List<Restaurant>> searchRestaurants(@Query("query") String query);
+    ^
+  symbol:   class Call
+  location: interface FoodService
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:21: error: cannot find symbol
+    Call<List<MenuItem>> getMenuItems(@Path("id") int restaurantId);
+    ^
+  symbol:   class Call
+  location: interface FoodService
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/ApiClient.java:4: error: package okhttp3.logging does not exist
+import okhttp3.logging.HttpLoggingInterceptor;
+                      ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/ApiClient.java:5: error: package retrofit2 does not exist
+import retrofit2.Retrofit;
+                ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/ApiClient.java:6: error: package retrofit2.converter.gson does not exist
+import retrofit2.converter.gson.GsonConverterFactory;
+                               ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/ApiClient.java:10: error: cannot find symbol
+    private static Retrofit retrofit = null;
+                   ^
+  symbol:   class Retrofit
+  location: class ApiClient
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/ApiClient.java:12: error: cannot find symbol
+    public static Retrofit getClient() {
+                  ^
+  symbol:   class Retrofit
+  location: class ApiClient
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailActivity.java:13: error: package com.bumptech.glide does not exist
+import com.bumptech.glide.Glide;
+                         ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:14: error: cannot find symbol
+    @GET("restaurants")
+     ^
+  symbol:   class GET
+  location: interface FoodService
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:18: error: cannot find symbol
+    Call<List<Restaurant>> searchRestaurants(@Query("query") String query);
+                                              ^
+  symbol:   class Query
+  location: interface FoodService
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:17: error: cannot find symbol
+    @GET("restaurants")
+     ^
+  symbol:   class GET
+  location: interface FoodService
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:21: error: cannot find symbol
+    Call<List<MenuItem>> getMenuItems(@Path("id") int restaurantId);
+                                       ^
+  symbol:   class Path
+  location: interface FoodService
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/FoodService.java:20: error: cannot find symbol
+    @GET("restaurants/{id}/menu")
+     ^
+  symbol:   class GET
+  location: interface FoodService
+
+> Task :app:mergeExtDexDebug
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:113: error: constructor Restaurant in class Restaurant cannot be applied to given types;
+
+            restaurant = new Restaurant(restaurantId, restaurantName, "", cuisine, rating, deliveryTime, distance, restaurantImage);
+> Task :app:compileDebugJavaWithJavac FAILED
+                         ^
+  required: int,String,String,String,float,int,float,int,String,String
+  found:    int,String,String,String,float,int,float,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:119: error: constructor Restaurant in class Restaurant cannot be applied to given types;
+            restaurant = new Restaurant(1, "Restaurant", "", "Cuisine", 4.5f, 30, 1.5f, R.drawable.restaurant_1);
+                         ^
+  required: int,String,String,String,float,int,float,int,String,String
+  found:    int,String,String,String,float,int,float,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:130: error: cannot find symbol
+        tvRestaurantRating = findViewById(R.id.tvRestaurantRating);
+                                              ^
+  symbol:   variable tvRestaurantRating
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:207: error: cannot find symbol
+        promoItems.add(new PromoItem(1, "Special Offer", "Get 20% off on your first order", R.drawable.promo_1));
+                           ^
+  symbol:   class PromoItem
+  location: class RestaurantDetailsActivity
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:207: error: cannot find symbol
+        promoItems.add(new PromoItem(1, "Special Offer", "Get 20% off on your first order", R.drawable.promo_1));
+                                                                                                      ^
+  symbol:   variable promo_1
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:208: error: cannot find symbol
+        promoItems.add(new PromoItem(2, "Free Delivery", "On orders above $20", R.drawable.promo_2));
+                           ^
+  symbol:   class PromoItem
+  location: class RestaurantDetailsActivity
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:208: error: cannot find symbol
+        promoItems.add(new PromoItem(2, "Free Delivery", "On orders above $20", R.drawable.promo_2));
+                                                                                          ^
+  symbol:   variable promo_2
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:209: error: cannot find symbol
+        promoItems.add(new PromoItem(3, "Loyalty Rewards", "Earn points with every order", R.drawable.promo_3));
+                           ^
+  symbol:   class PromoItem
+  location: class RestaurantDetailsActivity
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:209: error: cannot find symbol
+        promoItems.add(new PromoItem(3, "Loyalty Rewards", "Earn points with every order", R.drawable.promo_3));
+                                                                                                     ^
+  symbol:   variable promo_3
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:220: error: cannot find symbol
+        menuItems.add(new MenuItem(1, "Burger", "Classic beef burger with cheese", 8.99, R.drawable.menu_burger));
+                                                                                                   ^
+  symbol:   variable menu_burger
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:221: error: cannot find symbol
+        menuItems.add(new MenuItem(2, "Pizza", "Pepperoni pizza with extra cheese", 12.99, R.drawable.menu_pizza));
+                                                                                                     ^
+  symbol:   variable menu_pizza
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:222: error: cannot find symbol
+        menuItems.add(new MenuItem(3, "Pasta", "Spaghetti with meatballs", 10.99, R.drawable.menu_pasta));
+                                                                                            ^
+  symbol:   variable menu_pasta
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:223: error: cannot find symbol
+        menuItems.add(new MenuItem(4, "Salad", "Fresh garden salad", 6.99, R.drawable.menu_salad));
+                                                                                     ^
+  symbol:   variable menu_salad
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:224: error: cannot find symbol
+        menuItems.add(new MenuItem(5, "Drink", "Soft drink of your choice", 2.99, R.drawable.menu_drink));
+                                                                                            ^
+  symbol:   variable menu_drink
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:228: error: constructor MenuItemAdapter in class MenuItemAdapter cannot be applied to given types;
+        MenuItemAdapter menuItemAdapter = new MenuItemAdapter(this, menuItems, this);
+                                          ^
+  required: List<MenuItem>,OnMenuItemClickListener
+  found:    RestaurantDetailsActivity,List<MenuItem>,RestaurantDetailsActivity
+  reason: actual and formal argument lists differ in length
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:241: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:249: error: cannot find symbol
+        View bottomSheetView = getLayoutInflater().inflate(R.layout.layout_add_to_cart_bottom_sheet, null);
+                                                                   ^
+  symbol:   variable layout_add_to_cart_bottom_sheet
+  location: class layout
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:255: error: cannot find symbol
+        TextView tvItemDescription = bottomSheetView.findViewById(R.id.tvItemDescription);
+                                                                      ^
+  symbol:   variable tvItemDescription
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:258: error: cannot find symbol
+        ImageView ivMinus = bottomSheetView.findViewById(R.id.ivMinus);
+                                                             ^
+  symbol:   variable ivMinus
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:259: error: cannot find symbol
+        ImageView ivPlus = bottomSheetView.findViewById(R.id.ivPlus);
+                                                            ^
+  symbol:   variable ivPlus
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:263: error: cannot find symbol
+        ivItemImage.setImageResource(menuItem.getImageResourceId());
+                                             ^
+  symbol:   method getImageResourceId()
+  location: variable menuItem of type MenuItem
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:269: error: cannot find symbol
+        int currentQuantity = cartManager.getItemQuantity(menuItem.getId());
+                                         ^
+  symbol:   method getItemQuantity(int)
+  location: variable cartManager of type CartManager
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantDetailsActivity.java:288: error: incompatible types: MenuItem cannot be converted to Restaurant
+            cartManager.addToCart(menuItem, quantity);
+                                  ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/OrderSuccessActivity.java:80: error: incompatible types: Map<Integer,MenuItem> cannot be converted to List<CartItem>
+        orderItems = cartManager.getCartItems();
+                                             ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/ProfileActivity.java:39: error: cannot find symbol
+        tvUserEmail = findViewById(R.id.tvUserEmail);
+                                       ^
+  symbol:   variable tvUserEmail
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/ProfileActivity.java:40: error: cannot find symbol
+        tvUserPhone = findViewById(R.id.tvUserPhone);
+                                       ^
+  symbol:   variable tvUserPhone
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapter/MenuAdapter.java:62: error: cannot find symbol
+            ivFoodImage = itemView.findViewById(R.id.ivFoodImage);
+                                                    ^
+  symbol:   variable ivFoodImage
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapter/MenuAdapter.java:64: error: cannot find symbol
+            tvItemDescription = itemView.findViewById(R.id.tvItemDescription);
+                                                          ^
+  symbol:   variable tvItemDescription
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapter/MenuAdapter.java:76: error: cannot find symbol
+            Glide.with(itemView.getContext())
+            ^
+  symbol:   variable Glide
+  location: class MenuAdapter.MenuItemViewHolder
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapter/RestaurantAdapter.java:65: error: cannot find symbol
+            tvStatus = itemView.findViewById(R.id.tvStatus);
+                                                 ^
+  symbol:   variable tvStatus
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapter/RestaurantAdapter.java:94: error: cannot find symbol
+            Glide.with(itemView.getContext())
+            ^
+  symbol:   variable Glide
+  location: class RestaurantAdapter.RestaurantViewHolder
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapter/CartAdapter.java:44: error: cannot find symbol
+        TextView tvItemQuantity = listItem.findViewById(R.id.tvItemQuantity);
+                                                            ^
+  symbol:   variable tvItemQuantity
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapter/CartAdapter.java:46: error: cannot find symbol
+        TextView tvItemRemarks = listItem.findViewById(R.id.tvItemRemarks);
+                                                           ^
+  symbol:   variable tvItemRemarks
+  location: class id
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/CartActivity.java:77: error: incompatible types: Map<Integer,MenuItem> cannot be converted to List<CartItem>
+        cartItems = cartManager.getCartItems();
+                                            ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapters/CartAdapter.java:62: error: cannot find symbol
+                cartManager.updateItemQuantity(cartItem.getMenuItem().getId(), currentQuantity - 1);
+                           ^
+  symbol:   method updateItemQuantity(int,int)
+  location: variable cartManager of type CartManager
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapters/CartAdapter.java:73: error: cannot find symbol
+            cartManager.updateItemQuantity(cartItem.getMenuItem().getId(), currentQuantity + 1);
+                       ^
+  symbol:   method updateItemQuantity(int,int)
+  location: variable cartManager of type CartManager
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapters/CartAdapter.java:81: error: cannot find symbol
+            cartManager.removeItemFromCart(cartItem.getMenuItem().getId());
+                       ^
+  symbol:   method removeItemFromCart(int)
+  location: variable cartManager of type CartManager
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/fragments/TourGuideFragment.java:22: error: cannot find symbol
+            R.drawable.tour_page_1,
+                      ^
+  symbol:   variable tour_page_1
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/fragments/TourGuideFragment.java:23: error: cannot find symbol
+            R.drawable.tour_page_2,
+                      ^
+  symbol:   variable tour_page_2
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/fragments/TourGuideFragment.java:24: error: cannot find symbol
+            R.drawable.tour_page_3
+                      ^
+  symbol:   variable tour_page_3
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/ApiClient.java:15: error: cannot find symbol
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            ^
+  symbol:   class HttpLoggingInterceptor
+  location: class ApiClient
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/ApiClient.java:15: error: cannot find symbol
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+                                                     ^
+  symbol:   class HttpLoggingInterceptor
+  location: class ApiClient
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/ApiClient.java:16: error: package HttpLoggingInterceptor does not exist
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+                                                       ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/ApiClient.java:21: error: package Retrofit does not exist
+            retrofit = new Retrofit.Builder()
+                                   ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/api/ApiClient.java:23: error: cannot find symbol
+                    .addConverterFactory(GsonConverterFactory.create())
+                                         ^
+  symbol:   variable GsonConverterFactory
+  location: class ApiClient
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/utils/UserManager.java:63: error: cannot find symbol
+        currentUser.setPhoneNumber(phoneNumber);
+                   ^
+  symbol:   method setPhoneNumber(String)
+  location: variable currentUser of type User
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/utils/UserManager.java:68: error: cannot find symbol
+        currentUser.setProfileImageUri(imageUri);
+                   ^
+  symbol:   method setProfileImageUri(String)
+  location: variable currentUser of type User
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/utils/DataGenerator.java:19: error: constructor Restaurant in class Restaurant cannot be applied to given types;
+        Restaurant r1 = new Restaurant(
+                        ^
+  required: int,String,String,String,float,int,float,int,String,String
+  found:    int,String,String,float,float,String,String,String,String,List<MenuItem>,List<String>
+  reason: actual and formal argument lists differ in length
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/utils/DataGenerator.java:33: error: constructor Restaurant in class Restaurant cannot be applied to given types;
+        Restaurant r2 = new Restaurant(
+                        ^
+  required: int,String,String,String,float,int,float,int,String,String
+  found:    int,String,String,float,float,String,String,String,String,List<MenuItem>,List<String>
+  reason: actual and formal argument lists differ in length
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/utils/DataGenerator.java:47: error: constructor Restaurant in class Restaurant cannot be applied to given types;
+        Restaurant r3 = new Restaurant(
+                        ^
+  required: int,String,String,String,float,int,float,int,String,String
+  found:    int,String,String,float,float,String,String,String,String,List<MenuItem>,List<String>
+  reason: actual and formal argument lists differ in length
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/utils/DataGenerator.java:61: error: constructor Restaurant in class Restaurant cannot be applied to given types;
+        Restaurant r4 = new Restaurant(
+                        ^
+  required: int,String,String,String,float,int,float,int,String,String
+  found:    int,String,String,float,float,String,String,String,String,List<MenuItem>,List<String>
+  reason: actual and formal argument lists differ in length
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/utils/DataGenerator.java:117: error: incompatible types: com.foodapp.models.Restaurant.MenuItem cannot be converted to com.foodapp.models.MenuItem
+                for (MenuItem menuItem : restaurant.getMenuItems()) {
+                                                                ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/utils/DataGenerator.java:119: error: cannot find symbol
+                        cartManager.addItemToCart(menuItem, quantity);
+                                   ^
+  symbol:   method addItemToCart(MenuItem,int)
+  location: variable cartManager of type CartManager
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/OrderConfirmationActivity.java:60: error: incompatible types: List<CartItem> cannot be converted to Context
+        cartAdapter = new CartAdapter(order.getItems(), null);
+                                                    ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/OrderConfirmationActivity.java:61: error: cannot find symbol
+        cartAdapter.setReadOnly(true);
+                   ^
+  symbol:   method setReadOnly(boolean)
+  location: variable cartAdapter of type CartAdapter
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/OrderConfirmationActivity.java:62: error: incompatible types: CartAdapter cannot be converted to Adapter
+        recyclerViewOrderItems.setAdapter(cartAdapter);
+                                          ^
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/SearchResultActivity.java:93: error: cannot find symbol
+        allRestaurants.add(new Restaurant(2, "Pizza Hut", "456 Main St", "Pizza, Italian Food, Pasta", 4.5f, 30, 2.5f, R.drawable.restaurant_2, "Pizza", "$$"));
+                                                                                                                                 ^
+  symbol:   variable restaurant_2
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/SearchResultActivity.java:94: error: cannot find symbol
+        allRestaurants.add(new Restaurant(3, "Jollibee", "789 Main St", "Fast Food, Filipino Food, Pasta", 4.7f, 25, 1.5f, R.drawable.restaurant_3, "Chicken", "$"));
+                                                                                                                                     ^
+  symbol:   variable restaurant_3
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/SearchResultActivity.java:95: error: cannot find symbol
+        allRestaurants.add(new Restaurant(4, "KFC", "101 Main St", "Fast Food, American Food, Chicken", 4.0f, 15, 0.8f, R.drawable.restaurant_4, "Chicken", "$"));
+                                                                                                                                  ^
+  symbol:   variable restaurant_4
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/SearchResultActivity.java:97: error: cannot find symbol
+        allRestaurants.add(new Restaurant(6, "Domino's Pizza", "303 Main St", "Pizza, Italian Food", 4.3f, 35, 3.0f, R.drawable.restaurant_2, "Pizza", "$$"));
+                                                                                                                               ^
+  symbol:   variable restaurant_2
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/SearchResultActivity.java:98: error: cannot find symbol
+        allRestaurants.add(new Restaurant(7, "Taco Bell", "404 Main St", "Fast Food, Mexican Food", 3.9f, 20, 1.8f, R.drawable.restaurant_3, "Fast Food", "$"));
+                                                                                                                              ^
+  symbol:   variable restaurant_3
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/SearchResultActivity.java:99: error: cannot find symbol
+        allRestaurants.add(new Restaurant(8, "Subway", "505 Main St", "Sandwiches, Healthy Food", 4.1f, 15, 0.5f, R.drawable.restaurant_4, "Fast Food", "$"));
+                                                                                                                            ^
+  symbol:   variable restaurant_4
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapters/RestaurantAdapter.java:52: error: cannot find symbol
+            holder.ivFavorite.setImageResource(R.drawable.ic_favorite_border);
+                                                         ^
+  symbol:   variable ic_favorite_border
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/adapters/RestaurantAdapter.java:70: error: cannot find symbol
+                holder.ivFavorite.setImageResource(R.drawable.ic_favorite_border);
+                                                             ^
+  symbol:   variable ic_favorite_border
+  location: class drawable
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/TourGuideActivity.java:85: error: cannot find symbol
+                    btnNext.setText(R.string.get_started);
+                                            ^
+  symbol:   variable get_started
+  location: class string
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantListActivity.java:74: error: cannot find symbol
+            tvUserName.setText("Hello, " + currentUser.getName());
+                                                      ^
+  symbol:   method getName()
+  location: variable currentUser of type User
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantListActivity.java:79: error: cannot find symbol
+        List<Address> addresses = preferenceManager.getAddresses();
+                                                   ^
+  symbol:   method getAddresses()
+  location: variable preferenceManager of type PreferenceManager
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantListActivity.java:110: error: cannot find symbol
+        preferenceManager.logoutUser();
+                         ^
+  symbol:   method logoutUser()
+  location: variable preferenceManager of type PreferenceManager
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/EditProfileActivity.java:92: error: cannot find symbol
+            if (user.getProfileImageUri() != null && !user.getProfileImageUri().isEmpty()) {
+                    ^
+  symbol:   method getProfileImageUri()
+  location: variable user of type User
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/EditProfileActivity.java:92: error: cannot find symbol
+            if (user.getProfileImageUri() != null && !user.getProfileImageUri().isEmpty()) {
+                                                          ^
+  symbol:   method getProfileImageUri()
+  location: variable user of type User
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/EditProfileActivity.java:94: error: cannot find symbol
+                    Uri imageUri = Uri.parse(user.getProfileImageUri());
+                                                 ^
+  symbol:   method getProfileImageUri()
+  location: variable user of type User
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/EditProfileActivity.java:163: error: cannot find symbol
+        } else if (selectedImageUri == null && userManager.getCurrentUser().getProfileImageUri() != null) {
+                                                                           ^
+  symbol:   method getProfileImageUri()
+  location: class User
+/home/runner/work/NearByBites/NearByBites/app/src/main/java/com/foodapp/RestaurantsListActivity.java:130: error: cannot find symbol
+        allRestaurants.add(new Restaurant(2, "Pizza Hut", "456 Main St", "Pizza, Italian", 4.5f, 30, 2.5f, R.drawable.restaurant_2, "Pizza", "$$"));
+                                                                                                                     ^
+  symbol:   variable restaurant_2
+  location: class drawable
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+only showing the first 100 errors, of 146 total; use -Xmaxerrs if you would like to see more
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugJavaWithJavac'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 1m 48s
+20 actionable tasks: 20 executed
+Error: Process completed with exit code 1.

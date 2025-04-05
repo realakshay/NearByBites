@@ -10,6 +10,7 @@ MERGED from [androidx.appcompat:appcompat:1.3.1] /home/runner/.gradle/caches/tra
 MERGED from [org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:2:1-29:12
 MERGED from [com.squareup.picasso:picasso:2.71828] /home/runner/.gradle/caches/transforms-3/a0c88f0924a910dc35e6807834e80ad7/transformed/jetified-picasso-2.71828/AndroidManifest.xml:2:1-14:12
 MERGED from [de.hdodenhof:circleimageview:3.1.0] /home/runner/.gradle/caches/transforms-3/e9b30482bc5dad16d0d76c338fcb5ad4/transformed/jetified-circleimageview-3.1.0/AndroidManifest.xml:2:1-11:12
+MERGED from [com.github.bumptech.glide:glide:4.12.0] /home/runner/.gradle/caches/transforms-3/03c9bd7f952f0343d5db420f3678e1de/transformed/jetified-glide-4.12.0/AndroidManifest.xml:2:1-12:12
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/runner/.gradle/caches/transforms-3/0ee68bfbd682d7e290626937651372ad/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.fragment:fragment:1.3.6] /home/runner/.gradle/caches/transforms-3/de00681d1b149848a0dab915e4ae741a/transformed/fragment-1.3.6/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.2.4] /home/runner/.gradle/caches/transforms-3/dc6e45a05ba0ba292a5f1fdfe12d8a38/transformed/jetified-activity-1.2.4/AndroidManifest.xml:17:1-24:12
@@ -32,7 +33,8 @@ MERGED from [androidx.savedstate:savedstate:1.1.0] /home/runner/.gradle/caches/t
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] /home/runner/.gradle/caches/transforms-3/bb9750cbd2b4a57b272a0039ca8044e2/transformed/lifecycle-runtime-2.3.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] /home/runner/.gradle/caches/transforms-3/ed0dcc84bb4da1170b45e819be0fa879/transformed/lifecycle-viewmodel-2.3.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.cardview:cardview:1.0.0] /home/runner/.gradle/caches/transforms-3/1f624a3ec658e1a90eb17b72d8f4e5aa/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.exifinterface:exifinterface:1.0.0] /home/runner/.gradle/caches/transforms-3/6435d5cdecbbbfdbd508d58dd4522a8e/transformed/exifinterface-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.exifinterface:exifinterface:1.2.0] /home/runner/.gradle/caches/transforms-3/897993a71f03989f5751d6fec1f87a90/transformed/exifinterface-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /home/runner/.gradle/caches/transforms-3/b1a1a29d4b466d7ca3a24fea947222f7/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/runner/.gradle/caches/transforms-3/4b621581b14be943fef7e9025808a5ef/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.tracing:tracing:1.0.0] /home/runner/.gradle/caches/transforms-3/6eaf261807bfdfb11a3a18692cc26456/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/runner/.gradle/caches/transforms-3/eb59ad3ff2cc3f8ea455ecf10b9a5b47/transformed/lifecycle-livedata-2.0.0/AndroidManifest.xml:17:1-22:12
@@ -70,8 +72,12 @@ MERGED from [com.squareup.picasso:picasso:2.71828] /home/runner/.gradle/caches/t
 MERGED from [com.squareup.picasso:picasso:2.71828] /home/runner/.gradle/caches/transforms-3/a0c88f0924a910dc35e6807834e80ad7/transformed/jetified-picasso-2.71828/AndroidManifest.xml:7:5-12:19
 MERGED from [de.hdodenhof:circleimageview:3.1.0] /home/runner/.gradle/caches/transforms-3/e9b30482bc5dad16d0d76c338fcb5ad4/transformed/jetified-circleimageview-3.1.0/AndroidManifest.xml:9:5-20
 MERGED from [de.hdodenhof:circleimageview:3.1.0] /home/runner/.gradle/caches/transforms-3/e9b30482bc5dad16d0d76c338fcb5ad4/transformed/jetified-circleimageview-3.1.0/AndroidManifest.xml:9:5-20
+MERGED from [com.github.bumptech.glide:glide:4.12.0] /home/runner/.gradle/caches/transforms-3/03c9bd7f952f0343d5db420f3678e1de/transformed/jetified-glide-4.12.0/AndroidManifest.xml:10:5-20
+MERGED from [com.github.bumptech.glide:glide:4.12.0] /home/runner/.gradle/caches/transforms-3/03c9bd7f952f0343d5db420f3678e1de/transformed/jetified-glide-4.12.0/AndroidManifest.xml:10:5-20
 MERGED from [androidx.core:core:1.5.0] /home/runner/.gradle/caches/transforms-3/6182fe6d65ef8961a040b52a46bdfbf6/transformed/core-1.5.0/AndroidManifest.xml:24:5-89
 MERGED from [androidx.core:core:1.5.0] /home/runner/.gradle/caches/transforms-3/6182fe6d65ef8961a040b52a46bdfbf6/transformed/core-1.5.0/AndroidManifest.xml:24:5-89
+MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /home/runner/.gradle/caches/transforms-3/b1a1a29d4b466d7ca3a24fea947222f7/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:9:5-20
+MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /home/runner/.gradle/caches/transforms-3/b1a1a29d4b466d7ca3a24fea947222f7/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:9:5-20
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/runner/.gradle/caches/transforms-3/4b621581b14be943fef7e9025808a5ef/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/runner/.gradle/caches/transforms-3/4b621581b14be943fef7e9025808a5ef/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
 	android:appComponentFactory
@@ -120,6 +126,8 @@ MERGED from [com.squareup.picasso:picasso:2.71828] /home/runner/.gradle/caches/t
 MERGED from [com.squareup.picasso:picasso:2.71828] /home/runner/.gradle/caches/transforms-3/a0c88f0924a910dc35e6807834e80ad7/transformed/jetified-picasso-2.71828/AndroidManifest.xml:5:5-44
 MERGED from [de.hdodenhof:circleimageview:3.1.0] /home/runner/.gradle/caches/transforms-3/e9b30482bc5dad16d0d76c338fcb5ad4/transformed/jetified-circleimageview-3.1.0/AndroidManifest.xml:5:5-7:41
 MERGED from [de.hdodenhof:circleimageview:3.1.0] /home/runner/.gradle/caches/transforms-3/e9b30482bc5dad16d0d76c338fcb5ad4/transformed/jetified-circleimageview-3.1.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.bumptech.glide:glide:4.12.0] /home/runner/.gradle/caches/transforms-3/03c9bd7f952f0343d5db420f3678e1de/transformed/jetified-glide-4.12.0/AndroidManifest.xml:6:5-8:41
+MERGED from [com.github.bumptech.glide:glide:4.12.0] /home/runner/.gradle/caches/transforms-3/03c9bd7f952f0343d5db420f3678e1de/transformed/jetified-glide-4.12.0/AndroidManifest.xml:6:5-8:41
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/runner/.gradle/caches/transforms-3/0ee68bfbd682d7e290626937651372ad/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/runner/.gradle/caches/transforms-3/0ee68bfbd682d7e290626937651372ad/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.3.6] /home/runner/.gradle/caches/transforms-3/de00681d1b149848a0dab915e4ae741a/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
@@ -164,8 +172,10 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] /home/runner/.gradle/
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] /home/runner/.gradle/caches/transforms-3/ed0dcc84bb4da1170b45e819be0fa879/transformed/lifecycle-viewmodel-2.3.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.cardview:cardview:1.0.0] /home/runner/.gradle/caches/transforms-3/1f624a3ec658e1a90eb17b72d8f4e5aa/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] /home/runner/.gradle/caches/transforms-3/1f624a3ec658e1a90eb17b72d8f4e5aa/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.exifinterface:exifinterface:1.0.0] /home/runner/.gradle/caches/transforms-3/6435d5cdecbbbfdbd508d58dd4522a8e/transformed/exifinterface-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.exifinterface:exifinterface:1.0.0] /home/runner/.gradle/caches/transforms-3/6435d5cdecbbbfdbd508d58dd4522a8e/transformed/exifinterface-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.exifinterface:exifinterface:1.2.0] /home/runner/.gradle/caches/transforms-3/897993a71f03989f5751d6fec1f87a90/transformed/exifinterface-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.2.0] /home/runner/.gradle/caches/transforms-3/897993a71f03989f5751d6fec1f87a90/transformed/exifinterface-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /home/runner/.gradle/caches/transforms-3/b1a1a29d4b466d7ca3a24fea947222f7/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /home/runner/.gradle/caches/transforms-3/b1a1a29d4b466d7ca3a24fea947222f7/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/runner/.gradle/caches/transforms-3/4b621581b14be943fef7e9025808a5ef/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/runner/.gradle/caches/transforms-3/4b621581b14be943fef7e9025808a5ef/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.tracing:tracing:1.0.0] /home/runner/.gradle/caches/transforms-3/6eaf261807bfdfb11a3a18692cc26456/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41

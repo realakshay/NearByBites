@@ -1844,6 +1844,7 @@ drawable ic_donut
 drawable ic_edit
 drawable ic_facebook
 drawable ic_favorite
+drawable ic_favorite_border
 drawable ic_favorite_filled
 drawable ic_filter
 drawable ic_flag
@@ -1896,6 +1897,11 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable menu_burger
+drawable menu_drink
+drawable menu_pasta
+drawable menu_pizza
+drawable menu_salad
 drawable moreinfo_arrow
 drawable moreinfo_arrow_pressed
 drawable mtrl_dialog_background
@@ -1935,6 +1941,9 @@ drawable placeholder_restaurant
 drawable previous
 drawable profile_circle_background
 drawable profile_placeholder
+drawable promo_1
+drawable promo_2
+drawable promo_3
 drawable restaurant_1
 drawable restaurant_background
 drawable round_navigation_white_48
@@ -2188,6 +2197,7 @@ id disablePostScroll
 id disableScroll
 id disjoint
 id divider
+id divider2
 id dragAnticlockwise
 id dragClockwise
 id dragDown
@@ -2249,6 +2259,7 @@ id fragment_container_view_tag
 id frost
 id ghost_view
 id ghost_view_holder
+id glide_custom_view_target_tag
 id gone
 id graph
 id graph_wrap
@@ -2292,8 +2303,9 @@ id ivFilter
 id ivGoogle
 id ivItemImage
 id ivLogo
+id ivMenuItem
 id ivProfileImage
-id ivPromoImage
+id ivPromo
 id ivRestaurantImage
 id ivRestaurantLogo
 id ivSuccess
@@ -2317,7 +2329,7 @@ id llEmptyCart
 id llItemInfo
 id llOrderItems
 id llPaymentMethodsContainer
-id loadingLayout
+id llRestaurantInfo
 id locationContainer
 id mapView
 id masked
@@ -2427,7 +2439,6 @@ id progressBar
 id progress_circular
 id progress_horizontal
 id promoCodeSection
-id promoSection
 id radio
 id ratingLayout
 id ratio
@@ -2608,6 +2619,9 @@ id tvItemName
 id tvItemPrice
 id tvItemTotal
 id tvLoginLink
+id tvMenuItemDescription
+id tvMenuItemName
+id tvMenuItemPrice
 id tvMenuTitle
 id tvNoFavorites
 id tvNoOrders
@@ -2627,14 +2641,13 @@ id tvProfileName
 id tvPromoApplied
 id tvPromoCode
 id tvPromoDescription
-id tvPromoDiscount
-id tvPromoPrice
+id tvPromoTitle
 id tvQuantity
 id tvRating
 id tvRecent
-id tvRestaurantCategories
 id tvRestaurantCuisine
 id tvRestaurantName
+id tvRestaurantRating
 id tvSearch
 id tvSearchQuery
 id tvSignUp
