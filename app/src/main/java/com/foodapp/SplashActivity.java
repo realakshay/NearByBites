@@ -2,28 +2,44 @@ package com.foodapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    // Splash screen display time in milliseconds
-    private static final long SPLASH_DISPLAY_TIME = 2000;
+    private Button btnSignUp;
+    private Button btnSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Delayed transition to MainActivity
-        new Handler().postDelayed(new Runnable() {
+        // Initialize buttons
+        btnSignUp = findViewById(R.id.btnSignUp);
+        btnSignIn = findViewById(R.id.btnSignIn);
+
+        // Set click listeners
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(mainIntent);
-                finish();
+            public void onClick(View v) {
+                // Navigate to login activity in registration mode
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                intent.putExtra("MODE", "REGISTER");
+                startActivity(intent);
             }
-        }, SPLASH_DISPLAY_TIME);
+        });
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to login activity in login mode
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                intent.putExtra("MODE", "LOGIN");
+                startActivity(intent);
+            }
+        });
     }
 }

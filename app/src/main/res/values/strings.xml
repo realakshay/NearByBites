@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FoodApp</string>
+    <string name="app_name">GRUB</string>
     <string name="app_tagline">Discover restaurants near you and order delicious food</string>
     <string name="start_ordering">Start Ordering</string>
     <string name="restaurants_near_you">Restaurants Near You</string>
@@ -27,4 +27,29 @@
     <string name="order_details">Order Details</string>
     <string name="return_to_home">Return to Home</string>
     <string name="app_logo">App Logo</string>
+    
+    <!-- Splash Screen -->
+    <string name="welcome_to_grub">WELCOME TO GRUB APP</string>
+    <string name="app_description">Your go-to app for exploring local favorites and satisfying your hunger effortlessly!</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="sign_in">SIGN IN</string>
+    
+    <!-- Login Screen -->
+    <string name="welcome_back">WELCOME BACK!</string>
+    <string name="email_hint">Email address *</string>
+    <string name="password_hint">Password *</string>
+    <string name="no_account">DON\'T HAVE AN ACCOUNT? SIGN UP</string>
+    <string name="or_continue_with">OR CONTINUE WITH</string>
+    <string name="forgot_password">FORGOT PASSWORD?</string>
+    
+    <!-- Tour Guide -->
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="get_started">GET STARTED</string>
+    <string name="tour_order_title">Order your Favorite</string>
+    <string name="tour_delivery_title">Fast Delivery</string>
+    <string name="tour_tracking_title">Live Tracking</string>
+    <string name="tour_order_desc">Lorem ipsum has been the industry\'s standard dummy text ever since the 1500s.</string>
+    <string name="tour_delivery_desc">Get your food delivered fast and enjoy your meal while it\'s hot.</string>
+    <string name="tour_tracking_desc">Track your order in real-time from the restaurant to your doorstep.</string>
 </resources>
