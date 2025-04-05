@@ -23,11 +23,14 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew assembleDebug
+      - name: Clean and Build with Gradle
+        run: ./gradlew clean assembleDebug
+
+      - name: List APK output folder (for verification)
+        run: ls -lh app/build/outputs/apk/debug/
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
+          name: app-debug.apk
           path: app/build/outputs/apk/debug/app-debug.apk
