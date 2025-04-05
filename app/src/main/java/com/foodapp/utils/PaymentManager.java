@@ -11,47 +11,71 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Singleton class to manage payment methods
+ */
 public class PaymentManager {
-    private static final String PREF_NAME = "payment_preferences";
-    private static final String PAYMENT_METHODS_KEY = "payment_methods";
-    private static final String SELECTED_PAYMENT_METHOD_KEY = "selected_payment_method";
     
     private static PaymentManager instance;
-    private SharedPreferences preferences;
-    private List<PaymentMethod> paymentMethods;
-    private int selectedPaymentMethodId = -1;
     
-    private PaymentManager(Context context) {
-        preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        loadPaymentMethods();
-        selectedPaymentMethodId = preferences.getInt(SELECTED_PAYMENT_METHOD_KEY, -1);
-    }
+    private static final String PREF_PAYMENT = "grub_payment_preferences";
+    private static final String KEY_PAYMENT_METHODS = "payment_methods";
+    
+    private final SharedPreferences paymentPref;
+    private final SharedPreferences.Editor paymentEditor;
+    private final Gson gson;
+    
+    private List<PaymentMethod> paymentMethods;
     
     public static synchronized PaymentManager getInstance(Context context) {
         if (instance == null) {
-            instance = new PaymentManager(context.getApplicationContext());
+            instance = new PaymentManager(context);
         }
         return instance;
     }
     
+    private PaymentManager(Context context) {
+        paymentPref = context.getSharedPreferences(PREF_PAYMENT, Context.MODE_PRIVATE);
+        paymentEditor = paymentPref.edit();
+        gson = new Gson();
+        
+        // Load payment methods
+        loadPaymentMethods();
+    }
+    
     private void loadPaymentMethods() {
-        Gson gson = new Gson();
-        String json = preferences.getString(PAYMENT_METHODS_KEY, null);
-        Type type = new TypeToken<ArrayList<PaymentMethod>>() {}.getType();
+        String json = paymentPref.getString(KEY_PAYMENT_METHODS, null);
         
         if (json != null) {
-            paymentMethods = gson.fromJson(json, type);
+            try {
+                Type type = new TypeToken<List<PaymentMethod>>(){}.getType();
+                paymentMethods = gson.fromJson(json, type);
+            } catch (Exception e) {
+                paymentMethods = new ArrayList<>();
+            }
         } else {
             paymentMethods = new ArrayList<>();
+            
+            // Add a demo payment method
+            PaymentMethod demoPayment = new PaymentMethod(
+                    "4242424242424242",
+                    "John Doe",
+                    "12",
+                    "2028",
+                    "123",
+                    "visa"
+            );
+            paymentMethods.add(demoPayment);
+            
+            // Save to preferences
+            savePaymentMethods();
         }
     }
     
     private void savePaymentMethods() {
-        SharedPreferences.Editor editor = preferences.edit();
-        Gson gson = new Gson();
         String json = gson.toJson(paymentMethods);
-        editor.putString(PAYMENT_METHODS_KEY, json);
-        editor.apply();
+        paymentEditor.putString(KEY_PAYMENT_METHODS, json);
+        paymentEditor.apply();
     }
     
     public List<PaymentMethod> getPaymentMethods() {
@@ -63,50 +87,17 @@ public class PaymentManager {
         savePaymentMethods();
     }
     
-    public void removePaymentMethod(int paymentMethodId) {
-        for (int i = 0; i < paymentMethods.size(); i++) {
-            if (paymentMethods.get(i).getId() == paymentMethodId) {
-                paymentMethods.remove(i);
-                savePaymentMethods();
-                
-                // If this was the selected payment method, clear selection
-                if (selectedPaymentMethodId == paymentMethodId) {
-                    setSelectedPaymentMethodId(-1);
-                }
-                
-                return;
-            }
-        }
-    }
-    
-    public void clearPaymentMethods() {
-        paymentMethods.clear();
+    public void removePaymentMethod(PaymentMethod paymentMethod) {
+        paymentMethods.remove(paymentMethod);
         savePaymentMethods();
-        setSelectedPaymentMethodId(-1);
     }
     
-    public int getSelectedPaymentMethodId() {
-        return selectedPaymentMethodId;
-    }
-    
-    public PaymentMethod getSelectedPaymentMethod() {
-        if (selectedPaymentMethodId == -1) {
-            return null;
-        }
-        
+    public PaymentMethod getPaymentMethodByCardNumber(String cardNumber) {
         for (PaymentMethod paymentMethod : paymentMethods) {
-            if (paymentMethod.getId() == selectedPaymentMethodId) {
+            if (paymentMethod.getCardNumber().equals(cardNumber)) {
                 return paymentMethod;
             }
         }
-        
         return null;
-    }
-    
-    public void setSelectedPaymentMethodId(int paymentMethodId) {
-        selectedPaymentMethodId = paymentMethodId;
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(SELECTED_PAYMENT_METHOD_KEY, paymentMethodId);
-        editor.apply();
     }
 }

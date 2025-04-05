@@ -3,61 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="8dp"
-    app:cardElevation="0dp">
+    app:cardElevation="2dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/payment_method_selector"
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/ivPaymentIcon"
-            android:layout_width="24dp"
+            android:id="@+id/ivCardType"
+            android:layout_width="40dp"
             android:layout_height="24dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_credit_card" />
+            android:src="@drawable/ic_visa" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:layout_toStartOf="@id/ivSelected"
-            android:layout_toEndOf="@id/ivPaymentIcon"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/viewSelectedIndicator"
+            android:layout_toEndOf="@id/ivCardType"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvPaymentType"
+                android:id="@+id/tvCardNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Credit Card"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
+                android:text="•••• •••• •••• 4242"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvPaymentDetail"
+                android:id="@+id/tvCardName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="xxxx xxxx xxxx 1234"
-                android:textColor="@color/colorGray"
+                android:text="John Doe"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="14sp" />
-
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/ivSelected"
+        <View
+            android:id="@+id/viewSelectedIndicator"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_check"
-            android:tint="#FFA000" />
-
+            android:background="@drawable/ic_checkmark_circle"
+            android:visibility="invisible" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

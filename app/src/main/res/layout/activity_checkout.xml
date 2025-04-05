@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:orientation="vertical">
 
     <!-- Toolbar -->
     <RelativeLayout
-        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/colorBackground"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
         android:elevation="4dp">
 
         <ImageView
@@ -25,95 +24,219 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="CHECKOUT"
-            android:textColor="@android:color/white"
+            android:text="Checkout"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
-
     </RelativeLayout>
 
-    <!-- Main Content (Scrollable) -->
+    <!-- Content ScrollView -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/btnProceedToPayment"
-        android:layout_below="@id/toolbar"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
             <!-- Delivery Address Section -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DELIVERY ADDRESS"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Delivery Address"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <!-- Address Container -->
             <LinearLayout
                 android:id="@+id/llAddressContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:orientation="vertical" />
 
             <!-- Payment Method Section -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:text="PAYMENT METHOD"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
+                android:layout_marginEnd="16dp"
+                android:text="Payment Method"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <!-- No Payment Methods Message -->
             <TextView
                 android:id="@+id/tvNoPaymentMethods"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="No payment methods found."
-                android:textColor="@color/colorGray"
-                android:textSize="14sp" />
+                android:layout_margin="16dp"
+                android:text="No payment methods available"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp"
+                android:visibility="gone" />
 
+            <!-- Payment Methods Container -->
             <LinearLayout
                 android:id="@+id/llPaymentMethodsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical"
-                android:visibility="gone" />
+                android:orientation="vertical" />
 
+            <!-- Add Payment Method Button -->
             <Button
                 android:id="@+id/btnAddPaymentMethod"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/rounded_button_orange"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
-                android:text="Add Payment Method"
+                android:layout_margin="16dp"
+                android:background="@drawable/rounded_button_outline"
+                android:text="Add New Payment Method"
                 android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textColor="@color/colorPrimary" />
 
+            <!-- Order Summary Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="Order Summary"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Order Summary -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/rounded_background_white"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Subtotal -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Subtotal"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvSubtotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$0.00"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- Discount if applicable -->
+                <LinearLayout
+                    android:id="@+id/llDiscount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvDiscountLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Discount (0%)"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-$0.00"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- Delivery Fee -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Delivery Fee"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvDeliveryFee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$3.50"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:color/darker_gray" />
+
+                <!-- Total -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Total"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$0.00"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 
     <!-- Proceed to Payment Button -->
     <Button
         android:id="@+id/btnProceedToPayment"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@drawable/rounded_button_green"
         android:text="Proceed to Payment"
@@ -121,4 +244,4 @@
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 
-</RelativeLayout>
+</LinearLayout>

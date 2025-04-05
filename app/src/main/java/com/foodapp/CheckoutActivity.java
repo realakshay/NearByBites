@@ -27,6 +27,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private TextView tvNoPaymentMethods;
     private Button btnAddPaymentMethod;
     private Button btnProceedToPayment;
+    private TextView tvChangeAddress;
     
     private CartManager cartManager;
     private PreferenceManager preferenceManager;
@@ -78,6 +79,15 @@ public class CheckoutActivity extends AppCompatActivity {
                 proceedToPayment();
             }
         });
+        
+        // Setup change address option
+        if (tvChangeAddress != null) {
+            tvChangeAddress.setOnClickListener(v -> {
+                // Navigate to AddressSelectionActivity
+                Intent intent = new Intent(CheckoutActivity.this, AddressSelectionActivity.class);
+                startActivity(intent);
+            });
+        }
     }
     
     private void calculateOrderTotals() {
@@ -106,6 +116,9 @@ public class CheckoutActivity extends AppCompatActivity {
         // Load payment methods when returning from AddCreditCardActivity
         loadPaymentMethods();
         
+        // Reload address in case it was changed
+        loadDeliveryAddress();
+        
         // Update proceed to payment button state
         updateProceedToPaymentButtonState();
     }
@@ -117,6 +130,12 @@ public class CheckoutActivity extends AppCompatActivity {
         tvNoPaymentMethods = findViewById(R.id.tvNoPaymentMethods);
         btnAddPaymentMethod = findViewById(R.id.btnAddPaymentMethod);
         btnProceedToPayment = findViewById(R.id.btnProceedToPayment);
+        
+        try {
+            tvChangeAddress = findViewById(R.id.tvChangeAddress);
+        } catch (Exception e) {
+            // View might not exist in current layout
+        }
     }
     
     private void loadDeliveryAddress() {
@@ -134,28 +153,27 @@ public class CheckoutActivity extends AppCompatActivity {
             TextView tvAddressType = addressView.findViewById(R.id.tvAddressType);
             TextView tvAddressDetail = addressView.findViewById(R.id.tvAddressDetail);
             
-            tvAddressType.setText(selectedAddress.getType().toUpperCase() + " ADDRESS");
-            tvAddressDetail.setText(selectedAddress.getAddressLine());
+            tvAddressType.setText(selectedAddress.getLabel().toUpperCase() + " ADDRESS");
+            tvAddressDetail.setText(selectedAddress.getFormattedAddress());
             
             // Add to container
             llAddressContainer.addView(addressView);
         } else {
-            // If no address is available, create a default home address
-            selectedAddress = new Address(1, "Home", "123 Main St, New York, NY 10001");
-            preferenceManager.saveSelectedAddress(selectedAddress);
+            // If no address is available, show a message and option to add address
+            View addressView = getLayoutInflater().inflate(R.layout.item_no_address, llAddressContainer, false);
+            Button btnAddAddress = addressView.findViewById(R.id.btnAddAddress);
             
-            // Inflate address view
-            View addressView = getLayoutInflater().inflate(R.layout.item_address_checkout, llAddressContainer, false);
-            
-            // Set address data
-            TextView tvAddressType = addressView.findViewById(R.id.tvAddressType);
-            TextView tvAddressDetail = addressView.findViewById(R.id.tvAddressDetail);
-            
-            tvAddressType.setText("HOME ADDRESS");
-            tvAddressDetail.setText(selectedAddress.getAddressLine());
+            btnAddAddress.setOnClickListener(v -> {
+                // Navigate to AddressSelectionActivity
+                Intent intent = new Intent(CheckoutActivity.this, AddressSelectionActivity.class);
+                startActivity(intent);
+            });
             
             // Add to container
             llAddressContainer.addView(addressView);
+            
+            // Disable payment button if no address
+            btnProceedToPayment.setEnabled(false);
         }
     }
     
@@ -170,93 +188,60 @@ public class CheckoutActivity extends AppCompatActivity {
             // Show no payment methods message
             tvNoPaymentMethods.setVisibility(View.VISIBLE);
             llPaymentMethodsContainer.setVisibility(View.GONE);
-            selectedPaymentMethod = null;
         } else {
             // Hide no payment methods message
             tvNoPaymentMethods.setVisibility(View.GONE);
             llPaymentMethodsContainer.setVisibility(View.VISIBLE);
             
-            // Check if there's a saved selected payment method
-            int savedPaymentMethodId = paymentManager.getSelectedPaymentMethodId();
-            
-            // If no saved payment method but we have payment methods, select the first one
-            if (savedPaymentMethodId == -1 && !paymentMethods.isEmpty()) {
-                savedPaymentMethodId = paymentMethods.get(0).getId();
-                paymentManager.setSelectedPaymentMethodId(savedPaymentMethodId);
-            }
-            
-            // Add payment methods to container
+            // Set up payment methods
             for (PaymentMethod paymentMethod : paymentMethods) {
-                addPaymentMethodView(paymentMethod, paymentMethod.getId() == savedPaymentMethodId);
+                // Inflate payment method view
+                View paymentMethodView = getLayoutInflater().inflate(R.layout.item_payment_method, llPaymentMethodsContainer, false);
                 
-                // Set the selected payment method
-                if (paymentMethod.getId() == savedPaymentMethodId) {
-                    selectedPaymentMethod = paymentMethod;
+                // Set payment method data
+                TextView tvCardNumber = paymentMethodView.findViewById(R.id.tvCardNumber);
+                TextView tvCardName = paymentMethodView.findViewById(R.id.tvCardName);
+                ImageView ivCardType = paymentMethodView.findViewById(R.id.ivCardType);
+                
+                // Format card number to show only last 4 digits
+                String maskedCardNumber = "•••• •••• •••• " + paymentMethod.getCardNumber().substring(paymentMethod.getCardNumber().length() - 4);
+                tvCardNumber.setText(maskedCardNumber);
+                tvCardName.setText(paymentMethod.getCardholderName());
+                
+                // Set card type icon based on card type
+                if (paymentMethod.getCardType().equalsIgnoreCase("visa")) {
+                    ivCardType.setImageResource(R.drawable.ic_visa);
+                } else if (paymentMethod.getCardType().equalsIgnoreCase("mastercard")) {
+                    ivCardType.setImageResource(R.drawable.ic_mastercard);
+                } else if (paymentMethod.getCardType().equalsIgnoreCase("amex")) {
+                    ivCardType.setImageResource(R.drawable.ic_amex);
+                } else {
+                    ivCardType.setImageResource(R.drawable.ic_generic_card);
                 }
+                
+                // Set selected state
+                View selectedIndicator = paymentMethodView.findViewById(R.id.viewSelectedIndicator);
+                if (selectedPaymentMethod != null && selectedPaymentMethod.equals(paymentMethod)) {
+                    selectedIndicator.setVisibility(View.VISIBLE);
+                } else {
+                    selectedIndicator.setVisibility(View.INVISIBLE);
+                }
+                
+                // Set click listener
+                paymentMethodView.setOnClickListener(v -> {
+                    // Set as selected payment method
+                    selectedPaymentMethod = paymentMethod;
+                    
+                    // Refresh payment methods to update selected state
+                    loadPaymentMethods();
+                    
+                    // Update proceed to payment button state
+                    updateProceedToPaymentButtonState();
+                });
+                
+                // Add to container
+                llPaymentMethodsContainer.addView(paymentMethodView);
             }
-        }
-        
-        // Update proceed to payment button state
-        updateProceedToPaymentButtonState();
-    }
-    
-    private void addPaymentMethodView(PaymentMethod paymentMethod, boolean isSelected) {
-        // Inflate payment method view
-        View paymentMethodView = getLayoutInflater().inflate(R.layout.item_payment_method, llPaymentMethodsContainer, false);
-        paymentMethodView.setTag(paymentMethod.getId());
-        
-        // Set payment method data
-        ImageView ivPaymentIcon = paymentMethodView.findViewById(R.id.ivPaymentIcon);
-        TextView tvPaymentType = paymentMethodView.findViewById(R.id.tvPaymentType);
-        TextView tvPaymentDetail = paymentMethodView.findViewById(R.id.tvPaymentDetail);
-        ImageView ivSelected = paymentMethodView.findViewById(R.id.ivSelected);
-        
-        // Set icon based on payment type
-        if (paymentMethod.getType().equalsIgnoreCase("Credit Card")) {
-            ivPaymentIcon.setImageResource(R.drawable.ic_credit_card);
-        } else if (paymentMethod.getType().equalsIgnoreCase("PayPal")) {
-            ivPaymentIcon.setImageResource(R.drawable.ic_paypal);
-        }
-        
-        tvPaymentType.setText(paymentMethod.getType());
-        tvPaymentDetail.setText(paymentMethod.getDetail());
-        
-        // Set selected state
-        paymentMethodView.setSelected(isSelected);
-        ivSelected.setVisibility(isSelected ? View.VISIBLE : View.GONE);
-        
-        // Set click listener
-        paymentMethodView.setOnClickListener(v -> {
-            // Deselect all payment methods
-            for (int i = 0; i < llPaymentMethodsContainer.getChildCount(); i++) {
-                View child = llPaymentMethodsContainer.getChildAt(i);
-                child.setSelected(false);
-                child.findViewById(R.id.ivSelected).setVisibility(View.GONE);
-            }
-            
-            // Select clicked payment method
-            v.setSelected(true);
-            ivSelected.setVisibility(View.VISIBLE);
-            selectedPaymentMethod = paymentMethod;
-            
-            // Save selected payment method
-            paymentManager.setSelectedPaymentMethodId(paymentMethod.getId());
-            
-            // Update proceed to payment button state
-            updateProceedToPaymentButtonState();
-        });
-        
-        // Add to container
-        llPaymentMethodsContainer.addView(paymentMethodView);
-    }
-    
-    private void updateProceedToPaymentButtonState() {
-        if (selectedPaymentMethod != null) {
-            btnProceedToPayment.setEnabled(true);
-            btnProceedToPayment.setAlpha(1.0f);
-        } else {
-            btnProceedToPayment.setEnabled(false);
-            btnProceedToPayment.setAlpha(0.5f);
         }
     }
     
@@ -267,27 +252,38 @@ public class CheckoutActivity extends AppCompatActivity {
         }
         
         if (selectedPaymentMethod == null) {
-            Toast.makeText(this, "Please add a payment method", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please select a payment method", Toast.LENGTH_SHORT).show();
             return false;
         }
         
         return true;
     }
     
+    private void updateProceedToPaymentButtonState() {
+        // Enable/disable button based on selection state
+        btnProceedToPayment.setEnabled(selectedAddress != null && selectedPaymentMethod != null);
+    }
+    
     private void proceedToPayment() {
-        // Navigate to OrderSuccessActivity
-        Intent intent = new Intent(this, OrderSuccessActivity.class);
+        // In a real app, this would process the payment
+        // For demo, we'll navigate to the order success screen
         
-        // Pass order details
-        intent.putExtra("subtotal", subtotal);
-        intent.putExtra("discount", discountAmount);
-        intent.putExtra("promo_code", promoCode);
-        intent.putExtra("discount_percentage", discountPercentage);
-        intent.putExtra("delivery_fee", DELIVERY_FEE);
-        intent.putExtra("total", total);
+        // Show processing message
+        Toast.makeText(this, "Processing payment...", Toast.LENGTH_SHORT).show();
         
-        startActivity(intent);
-        
-        // Note: Cart will be cleared in OrderSuccessActivity after order is created
+        // Navigate to OrderSuccessActivity after a short delay
+        btnProceedToPayment.postDelayed(() -> {
+            Intent intent = new Intent(CheckoutActivity.this, OrderSuccessActivity.class);
+            intent.putExtra("order_id", generateOrderId());
+            intent.putExtra("total", total);
+            intent.putExtra("delivery_time", "30-45 minutes");
+            startActivity(intent);
+            finish();
+        }, 1500);
+    }
+    
+    private String generateOrderId() {
+        // Generate a random order ID for demo purposes
+        return "ORD-" + (int)(Math.random() * 10000);
     }
 }
