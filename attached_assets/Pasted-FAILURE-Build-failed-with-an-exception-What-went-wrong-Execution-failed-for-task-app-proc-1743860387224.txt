@@ -1,0 +1,55 @@
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:processDebugResources'.
+> A failure occurred while executing com.android.build.gradle.internal.res.LinkApplicationAndroidResourcesTask$TaskAction
+   > Android resource linking failed
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/drawable/rounded_edittext_dark.xml:4: AAPT: error: resource color/colorBackgroundDark (aka com.foodapp:color/colorBackgroundDark) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/drawable/rounded_edittext_light.xml:4: AAPT: error: resource color/colorLightGray (aka com.foodapp:color/colorLightGray) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/drawable/rounded_social_button.xml:4: AAPT: error: resource color/colorBackgroundDark (aka com.foodapp:color/colorBackgroundDark) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/drawable/tab_indicator_active.xml:7: AAPT: error: resource color/colorOrange (aka com.foodapp:color/colorOrange) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_edit_profile.xml:13: AAPT: error: resource color/colorBackgroundDark (aka com.foodapp:color/colorBackgroundDark) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_home.xml:177: AAPT: error: resource drawable/bottom_nav_item_color (aka com.foodapp:drawable/bottom_nav_item_color) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_main.xml:18: AAPT: error: resource string/app_logo (aka com.foodapp:string/app_logo) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_main.xml:18: AAPT: error: resource drawable/food_logo (aka com.foodapp:drawable/food_logo) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_main.xml:44: AAPT: error: resource string/app_tagline (aka com.foodapp:string/app_tagline) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_main.xml:60: AAPT: error: resource string/start_ordering (aka com.foodapp:string/start_ordering) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_menu.xml:33: AAPT: error: resource string/menu (aka com.foodapp:string/menu) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_menu.xml:72: AAPT: error: resource string/error_loading_menu (aka com.foodapp:string/error_loading_menu) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_menu.xml:87: AAPT: error: resource string/view_cart (aka com.foodapp:string/view_cart) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_order_confirmation.xml:18: AAPT: error: resource string/order_success (aka com.foodapp:string/order_success) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_order_confirmation.xml:30: AAPT: error: resource string/order_placed_successfully (aka com.foodapp:string/order_placed_successfully) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_order_confirmation.xml:75: AAPT: error: resource string/order_details (aka com.foodapp:string/order_details) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_order_confirmation.xml:115: AAPT: error: resource string/subtotal (aka com.foodapp:string/subtotal) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_order_confirmation.xml:132: AAPT: error: resource string/delivery_fee (aka com.foodapp:string/delivery_fee) not found.
+         
+     ERROR:/home/runner/work/NearByBites/NearByBites/app/src/main/res/layout/activity_order_confirmation.xml:161: AAPT: error: resource string/total (aka com.foodapp:string/total) not found.
+         
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 59s
+24 actionable tasks: 24 executed
+Error: Process completed with exit code 1.
