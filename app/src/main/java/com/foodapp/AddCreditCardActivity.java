@@ -255,11 +255,27 @@ public class AddCreditCardActivity extends AppCompatActivity {
     private void saveCardDetails() {
         // Get card details
         String cardholderName = etCardholderName.getText().toString().trim();
-        String lastFourDigits = etCardNumber4.getText().toString();
+        
+        // Build full card number
+        String cardNumber = etCardNumber1.getText().toString() +
+                etCardNumber2.getText().toString() +
+                etCardNumber3.getText().toString() +
+                etCardNumber4.getText().toString();
+        
+        // Parse expiry date
+        String[] expiryParts = etExpiryDate.getText().toString().split("/");
+        String expiryMonth = expiryParts[0];
+        String expiryYear = expiryParts[1];
+        
+        // Get CVV
+        String cvv = etCvv.getText().toString();
+        
+        // Determine card type (in a real app, this would be based on the card number)
+        String cardType = "visa"; // Default to Visa for demo
         
         // Create payment method
-        int newId = paymentManager.getPaymentMethods().size() + 1;
-        PaymentMethod creditCard = new PaymentMethod(newId, "Credit Card", "xxxx xxxx xxxx " + lastFourDigits);
+        PaymentMethod creditCard = new PaymentMethod(cardNumber, cardholderName, expiryMonth, expiryYear, cvv, cardType);
+        creditCard.setId(paymentManager.getPaymentMethods().size() + 1);
         
         // Save payment method
         paymentManager.addPaymentMethod(creditCard);

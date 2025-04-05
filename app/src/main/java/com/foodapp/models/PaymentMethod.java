@@ -9,13 +9,17 @@ import java.util.Objects;
  * Model class to represent a payment method
  */
 public class PaymentMethod implements Parcelable {
+    private int id;
     private String cardNumber;
     private String cardholderName;
     private String expiryMonth;
     private String expiryYear;
     private String cvv;
     private String cardType;
+    private String type; // Payment type (e.g., "Credit Card", "PayPal")
+    private String detail; // Payment detail (e.g., "xxxx xxxx xxxx 1234")
     
+    // Constructor for card details
     public PaymentMethod(String cardNumber, String cardholderName, String expiryMonth, String expiryYear, String cvv, String cardType) {
         this.cardNumber = cardNumber;
         this.cardholderName = cardholderName;
@@ -23,25 +27,40 @@ public class PaymentMethod implements Parcelable {
         this.expiryYear = expiryYear;
         this.cvv = cvv;
         this.cardType = cardType;
+        this.type = "Credit Card";
+        this.detail = "xxxx xxxx xxxx " + cardNumber.substring(cardNumber.length() - 4);
+    }
+    
+    // Constructor for simplified payment method
+    public PaymentMethod(int id, String type, String detail) {
+        this.id = id;
+        this.type = type;
+        this.detail = detail;
     }
     
     protected PaymentMethod(Parcel in) {
+        id = in.readInt();
         cardNumber = in.readString();
         cardholderName = in.readString();
         expiryMonth = in.readString();
         expiryYear = in.readString();
         cvv = in.readString();
         cardType = in.readString();
+        type = in.readString();
+        detail = in.readString();
     }
     
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(cardNumber);
         dest.writeString(cardholderName);
         dest.writeString(expiryMonth);
         dest.writeString(expiryYear);
         dest.writeString(cvv);
         dest.writeString(cardType);
+        dest.writeString(type);
+        dest.writeString(detail);
     }
     
     @Override
@@ -62,6 +81,14 @@ public class PaymentMethod implements Parcelable {
     };
     
     // Getters and Setters
+    public int getId() {
+        return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getCardNumber() {
         return cardNumber;
     }
@@ -108,6 +135,22 @@ public class PaymentMethod implements Parcelable {
     
     public void setCardType(String cardType) {
         this.cardType = cardType;
+    }
+    
+    public String getType() {
+        return type;
+    }
+    
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    public String getDetail() {
+        return detail;
+    }
+    
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
     
     public String getFormattedExpiry() {

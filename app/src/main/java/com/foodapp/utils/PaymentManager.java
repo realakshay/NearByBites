@@ -20,12 +20,14 @@ public class PaymentManager {
     
     private static final String PREF_PAYMENT = "grub_payment_preferences";
     private static final String KEY_PAYMENT_METHODS = "payment_methods";
+    private static final String KEY_SELECTED_PAYMENT_METHOD_ID = "selected_payment_method_id";
     
     private final SharedPreferences paymentPref;
     private final SharedPreferences.Editor paymentEditor;
     private final Gson gson;
     
     private List<PaymentMethod> paymentMethods;
+    private int selectedPaymentMethodId = -1;
     
     public static synchronized PaymentManager getInstance(Context context) {
         if (instance == null) {
@@ -41,6 +43,9 @@ public class PaymentManager {
         
         // Load payment methods
         loadPaymentMethods();
+        
+        // Load selected payment method
+        selectedPaymentMethodId = paymentPref.getInt(KEY_SELECTED_PAYMENT_METHOD_ID, -1);
     }
     
     private void loadPaymentMethods() {
@@ -94,9 +99,38 @@ public class PaymentManager {
     
     public PaymentMethod getPaymentMethodByCardNumber(String cardNumber) {
         for (PaymentMethod paymentMethod : paymentMethods) {
-            if (paymentMethod.getCardNumber().equals(cardNumber)) {
+            if (paymentMethod.getCardNumber() != null && paymentMethod.getCardNumber().equals(cardNumber)) {
                 return paymentMethod;
             }
+        }
+        return null;
+    }
+    
+    public PaymentMethod getPaymentMethodById(int id) {
+        for (PaymentMethod paymentMethod : paymentMethods) {
+            if (paymentMethod.getId() == id) {
+                return paymentMethod;
+            }
+        }
+        return null;
+    }
+    
+    public void setSelectedPaymentMethodId(int id) {
+        selectedPaymentMethodId = id;
+        paymentEditor.putInt(KEY_SELECTED_PAYMENT_METHOD_ID, id);
+        paymentEditor.apply();
+    }
+    
+    public int getSelectedPaymentMethodId() {
+        return selectedPaymentMethodId;
+    }
+    
+    public PaymentMethod getSelectedPaymentMethod() {
+        if (selectedPaymentMethodId != -1) {
+            return getPaymentMethodById(selectedPaymentMethodId);
+        } else if (!paymentMethods.isEmpty()) {
+            // Return the first one if none is selected
+            return paymentMethods.get(0);
         }
         return null;
     }

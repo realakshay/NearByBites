@@ -109,6 +109,11 @@ public class User implements Parcelable {
         return phone;
     }
     
+    // Legacy method name for backward compatibility
+    public String getPhoneNumber() {
+        return phone;
+    }
+    
     public void setPhone(String phone) {
         this.phone = phone;
     }

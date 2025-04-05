@@ -1,0 +1,92 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.foodapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/home/runner/workspace/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/home/runner/workspace/app/src/main/AndroidManifest.xml
+10
+11    <supports-screens
+11-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:11:5-14:40
+12        android:anyDensity="true"
+12-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:12:9-34
+13        android:largeScreens="true"
+13-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:13:9-36
+14        android:normalScreens="true" />
+14-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:14:9-37
+15
+16    <uses-feature
+16-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:16:5-18:36
+17        android:name="android.hardware.location.network"
+17-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:17:9-57
+18        android:required="false" />
+18-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:18:9-33
+19    <uses-feature
+19-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:19:5-21:36
+20        android:name="android.hardware.location.gps"
+20-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:20:9-53
+21        android:required="false" />
+21-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:21:9-33
+22    <uses-feature
+22-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:22:5-24:36
+23        android:name="android.hardware.telephony"
+23-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:23:9-50
+24        android:required="false" />
+24-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:24:9-33
+25    <uses-feature
+25-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:25:5-27:36
+26        android:name="android.hardware.wifi"
+26-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:26:9-45
+27        android:required="false" />
+27-->[org.osmdroid:osmdroid-android:6.1.10] /home/runner/.gradle/caches/transforms-3/2926e5aa1021419eb8195dbeb9044f46/transformed/jetified-osmdroid-android-6.1.10/AndroidManifest.xml:27:9-33
+28
+29    <application
+29-->/home/runner/workspace/app/src/main/AndroidManifest.xml:5:5-19:19
+30        android:allowBackup="true"
+30-->/home/runner/workspace/app/src/main/AndroidManifest.xml:6:9-35
+31        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+31-->[androidx.core:core:1.5.0] /home/runner/.gradle/caches/transforms-3/6182fe6d65ef8961a040b52a46bdfbf6/transformed/core-1.5.0/AndroidManifest.xml:24:18-86
+32        android:debuggable="true"
+33        android:icon="@mipmap/ic_launcher"
+33-->/home/runner/workspace/app/src/main/AndroidManifest.xml:7:9-43
+34        android:label="@string/app_name"
+34-->/home/runner/workspace/app/src/main/AndroidManifest.xml:8:9-41
+35        android:roundIcon="@mipmap/ic_launcher_round"
+35-->/home/runner/workspace/app/src/main/AndroidManifest.xml:9:9-54
+36        android:supportsRtl="true"
+36-->/home/runner/workspace/app/src/main/AndroidManifest.xml:10:9-35
+37        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+37-->/home/runner/workspace/app/src/main/AndroidManifest.xml:11:9-67
+38        <activity
+38-->/home/runner/workspace/app/src/main/AndroidManifest.xml:12:9-18:20
+39            android:name="com.foodapp.MainActivity"
+39-->/home/runner/workspace/app/src/main/AndroidManifest.xml:12:19-47
+40            android:exported="true" >
+40-->/home/runner/workspace/app/src/main/AndroidManifest.xml:13:13-36
+41            <intent-filter>
+41-->/home/runner/workspace/app/src/main/AndroidManifest.xml:14:13-17:29
+42                <action android:name="android.intent.action.MAIN" />
+42-->/home/runner/workspace/app/src/main/AndroidManifest.xml:15:17-69
+42-->/home/runner/workspace/app/src/main/AndroidManifest.xml:15:25-66
+43
+44                <category android:name="android.intent.category.LAUNCHER" />
+44-->/home/runner/workspace/app/src/main/AndroidManifest.xml:16:17-77
+44-->/home/runner/workspace/app/src/main/AndroidManifest.xml:16:27-74
+45            </intent-filter>
+46        </activity>
+47
+48        <provider
+48-->[com.squareup.picasso:picasso:2.71828] /home/runner/.gradle/caches/transforms-3/a0c88f0924a910dc35e6807834e80ad7/transformed/jetified-picasso-2.71828/AndroidManifest.xml:8:9-11:40
+49            android:name="com.squareup.picasso.PicassoProvider"
+49-->[com.squareup.picasso:picasso:2.71828] /home/runner/.gradle/caches/transforms-3/a0c88f0924a910dc35e6807834e80ad7/transformed/jetified-picasso-2.71828/AndroidManifest.xml:9:13-64
+50            android:authorities="com.foodapp.com.squareup.picasso"
+50-->[com.squareup.picasso:picasso:2.71828] /home/runner/.gradle/caches/transforms-3/a0c88f0924a910dc35e6807834e80ad7/transformed/jetified-picasso-2.71828/AndroidManifest.xml:10:13-72
+51            android:exported="false" />
+51-->[com.squareup.picasso:picasso:2.71828] /home/runner/.gradle/caches/transforms-3/a0c88f0924a910dc35e6807834e80ad7/transformed/jetified-picasso-2.71828/AndroidManifest.xml:11:13-37
+52    </application>
+53
+54</manifest>

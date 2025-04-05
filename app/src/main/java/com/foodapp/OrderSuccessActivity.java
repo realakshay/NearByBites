@@ -118,7 +118,7 @@ public class OrderSuccessActivity extends AppCompatActivity {
     private void generateOrderId() {
         // Generate a unique order ID
         orderId = UUID.randomUUID().toString();
-        tvOrderId.setText(String.format("Order #%s", orderId.substring(0, 24)));
+        tvOrderId.setText(String.format("Order #%s", orderId.substring(0, 8)));
         
         // Save the order in OrderManager
         orderManager.createOrder(orderId, orderItems, paymentMethod, subtotal, discountAmount, 
@@ -148,8 +148,17 @@ public class OrderSuccessActivity extends AppCompatActivity {
         
         // Set payment method details
         if (paymentMethod != null) {
-            tvPaymentType.setText(paymentMethod.getType());
-            tvPaymentDetail.setText(paymentMethod.getDetail());
+            String paymentType = paymentMethod.getType() != null ? paymentMethod.getType() : "Credit Card";
+            String paymentDetail = paymentMethod.getDetail() != null ? paymentMethod.getDetail() : 
+                                 (paymentMethod.getCardNumber() != null ? 
+                                  "xxxx xxxx xxxx " + paymentMethod.getCardNumber().substring(paymentMethod.getCardNumber().length() - 4) : 
+                                  "Unknown");
+            
+            tvPaymentType.setText(paymentType);
+            tvPaymentDetail.setText(paymentDetail);
+        } else {
+            tvPaymentType.setText("Cash on Delivery");
+            tvPaymentDetail.setText("Pay when you receive");
         }
         
         // Set price details
