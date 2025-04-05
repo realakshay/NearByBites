@@ -625,6 +625,7 @@
     <color name="colorAccent">#FF5722</color>
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorBackgroundDark">#212121</color>
+    <color name="colorBlack">#000000</color>
     <color name="colorError">#F44336</color>
     <color name="colorGray">#9E9E9E</color>
     <color name="colorGreen">#4CAF50</color>

@@ -123,6 +123,16 @@ public class User implements Parcelable {
     }
     
     public String getPassword() {
+    
+    private String profileImageUri;
+    
+    public String getProfileImageUri() {
+        return profileImageUri;
+    }
+    
+    public void setProfileImageUri(String profileImageUri) {
+        this.profileImageUri = profileImageUri;
+    }
         return password;
     }
     

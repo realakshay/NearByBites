@@ -124,6 +124,15 @@ public class CartManager {
     
     public double getTotal() {
         return getSubtotal() + getDeliveryFee() + getTax();
+    // Method to match what is used in OrderSuccessActivity
+    public double getCartTotal() {
+        return getSubtotal();
+    }
+    }
+    
+    // Method to match what's used in OrderSuccessActivity
+    public double getCartTotal() {
+        return getSubtotal();
     }
     
     public void clearCart() {

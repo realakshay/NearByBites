@@ -9,6 +9,7 @@
     <color name="divider">#BDBDBD</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="colorBlack">#000000</color>
     
     <!-- App specific colors -->
     <color name="colorGreen">#4CAF50</color>

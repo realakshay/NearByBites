@@ -113,3 +113,35 @@ public class FilterManager {
         this.selectedPriceRange = selectedPriceRange;
     }
 }
+
+    // Check if a category is selected
+    public boolean isCategorySelected(String category) {
+        return selectedCategories.contains(category);
+    }
+    
+    // Check if a sort option is selected
+    public boolean isSortSelected(String sortOption) {
+        return selectedSort.equals(sortOption);
+    }
+    
+    // Check if a price range is selected
+    public boolean isPriceSelected(String priceRange) {
+        return selectedPriceRange.equals(priceRange);
+    }
+    
+    // Toggle a category selection
+    public void toggleCategory(String category) {
+        if (selectedCategories.contains(category)) {
+            selectedCategories.remove(category);
+        } else {
+            selectedCategories.add(category);
+        }
+        
+        // Update filter active status
+        isFilterActive = !selectedCategories.isEmpty() 
+                || !selectedSort.equals("Default") 
+                || !selectedPriceRange.equals("All");
+                
+        saveFilterSettings();
+    }
+}

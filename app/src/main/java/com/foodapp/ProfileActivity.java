@@ -16,9 +16,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView tvUserName;
-    private TextView tvUserEmail;
-    private TextView tvUserPhone;
+    private TextView tvProfileName;
+    private TextView tvProfileEmail;
     private Button btnLogout;
     private Button btnEditProfile;
     private BottomNavigationView bottomNavigation;
@@ -35,9 +34,8 @@ public class ProfileActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(this);
         
         // Initialize views
-        tvUserName = findViewById(R.id.tvUserName);
-        tvUserEmail = findViewById(R.id.tvUserEmail);
-        tvUserPhone = findViewById(R.id.tvUserPhone);
+        tvProfileName = findViewById(R.id.tvProfileName);
+        tvProfileEmail = findViewById(R.id.tvProfileEmail);
         btnLogout = findViewById(R.id.btnLogout);
         btnEditProfile = findViewById(R.id.btnEditProfile);
         bottomNavigation = findViewById(R.id.bottomNavigation);
@@ -96,9 +94,8 @@ public class ProfileActivity extends AppCompatActivity {
         User currentUser = preferenceManager.getCurrentUser();
         
         if (currentUser != null) {
-            tvUserName.setText(currentUser.getFullName());
-            tvUserEmail.setText(currentUser.getEmail());
-            tvUserPhone.setText(currentUser.getPhone());
+            tvProfileName.setText(currentUser.getFullName());
+            tvProfileEmail.setText(currentUser.getEmail());
         }
     }
 }
