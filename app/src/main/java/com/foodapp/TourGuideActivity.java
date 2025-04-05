@@ -47,6 +47,8 @@ public class TourGuideActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Tour Guide");
+            // Disable back button since we don't want to return to login
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
 
         // Set up the adapter
@@ -59,27 +61,19 @@ public class TourGuideActivity extends AppCompatActivity {
         }).attach();
 
         // Set up the next button
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentItem = viewPager.getCurrentItem();
-                if (currentItem < NUM_PAGES - 1) {
-                    // Go to the next page
-                    viewPager.setCurrentItem(currentItem + 1);
-                } else {
-                    // On the last page, proceed to the main activity
-                    finishTourGuide();
-                }
+        btnNext.setOnClickListener(v -> {
+            int currentItem = viewPager.getCurrentItem();
+            if (currentItem < NUM_PAGES - 1) {
+                // Go to the next page
+                viewPager.setCurrentItem(currentItem + 1);
+            } else {
+                // On the last page, proceed to the main activity
+                finishTourGuide();
             }
         });
 
         // Skip button to bypass tour guide
-        tvSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishTourGuide();
-            }
-        });
+        tvSkip.setOnClickListener(v -> finishTourGuide());
 
         // Page change listener to update button text
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -115,7 +109,7 @@ public class TourGuideActivity extends AppCompatActivity {
     }
     
     private void logoutUser() {
-        preferenceManager.logoutUser();
+        preferenceManager.logoutCurrentUser();
         
         // Navigate back to login screen
         Intent intent = new Intent(TourGuideActivity.this, LoginActivity.class);
@@ -123,11 +117,22 @@ public class TourGuideActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
+    
     private void finishTourGuide() {
-        // Navigate to the location selection screen
+        // Mark first time as false
+        preferenceManager.setFirstTimeLaunch(false);
+        
+        // Navigate to location selection
         Intent intent = new Intent(TourGuideActivity.this, LocationSelectionActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+    }
+    
+    @Override
+    public void onBackPressed() {
+        // Override back button to prevent going back to login
+        // Instead, offer logout option
+        logoutUser();
     }
 }

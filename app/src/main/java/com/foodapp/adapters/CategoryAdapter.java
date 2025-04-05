@@ -17,13 +17,9 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
     
-    private Context context;
-    private List<Category> categories;
-    private CategoryClickListener listener;
-    
-    public interface CategoryClickListener {
-        void onCategoryClicked(Category category);
-    }
+    private final Context context;
+    private final List<Category> categories;
+    private final CategoryClickListener listener;
     
     public CategoryAdapter(Context context, List<Category> categories, CategoryClickListener listener) {
         this.context = context;
@@ -42,9 +38,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category category = categories.get(position);
         
-        // Set category data
         holder.tvCategoryName.setText(category.getName());
-        holder.ivCategoryIcon.setImageResource(category.getImageResourceId());
+        holder.ivCategoryImage.setImageResource(category.getImageResourceId());
         
         // Set click listener
         holder.itemView.setOnClickListener(v -> {
@@ -60,14 +55,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
     
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivCategoryIcon;
+        ImageView ivCategoryImage;
         TextView tvCategoryName;
         
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            
-            ivCategoryIcon = itemView.findViewById(R.id.ivCategoryIcon);
+            ivCategoryImage = itemView.findViewById(R.id.ivCategoryImage);
             tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
         }
+    }
+    
+    public interface CategoryClickListener {
+        void onCategoryClicked(Category category);
     }
 }

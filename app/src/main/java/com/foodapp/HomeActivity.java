@@ -2,7 +2,12 @@ package com.foodapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +18,9 @@ import com.foodapp.adapters.CategoryAdapter;
 import com.foodapp.adapters.RestaurantAdapter;
 import com.foodapp.models.Category;
 import com.foodapp.models.Restaurant;
+import com.foodapp.utils.BackButtonManager;
 import com.foodapp.utils.FilterManager;
+import com.foodapp.utils.PreferenceManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -24,27 +31,41 @@ import java.util.Set;
 public class HomeActivity extends AppCompatActivity implements RestaurantAdapter.RestaurantClickListener, CategoryAdapter.CategoryClickListener {
 
     private ImageView ivFilter;
+    private EditText etSearchHome;
     private RecyclerView rvCategories;
     private RecyclerView rvRestaurants;
     private BottomNavigationView bottomNavigation;
+    private TextView tvGreeting;
+    private TextView tvUserLocation;
+    private View locationContainer;
     
     private List<Category> categories;
     private List<Restaurant> restaurants;
     private FilterManager filterManager;
+    private PreferenceManager preferenceManager;
+    private BackButtonManager backButtonManager;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         
-        // Initialize FilterManager
+        // Initialize managers
         filterManager = FilterManager.getInstance(this);
+        preferenceManager = new PreferenceManager(this);
+        backButtonManager = new BackButtonManager(this);
         
         // Initialize views
         initViews();
         
+        // Set up user information
+        setupUserInformation();
+        
         // Set up bottom navigation
         setupBottomNavigation();
+        
+        // Set up search bar
+        setupSearchBar();
         
         // Load data
         loadCategories();
@@ -60,9 +81,67 @@ public class HomeActivity extends AppCompatActivity implements RestaurantAdapter
     
     private void initViews() {
         ivFilter = findViewById(R.id.ivFilter);
+        etSearchHome = findViewById(R.id.etSearchHome);
         rvCategories = findViewById(R.id.rvCategories);
         rvRestaurants = findViewById(R.id.rvRestaurants);
         bottomNavigation = findViewById(R.id.bottomNavigation);
+        tvGreeting = findViewById(R.id.tvGreeting);
+        tvUserLocation = findViewById(R.id.tvUserLocation);
+        locationContainer = findViewById(R.id.locationContainer);
+    }
+    
+    private void setupUserInformation() {
+        // Set greeting with user name if available
+        if (preferenceManager.getCurrentUser() != null) {
+            String firstName = preferenceManager.getCurrentUser().getFirstName();
+            if (firstName != null && !firstName.isEmpty()) {
+                tvGreeting.setText("Hello, " + firstName + "! What would you like to eat?");
+            }
+        }
+        
+        // Set user location if available
+        if (preferenceManager.getSelectedAddress() != null) {
+            String address = preferenceManager.getSelectedAddress().getAddressLine1();
+            if (address != null && !address.isEmpty()) {
+                tvUserLocation.setText(address);
+            }
+        }
+        
+        // Set click listener for address selection
+        locationContainer.setOnClickListener(v -> {
+            // Navigate to AddressSelectionActivity
+            Intent intent = new Intent(HomeActivity.this, AddressSelectionActivity.class);
+            startActivity(intent);
+        });
+    }
+    
+    private void setupSearchBar() {
+        // Set up enter key listener for search
+        etSearchHome.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || 
+                    (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                
+                // Get search query
+                String searchQuery = etSearchHome.getText().toString().trim();
+                
+                // Validate search query
+                if (searchQuery.isEmpty()) {
+                    Toast.makeText(HomeActivity.this, "Please enter search term", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                
+                // Navigate to search results
+                Intent intent = new Intent(HomeActivity.this, SearchResultActivity.class);
+                intent.putExtra("search_query", searchQuery);
+                startActivity(intent);
+                
+                // Clear search field
+                etSearchHome.setText("");
+                
+                return true;
+            }
+            return false;
+        });
     }
     
     private void setupBottomNavigation() {
@@ -158,5 +237,26 @@ public class HomeActivity extends AppCompatActivity implements RestaurantAdapter
         
         // Show toast for feedback
         Toast.makeText(this, "Showing " + category.getName() + " restaurants", Toast.LENGTH_SHORT).show();
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
+        // Update address display
+        if (preferenceManager.getSelectedAddress() != null) {
+            String address = preferenceManager.getSelectedAddress().getAddressLine1();
+            if (address != null && !address.isEmpty()) {
+                tvUserLocation.setText(address);
+            } else {
+                tvUserLocation.setText(preferenceManager.getSelectedAddress().getFormattedAddress());
+            }
+        }
+    }
+    
+    @Override
+    public void onBackPressed() {
+        // Use the back button manager to handle back press with double-tap to exit
+        backButtonManager.handleBackPress();
     }
 }

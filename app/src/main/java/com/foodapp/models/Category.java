@@ -1,17 +1,13 @@
 package com.foodapp.models;
 
+/**
+ * Model class to represent a food category
+ */
 public class Category {
     private int id;
     private String name;
     private int imageResourceId;
     private String filterKey;
-    
-    public Category(int id, String name, int imageResourceId) {
-        this.id = id;
-        this.name = name;
-        this.imageResourceId = imageResourceId;
-        this.filterKey = name; // Default filter key is the name
-    }
     
     public Category(int id, String name, int imageResourceId, String filterKey) {
         this.id = id;
@@ -20,6 +16,7 @@ public class Category {
         this.filterKey = filterKey;
     }
     
+    // Getters and Setters
     public int getId() {
         return id;
     }

@@ -14,43 +14,53 @@ import androidx.fragment.app.Fragment;
 import com.foodapp.R;
 
 public class TourGuideFragment extends Fragment {
-
-    private int position;
-
+    
+    private int pagePosition;
+    
+    // Tour guide content arrays
+    private final int[] IMAGE_RESOURCES = {
+            R.drawable.tour_page_1,
+            R.drawable.tour_page_2,
+            R.drawable.tour_page_3
+    };
+    
+    private final String[] TITLES = {
+            "Find your favorite food",
+            "Fast delivery to your door",
+            "Track your order in real-time"
+    };
+    
+    private final String[] DESCRIPTIONS = {
+            "Discover restaurants that deliver to your location with diverse cuisines and options.",
+            "Our delivery partners ensure your food arrives hot and fresh in the shortest time possible.",
+            "Follow your order from the restaurant to your doorstep with live GPS tracking."
+    };
+    
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Get page position from arguments
         if (getArguments() != null) {
-            position = getArguments().getInt("position", 0);
+            pagePosition = getArguments().getInt("page_position", 0);
         }
     }
-
+    
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tour_guide, container, false);
         
+        // Initialize views
         ImageView ivTourImage = view.findViewById(R.id.ivTourImage);
         TextView tvTourTitle = view.findViewById(R.id.tvTourTitle);
         TextView tvTourDescription = view.findViewById(R.id.tvTourDescription);
         
-        // Set the content based on position
-        switch (position) {
-            case 0:
-                ivTourImage.setImageResource(R.drawable.ic_location);
-                tvTourTitle.setText("Find Restaurants Near You");
-                tvTourDescription.setText("Discover the best restaurants, cafes, and bars in your area.");
-                break;
-            case 1:
-                ivTourImage.setImageResource(R.drawable.ic_meal);
-                tvTourTitle.setText("Choose Your Favorite Food");
-                tvTourDescription.setText("Browse menus and select from a variety of delicious meals.");
-                break;
-            case 2:
-                ivTourImage.setImageResource(R.drawable.star);
-                tvTourTitle.setText("Fast Delivery");
-                tvTourDescription.setText("Get your food delivered to your doorstep with fast and reliable service.");
-                break;
+        // Set content based on page position
+        if (pagePosition < IMAGE_RESOURCES.length) {
+            ivTourImage.setImageResource(IMAGE_RESOURCES[pagePosition]);
+            tvTourTitle.setText(TITLES[pagePosition]);
+            tvTourDescription.setText(DESCRIPTIONS[pagePosition]);
         }
         
         return view;

@@ -20,73 +20,75 @@ public class FilteredRestaurantAdapter extends RecyclerView.Adapter<FilteredRest
     private Context context;
     private List<Restaurant> restaurants;
     private RestaurantClickListener listener;
-    
+
     public interface RestaurantClickListener {
         void onRestaurantClicked(Restaurant restaurant);
     }
-    
+
     public FilteredRestaurantAdapter(Context context, List<Restaurant> restaurants, RestaurantClickListener listener) {
         this.context = context;
         this.restaurants = restaurants;
         this.listener = listener;
     }
-    
+
     @NonNull
     @Override
     public RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_restaurant_list, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_search_restaurant, parent, false);
         return new RestaurantViewHolder(view);
     }
-    
+
     @Override
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
         Restaurant restaurant = restaurants.get(position);
-        
-        // Set restaurant data
-        holder.tvRestaurantName.setText(restaurant.getName());
-        holder.tvRestaurantCuisine.setText(restaurant.getCuisine());
-        holder.tvDeliveryTime.setText(restaurant.getDeliveryTime() + " mins");
-        holder.tvRating.setText(String.format("%.1f/5", restaurant.getRating()));
-        holder.tvDistance.setText(String.format("%.1fkm", restaurant.getDistance()));
-        
-        // Set restaurant image
-        holder.ivRestaurantImage.setImageResource(restaurant.getImageResourceId());
-        
-        // Set click listener
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onRestaurantClicked(restaurant);
-            }
-        });
+        holder.bind(restaurant);
     }
-    
+
     @Override
     public int getItemCount() {
         return restaurants.size();
     }
-    
+
     public void updateRestaurants(List<Restaurant> newRestaurants) {
         this.restaurants = newRestaurants;
         notifyDataSetChanged();
     }
-    
-    public static class RestaurantViewHolder extends RecyclerView.ViewHolder {
+
+    class RestaurantViewHolder extends RecyclerView.ViewHolder {
         ImageView ivRestaurantImage;
         TextView tvRestaurantName;
-        TextView tvRestaurantCuisine;
+        TextView tvCuisine;
         TextView tvDeliveryTime;
         TextView tvRating;
         TextView tvDistance;
-        
-        public RestaurantViewHolder(@NonNull View itemView) {
+
+        RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
-            
+
             ivRestaurantImage = itemView.findViewById(R.id.ivRestaurantImage);
             tvRestaurantName = itemView.findViewById(R.id.tvRestaurantName);
-            tvRestaurantCuisine = itemView.findViewById(R.id.tvRestaurantCuisine);
+            tvCuisine = itemView.findViewById(R.id.tvCuisine);
             tvDeliveryTime = itemView.findViewById(R.id.tvDeliveryTime);
             tvRating = itemView.findViewById(R.id.tvRating);
             tvDistance = itemView.findViewById(R.id.tvDistance);
+
+            // Item click listener
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION && listener != null) {
+                    listener.onRestaurantClicked(restaurants.get(position));
+                }
+            });
+        }
+
+        void bind(Restaurant restaurant) {
+            // Set restaurant data
+            ivRestaurantImage.setImageResource(restaurant.getImageResourceId());
+            tvRestaurantName.setText(restaurant.getName());
+            tvCuisine.setText(restaurant.getCuisine());
+            tvDeliveryTime.setText(restaurant.getDeliveryTime() + "mins");
+            tvRating.setText(String.valueOf(restaurant.getRating()));
+            tvDistance.setText(restaurant.getDistance() + "km");
         }
     }
 }

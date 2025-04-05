@@ -2,6 +2,8 @@ package com.foodapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,35 +12,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.foodapp.models.User;
 import com.foodapp.utils.PreferenceManager;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private ConstraintLayout containerSignIn;
-    private ConstraintLayout containerSignUp;
-    private Button btnSignIn;
-    private Button btnSignUp;
-    private TextView tvSwitchToSignUp;
-    private TextView tvSwitchToSignIn;
+    private EditText etEmail;
+    private EditText etPassword;
+    private Button btnLogin;
     private TextView tvForgotPassword;
+    private TextView tvSignUp;
     private ImageView ivFacebook;
     private ImageView ivGoogle;
     private ImageView ivApple;
     
-    // Sign In inputs
-    private EditText etEmailSignIn;
-    private EditText etPasswordSignIn;
-    
-    // Sign Up inputs
-    private EditText etNameSignUp;
-    private EditText etEmailSignUp;
-    private EditText etPhoneSignUp;
-    private EditText etPasswordSignUp;
-    
-    private boolean isSignUpMode = false;
     private PreferenceManager preferenceManager;
 
     @Override
@@ -51,117 +39,40 @@ public class LoginActivity extends AppCompatActivity {
         
         // Check if user is already logged in
         if (preferenceManager.getCurrentUser() != null) {
-            navigateToTourGuide();
+            navigateToMain();
             return;
-        }
-
-        // Get mode from intent
-        if (getIntent() != null && getIntent().hasExtra("is_signup_mode")) {
-            isSignUpMode = getIntent().getBooleanExtra("is_signup_mode", false);
         }
 
         // Initialize views
         initViews();
-        
-        // Set initial mode (sign in or sign up)
-        updateViewVisibility();
         
         // Set click listeners
         setupClickListeners();
     }
     
     private void initViews() {
-        // Containers
-        containerSignIn = findViewById(R.id.containerSignIn);
-        containerSignUp = findViewById(R.id.containerSignUp);
-        
-        // Buttons
-        btnSignIn = findViewById(R.id.btnSignIn);
-        btnSignUp = findViewById(R.id.btnSignUp);
-        
-        // Text views for switching modes
-        tvSwitchToSignUp = findViewById(R.id.tvSwitchToSignUp);
-        tvSwitchToSignIn = findViewById(R.id.tvSwitchToSignIn);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
-        
-        // Social login icons
+        tvSignUp = findViewById(R.id.tvSignUp);
         ivFacebook = findViewById(R.id.ivFacebook);
         ivGoogle = findViewById(R.id.ivGoogle);
         ivApple = findViewById(R.id.ivApple);
-        
-        // Sign In inputs
-        etEmailSignIn = findViewById(R.id.etEmailSignIn);
-        etPasswordSignIn = findViewById(R.id.etPasswordSignIn);
-        
-        // Sign Up inputs
-        etNameSignUp = findViewById(R.id.etNameSignUp);
-        etEmailSignUp = findViewById(R.id.etEmailSignUp);
-        etPhoneSignUp = findViewById(R.id.etPhoneSignUp);
-        etPasswordSignUp = findViewById(R.id.etPasswordSignUp);
-    }
-    
-    private void updateViewVisibility() {
-        if (isSignUpMode) {
-            containerSignIn.setVisibility(View.GONE);
-            containerSignUp.setVisibility(View.VISIBLE);
-        } else {
-            containerSignIn.setVisibility(View.VISIBLE);
-            containerSignUp.setVisibility(View.GONE);
-        }
     }
     
     private void setupClickListeners() {
-        // Switch mode listeners
-        tvSwitchToSignUp.setOnClickListener(v -> {
-            isSignUpMode = true;
-            updateViewVisibility();
-        });
-        
-        tvSwitchToSignIn.setOnClickListener(v -> {
-            isSignUpMode = false;
-            updateViewVisibility();
-        });
-        
-        // Sign In button clicked
-        btnSignIn.setOnClickListener(v -> {
-            if (validateSignInInputs()) {
-                String email = etEmailSignIn.getText().toString().trim();
-                String password = etPasswordSignIn.getText().toString().trim();
-                
-                // Authenticate user
-                User user = preferenceManager.loginUser(email, password);
-                
-                if (user != null) {
-                    Toast.makeText(LoginActivity.this, "Welcome back, " + user.getName(), Toast.LENGTH_SHORT).show();
-                    navigateToTourGuide();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-                }
+        // Login button
+        btnLogin.setOnClickListener(v -> {
+            if (validateInputs()) {
+                attemptLogin();
             }
         });
         
-        // Sign Up button clicked
-        btnSignUp.setOnClickListener(v -> {
-            if (validateSignUpInputs()) {
-                String name = etNameSignUp.getText().toString().trim();
-                String email = etEmailSignUp.getText().toString().trim();
-                String phone = etPhoneSignUp.getText().toString().trim();
-                String password = etPasswordSignUp.getText().toString().trim();
-                
-                // Create new user
-                User newUser = new User(name, email, phone, password);
-                
-                // Register user
-                if (preferenceManager.registerUser(newUser)) {
-                    // Set as current user
-                    preferenceManager.setCurrentUser(newUser);
-                    
-                    Toast.makeText(LoginActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                    navigateToTourGuide();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Email already exists", Toast.LENGTH_SHORT).show();
-                }
-            }
+        // Sign up link
+        tvSignUp.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(intent);
         });
         
         // Social login buttons
@@ -175,60 +86,100 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     
-    private boolean validateSignInInputs() {
-        String email = etEmailSignIn.getText().toString().trim();
-        String password = etPasswordSignIn.getText().toString().trim();
+    private boolean validateInputs() {
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
         
-        if (email.isEmpty()) {
-            etEmailSignIn.setError("Email is required");
-            return false;
+        boolean isValid = true;
+        
+        // Clear previous errors
+        etEmail.setError(null);
+        etPassword.setError(null);
+        
+        if (TextUtils.isEmpty(email)) {
+            etEmail.setError("Email is required");
+            isValid = false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etEmail.setError("Please enter a valid email address");
+            isValid = false;
         }
         
-        if (password.isEmpty()) {
-            etPasswordSignIn.setError("Password is required");
-            return false;
+        if (TextUtils.isEmpty(password)) {
+            etPassword.setError("Password is required");
+            isValid = false;
         }
         
-        return true;
+        return isValid;
     }
     
-    private boolean validateSignUpInputs() {
-        String name = etNameSignUp.getText().toString().trim();
-        String email = etEmailSignUp.getText().toString().trim();
-        String phone = etPhoneSignUp.getText().toString().trim();
-        String password = etPasswordSignUp.getText().toString().trim();
+    private void attemptLogin() {
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
         
-        if (name.isEmpty()) {
-            etNameSignUp.setError("Name is required");
-            return false;
-        }
+        // Show loading state
+        btnLogin.setEnabled(false);
+        btnLogin.setText("Logging in...");
         
-        if (email.isEmpty()) {
-            etEmailSignUp.setError("Email is required");
-            return false;
-        }
-        
-        if (phone.isEmpty()) {
-            etPhoneSignUp.setError("Phone is required");
-            return false;
-        }
-        
-        if (password.isEmpty()) {
-            etPasswordSignUp.setError("Password is required");
-            return false;
-        }
-        
-        return true;
+        // Attempt login after a short delay to show the loading state
+        btnLogin.postDelayed(() -> {
+            // Attempt login
+            User user = preferenceManager.loginUser(email, password);
+            
+            if (user != null) {
+                // Set as current user
+                preferenceManager.setCurrentUser(user);
+                
+                Toast.makeText(LoginActivity.this, "Welcome back, " + user.getFullName(), Toast.LENGTH_SHORT).show();
+                navigateToMain();
+            } else {
+                Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+                btnLogin.setEnabled(true);
+                btnLogin.setText("Login");
+            }
+        }, 800); // Short delay for UX purposes
     }
     
     private void performSocialLogin(String provider) {
         // Keep the social login buttons but just show a message
         Toast.makeText(this, provider + " login will be implemented in the future", Toast.LENGTH_SHORT).show();
+        
+        // For demo purposes, create a dummy user with better data
+        User demoUser = new User(provider + " User", "", provider.toLowerCase() + "@example.com", "1234567890");
+        demoUser.setPassword("password");
+        preferenceManager.setCurrentUser(demoUser);
+        
+        navigateToTourGuide();
     }
     
     private void navigateToTourGuide() {
+        // Navigate to tour guide (first time users)
         Intent intent = new Intent(LoginActivity.this, TourGuideActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+    }
+    
+    private void navigateToMain() {
+        // Navigate to home screen (returning users) or tour guide (first timers)
+        if (preferenceManager.isFirstTimeLaunch()) {
+            navigateToTourGuide();
+        } else {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
+    }
+    
+    @Override
+    public void onBackPressed() {
+        // Navigate back to SplashActivity if possible, or just exit
+        // This method is called when user presses the back button
+        if (getIntent().hasExtra("from_splash")) {
+            super.onBackPressed();
+        } else {
+            // Just finish and let the system decide
+            finish();
+        }
     }
 }

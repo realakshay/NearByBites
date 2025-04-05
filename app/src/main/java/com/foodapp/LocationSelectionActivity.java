@@ -2,207 +2,113 @@ package com.foodapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.foodapp.models.Address;
 import com.foodapp.utils.PreferenceManager;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import org.osmdroid.api.IMapController;
-import org.osmdroid.config.Configuration;
-import org.osmdroid.events.MapEventsReceiver;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.MapEventsOverlay;
-import org.osmdroid.views.overlay.Marker;
-
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LocationSelectionActivity extends AppCompatActivity {
 
-    private MapView mapView;
-    private IMapController mapController;
-    private Marker locationMarker;
-    private Button btnContinue;
+    private RecyclerView rvAddresses;
+    private Button btnUseCurrentLocation;
+    private Button btnAddNewAddress;
+    private TextView tvTitle;
+    private ImageView ivBack;
+    
     private PreferenceManager preferenceManager;
-    private GeoPoint selectedLocation;
+    private List<Address> savedAddresses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // Initialize OSMDroid configuration
-        Configuration.getInstance().setUserAgentValue(getPackageName());
-        
         setContentView(R.layout.activity_location_selection);
-
+        
         // Initialize PreferenceManager
         preferenceManager = new PreferenceManager(this);
-
+        
         // Initialize views
-        mapView = findViewById(R.id.mapView);
-        btnContinue = findViewById(R.id.btnContinue);
-
-        // Set up the map
-        setupMap();
-
-        // Set up the button
-        btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectedLocation != null) {
-                    showAddressDetailsBottomSheet();
-                } else {
-                    Toast.makeText(LocationSelectionActivity.this, "Please select a location on the map", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    private void setupMap() {
-        mapView.setTileSource(TileSourceFactory.MAPNIK);
-        mapView.setMultiTouchControls(true);
+        rvAddresses = findViewById(R.id.rvAddresses);
+        btnUseCurrentLocation = findViewById(R.id.btnUseCurrentLocation);
+        btnAddNewAddress = findViewById(R.id.btnAddNewAddress);
+        tvTitle = findViewById(R.id.tvTitle);
+        ivBack = findViewById(R.id.ivBack);
         
-        mapController = mapView.getController();
-        mapController.setZoom(14.0);
+        // Hide back button as this screen should not go back to tour guide
+        ivBack.setVisibility(View.GONE);
         
-        // Default location (City center or a default location)
-        GeoPoint startPoint = new GeoPoint(18.5204, 73.8567); // Pune, India
-        mapController.setCenter(startPoint);
+        // Set title
+        tvTitle.setText("Select Delivery Location");
         
-        // Add a tap listener to the map
-        MapEventsReceiver mapEventsReceiver = new MapEventsReceiver() {
-            @Override
-            public boolean singleTapConfirmedHelper(GeoPoint p) {
-                updateMarker(p);
-                return true;
-            }
-
-            @Override
-            public boolean longPressHelper(GeoPoint p) {
-                return false;
-            }
-        };
+        // Load addresses
+        loadAddresses();
         
-        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(mapEventsReceiver);
-        mapView.getOverlays().add(0, mapEventsOverlay);
-    }
-
-    private void updateMarker(GeoPoint point) {
-        selectedLocation = point;
+        // Set up RecyclerView
+        setupRecyclerView();
         
-        if (locationMarker == null) {
-            locationMarker = new Marker(mapView);
-            locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            mapView.getOverlays().add(locationMarker);
-        }
-        
-        locationMarker.setPosition(point);
-        locationMarker.setTitle("Selected Location");
-        mapView.invalidate();
-    }
-
-    private void showAddressDetailsBottomSheet() {
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        View bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_address_details, null);
-        
-        // Find views in bottom sheet
-        EditText etAddressLine = bottomSheetView.findViewById(R.id.etAddressLine);
-        EditText etCity = bottomSheetView.findViewById(R.id.etCity);
-        EditText etState = bottomSheetView.findViewById(R.id.etState);
-        EditText etZipCode = bottomSheetView.findViewById(R.id.etZipCode);
-        RadioGroup rgAddressType = bottomSheetView.findViewById(R.id.rgAddressType);
-        Button btnSaveAddress = bottomSheetView.findViewById(R.id.btnSaveAddress);
-        
-        // Set default values if needed
-        etCity.setText("Pune");
-        etState.setText("Maharashtra");
-        
-        // Save button click listener
-        btnSaveAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Validate inputs
-                String addressLine = etAddressLine.getText().toString().trim();
-                String city = etCity.getText().toString().trim();
-                String state = etState.getText().toString().trim();
-                String zipCode = etZipCode.getText().toString().trim();
-                
-                if (addressLine.isEmpty()) {
-                    etAddressLine.setError("Address is required");
-                    return;
-                }
-                
-                if (city.isEmpty()) {
-                    etCity.setError("City is required");
-                    return;
-                }
-                
-                if (state.isEmpty()) {
-                    etState.setError("State is required");
-                    return;
-                }
-                
-                // Get selected address type
-                int selectedId = rgAddressType.getCheckedRadioButtonId();
-                RadioButton selectedRadioButton = bottomSheetView.findViewById(selectedId);
-                String addressType = "Home"; // Default
-                
-                if (selectedRadioButton != null) {
-                    addressType = selectedRadioButton.getText().toString();
-                }
-                
-                // Create and save address
-                Address address = new Address(
-                    UUID.randomUUID().toString(),
-                    addressType,
-                    addressLine,
-                    selectedLocation.getLatitude(),
-                    selectedLocation.getLongitude()
-                );
-                
-                address.setCity(city);
-                address.setState(state);
-                address.setPostalCode(zipCode);
-                
-                preferenceManager.saveAddress(address);
-                
-                Toast.makeText(LocationSelectionActivity.this, "Address saved successfully", Toast.LENGTH_SHORT).show();
-                bottomSheetDialog.dismiss();
-                
-                // Navigate to HomeActivity
-                navigateToHome();
-            }
-        });
-        
-        bottomSheetDialog.setContentView(bottomSheetView);
-        bottomSheetDialog.show();
+        // Set up button listeners
+        setupButtonListeners();
     }
     
-    private void navigateToHome() {
+    private void loadAddresses() {
+        // In a real app, this would come from storage or user profile
+        savedAddresses = new ArrayList<>();
+        
+        // Add some dummy addresses for demo
+        savedAddresses.add(new Address("Home", "123 Main Street", "Apt 4B", "New York", "NY", "10001", "40.7128", "-74.0060"));
+        savedAddresses.add(new Address("Work", "456 Park Avenue", "Floor 20", "New York", "NY", "10022", "40.7624", "-73.9738"));
+        savedAddresses.add(new Address("Gym", "789 Fitness Way", "", "New York", "NY", "10013", "40.7254", "-74.0051"));
+    }
+    
+    private void setupRecyclerView() {
+        // In a real implementation, create an AddressAdapter and set it up here
+        rvAddresses.setLayoutManager(new LinearLayoutManager(this));
+        // rvAddresses.setAdapter(new AddressAdapter(this, savedAddresses, this::selectAddress));
+    }
+    
+    private void setupButtonListeners() {
+        btnUseCurrentLocation.setOnClickListener(v -> {
+            // For demo purposes, create a current location address
+            Address currentLocation = new Address("Current Location", "Current Street", "", "Current City", "State", "12345", "0", "0");
+            selectAddress(currentLocation);
+        });
+        
+        btnAddNewAddress.setOnClickListener(v -> {
+            // In a real app, show address input form
+            Toast.makeText(this, "Add new address functionality will be implemented later", Toast.LENGTH_SHORT).show();
+            
+            // For demo, just proceed with the first address
+            if (!savedAddresses.isEmpty()) {
+                selectAddress(savedAddresses.get(0));
+            }
+        });
+    }
+    
+    private void selectAddress(Address address) {
+        // Save selected address
+        preferenceManager.saveSelectedAddress(address);
+        
+        // Navigate to home screen
         Intent intent = new Intent(LocationSelectionActivity.this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
-
+    
     @Override
-    protected void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mapView.onPause();
+    public void onBackPressed() {
+        // Don't allow going back to TourGuide
+        // Instead, offer logout option
+        Toast.makeText(this, "Please select a delivery location to continue", Toast.LENGTH_SHORT).show();
     }
 }

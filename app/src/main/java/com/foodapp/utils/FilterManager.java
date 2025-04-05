@@ -7,95 +7,86 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+/**
+ * Singleton class to manage filters throughout the app
+ */
 public class FilterManager {
-    private static final String PREF_NAME = "filter_preferences";
-    private static final String KEY_SELECTED_CATEGORIES = "selected_categories";
-    private static final String KEY_SELECTED_SORT = "selected_sort";
-    private static final String KEY_SELECTED_PRICE = "selected_price";
-    private static final String KEY_FILTER_ACTIVE = "filter_active";
     
     private static FilterManager instance;
-    private SharedPreferences preferences;
-    private Gson gson;
     
-    // Filter states
-    private Set<String> selectedCategories;
-    private String selectedSort;
-    private Set<String> selectedPrices;
-    private boolean isFilterActive;
+    private static final String PREF_FILTER = "grub_filter_preferences";
+    private static final String KEY_FILTER_ACTIVE = "filter_active";
+    private static final String KEY_SELECTED_CATEGORIES = "selected_categories";
+    private static final String KEY_SELECTED_SORT = "selected_sort";
+    private static final String KEY_SELECTED_PRICE_RANGE = "selected_price_range";
     
-    private FilterManager(Context context) {
-        preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        gson = new Gson();
-        loadFilterSettings();
-    }
+    private final SharedPreferences filterPref;
+    private final SharedPreferences.Editor filterEditor;
+    private final Gson gson;
+    
+    private boolean isFilterActive = false;
+    private Set<String> selectedCategories = new HashSet<>();
+    private String selectedSort = "Default";
+    private String selectedPriceRange = "All";
     
     public static synchronized FilterManager getInstance(Context context) {
         if (instance == null) {
-            instance = new FilterManager(context.getApplicationContext());
+            instance = new FilterManager(context);
         }
         return instance;
     }
     
+    private FilterManager(Context context) {
+        filterPref = context.getSharedPreferences(PREF_FILTER, Context.MODE_PRIVATE);
+        filterEditor = filterPref.edit();
+        gson = new Gson();
+        
+        // Load saved filter settings
+        loadFilterSettings();
+    }
+    
     private void loadFilterSettings() {
-        // Load selected categories
-        String categoriesJson = preferences.getString(KEY_SELECTED_CATEGORIES, null);
+        isFilterActive = filterPref.getBoolean(KEY_FILTER_ACTIVE, false);
+        
+        String categoriesJson = filterPref.getString(KEY_SELECTED_CATEGORIES, null);
         if (categoriesJson != null) {
-            Type type = new TypeToken<Set<String>>() {}.getType();
+            Type type = new TypeToken<Set<String>>(){}.getType();
             selectedCategories = gson.fromJson(categoriesJson, type);
-        } else {
-            selectedCategories = new HashSet<>();
-            selectedCategories.add("All"); // Default is "All"
         }
         
-        // Load selected sort option
-        selectedSort = preferences.getString(KEY_SELECTED_SORT, "");
-        
-        // Load selected price ranges
-        String pricesJson = preferences.getString(KEY_SELECTED_PRICE, null);
-        if (pricesJson != null) {
-            Type type = new TypeToken<Set<String>>() {}.getType();
-            selectedPrices = gson.fromJson(pricesJson, type);
-        } else {
-            selectedPrices = new HashSet<>();
-        }
-        
-        // Load filter active state
-        isFilterActive = preferences.getBoolean(KEY_FILTER_ACTIVE, false);
+        selectedSort = filterPref.getString(KEY_SELECTED_SORT, "Default");
+        selectedPriceRange = filterPref.getString(KEY_SELECTED_PRICE_RANGE, "All");
     }
     
     public void saveFilterSettings() {
-        SharedPreferences.Editor editor = preferences.edit();
+        filterEditor.putBoolean(KEY_FILTER_ACTIVE, isFilterActive);
         
-        // Save selected categories
         String categoriesJson = gson.toJson(selectedCategories);
-        editor.putString(KEY_SELECTED_CATEGORIES, categoriesJson);
+        filterEditor.putString(KEY_SELECTED_CATEGORIES, categoriesJson);
         
-        // Save selected sort option
-        editor.putString(KEY_SELECTED_SORT, selectedSort);
+        filterEditor.putString(KEY_SELECTED_SORT, selectedSort);
+        filterEditor.putString(KEY_SELECTED_PRICE_RANGE, selectedPriceRange);
         
-        // Save selected price ranges
-        String pricesJson = gson.toJson(selectedPrices);
-        editor.putString(KEY_SELECTED_PRICE, pricesJson);
-        
-        // Save filter active state
-        editor.putBoolean(KEY_FILTER_ACTIVE, isFilterActive);
-        
-        editor.apply();
+        filterEditor.apply();
     }
     
     public void resetFilters() {
-        selectedCategories = new HashSet<>();
-        selectedCategories.add("All");
-        selectedSort = "";
-        selectedPrices = new HashSet<>();
         isFilterActive = false;
-        saveFilterSettings();
+        selectedCategories.clear();
+        selectedSort = "Default";
+        selectedPriceRange = "All";
+    }
+    
+    // Getters and Setters
+    public boolean isFilterActive() {
+        return isFilterActive;
+    }
+    
+    public void setFilterActive(boolean filterActive) {
+        isFilterActive = filterActive;
     }
     
     public Set<String> getSelectedCategories() {
@@ -114,73 +105,11 @@ public class FilterManager {
         this.selectedSort = selectedSort;
     }
     
-    public Set<String> getSelectedPrices() {
-        return selectedPrices;
+    public String getSelectedPriceRange() {
+        return selectedPriceRange;
     }
     
-    public void setSelectedPrices(Set<String> selectedPrices) {
-        this.selectedPrices = selectedPrices;
-    }
-    
-    public boolean isFilterActive() {
-        return isFilterActive;
-    }
-    
-    public void setFilterActive(boolean filterActive) {
-        isFilterActive = filterActive;
-    }
-    
-    // Helper method to check if a category is selected
-    public boolean isCategorySelected(String category) {
-        return selectedCategories.contains(category) || selectedCategories.contains("All");
-    }
-    
-    // Helper method to check if a sort option is selected
-    public boolean isSortSelected(String sortOption) {
-        return selectedSort.equals(sortOption);
-    }
-    
-    // Helper method to check if a price range is selected
-    public boolean isPriceSelected(String price) {
-        return selectedPrices.contains(price);
-    }
-    
-    // Helper method to add a category
-    public void addCategory(String category) {
-        // If adding a specific category, remove "All"
-        if (!category.equals("All")) {
-            selectedCategories.remove("All");
-        } else {
-            // If adding "All", remove all other categories
-            selectedCategories.clear();
-        }
-        selectedCategories.add(category);
-    }
-    
-    // Helper method to remove a category
-    public void removeCategory(String category) {
-        selectedCategories.remove(category);
-        // If no categories selected, default to "All"
-        if (selectedCategories.isEmpty()) {
-            selectedCategories.add("All");
-        }
-    }
-    
-    // Helper method to toggle a category
-    public void toggleCategory(String category) {
-        if (isCategorySelected(category)) {
-            removeCategory(category);
-        } else {
-            addCategory(category);
-        }
-    }
-    
-    // Helper method to toggle a price range
-    public void togglePrice(String price) {
-        if (selectedPrices.contains(price)) {
-            selectedPrices.remove(price);
-        } else {
-            selectedPrices.add(price);
-        }
+    public void setSelectedPriceRange(String selectedPriceRange) {
+        this.selectedPriceRange = selectedPriceRange;
     }
 }
