@@ -7,11 +7,11 @@ on:
 
 jobs:
   build:
-    name: Build APK
+    name: Build Debug APK
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -20,17 +20,17 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Grant execute permission for gradlew
+      - name: Grant execute permission to Gradlew
         run: chmod +x ./gradlew
 
-      - name: Clean and Build with Gradle
-        run: ./gradlew clean assembleDebug
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
 
-      - name: List APK output folder (for verification)
-        run: ls -lh app/build/outputs/apk/debug/
+      - name: Show all APK files
+        run: find . -name "*.apk"
 
-      - name: Upload APK
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: debug-apk
+          path: '**/*.apk'
