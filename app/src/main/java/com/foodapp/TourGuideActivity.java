@@ -80,8 +80,8 @@ public class TourGuideActivity extends AppCompatActivity {
     }
 
     private void finishTourGuide() {
-        // Navigate to the restaurant list screen
-        Intent intent = new Intent(TourGuideActivity.this, RestaurantListActivity.class);
+        // Navigate to the location selection screen
+        Intent intent = new Intent(TourGuideActivity.this, LocationSelectionActivity.class);
         startActivity(intent);
         finish();
     }

@@ -52,4 +52,17 @@
     <string name="tour_order_desc">Lorem ipsum has been the industry\'s standard dummy text ever since the 1500s.</string>
     <string name="tour_delivery_desc">Get your food delivered fast and enjoy your meal while it\'s hot.</string>
     <string name="tour_tracking_desc">Track your order in real-time from the restaurant to your doorstep.</string>
+    
+    <!-- Location Selection -->
+    <string name="select_your_location">SELECT YOUR LOCATION</string>
+    <string name="address_details">Address Details</string>
+    <string name="home">Home</string>
+    <string name="office">Office</string>
+    <string name="friends">Friends</string>
+    <string name="full_name_hint">Full Name*</string>
+    <string name="street_address_hint">Address (street name, building name)*</string>
+    <string name="city_address_hint">Address (city/village name)</string>
+    <string name="landmark_hint">Nearby Landmark (optional)</string>
+    <string name="save_address">Save Address</string>
+    <string name="location_permission_needed">Location permission is required to select your location</string>
 </resources>
