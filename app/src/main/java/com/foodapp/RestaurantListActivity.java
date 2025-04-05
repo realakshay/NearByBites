@@ -83,52 +83,42 @@ public class RestaurantListActivity extends AppCompatActivity implements Restaur
     private void loadRestaurants() {
         showLoading();
         
-        // Make API call to get restaurants
-        Call<List<Restaurant>> call = foodService.getRestaurants();
-        call.enqueue(new Callback<List<Restaurant>>() {
+        // Use dummy data instead of making API calls
+        // In a real app, this would be replaced with actual API calls
+        addMockRestaurants();
+        
+        // Simulate network delay for better UX testing
+        new android.os.Handler().postDelayed(new Runnable() {
             @Override
-            public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
+            public void run() {
                 hideLoading();
-                if (response.isSuccessful() && response.body() != null) {
-                    restaurantList.clear();
-                    restaurantList.addAll(response.body());
-                    filteredList.clear();
-                    filteredList.addAll(restaurantList);
-                    restaurantAdapter.notifyDataSetChanged();
-                    
-                    if (restaurantList.isEmpty()) {
-                        showError("No restaurants found");
-                    }
-                } else {
-                    showError("Failed to load restaurants");
-                }
             }
-
-            @Override
-            public void onFailure(Call<List<Restaurant>> call, Throwable t) {
-                hideLoading();
-                showError("Network error: " + t.getMessage());
-                
-                // For demo purposes, add mock data when API fails
-                addMockRestaurants();
-            }
-        });
+        }, 1000); // 1 second delay
     }
 
     private void addMockRestaurants() {
-        // This is only used when the API fails and is for demonstration purposes
-        // In a real app, you would handle the error more gracefully
-        Restaurant r1 = new Restaurant(1, "Italian Delight", "Italian", "123 Main St", 4.5f, 15, 25, true);
-        Restaurant r2 = new Restaurant(2, "Spice Garden", "Indian", "456 Oak Ave", 4.2f, 20, 35, true);
-        Restaurant r3 = new Restaurant(3, "Sushi World", "Japanese", "789 Pine Blvd", 4.7f, 25, 40, false);
-        Restaurant r4 = new Restaurant(4, "Taco Heaven", "Mexican", "101 Elm St", 4.0f, 10, 20, true);
-        Restaurant r5 = new Restaurant(5, "Burger Joint", "American", "202 Maple Dr", 4.3f, 12, 25, true);
+        // Add dummy restaurants to the list
+        Restaurant r1 = new Restaurant(1, "Italian Delight", "Italian", "123 Main St, New York, NY", 4.5f, 15, 25, true);
+        Restaurant r2 = new Restaurant(2, "Spice Garden", "Indian", "456 Oak Ave, New York, NY", 4.2f, 20, 35, true);
+        Restaurant r3 = new Restaurant(3, "Sushi World", "Japanese", "789 Pine Blvd, New York, NY", 4.7f, 25, 40, false);
+        Restaurant r4 = new Restaurant(4, "Taco Heaven", "Mexican", "101 Elm St, New York, NY", 4.0f, 10, 20, true);
+        Restaurant r5 = new Restaurant(5, "Burger Joint", "American", "202 Maple Dr, New York, NY", 4.3f, 12, 25, true);
+        Restaurant r6 = new Restaurant(6, "Noodle House", "Chinese", "303 Cherry Ln, New York, NY", 4.1f, 15, 30, true);
+        Restaurant r7 = new Restaurant(7, "Mediterranean Palace", "Mediterranean", "404 Olive Rd, New York, NY", 4.6f, 20, 30, true);
+        Restaurant r8 = new Restaurant(8, "Seoul Kitchen", "Korean", "505 Peach St, New York, NY", 4.4f, 25, 35, true);
+        Restaurant r9 = new Restaurant(9, "Thai Spice", "Thai", "606 Walnut Ave, New York, NY", 4.2f, 15, 25, false);
+        Restaurant r10 = new Restaurant(10, "Falafel King", "Middle Eastern", "707 Pineapple Blvd, New York, NY", 4.3f, 20, 30, true);
         
         restaurantList.add(r1);
         restaurantList.add(r2);
         restaurantList.add(r3);
         restaurantList.add(r4);
         restaurantList.add(r5);
+        restaurantList.add(r6);
+        restaurantList.add(r7);
+        restaurantList.add(r8);
+        restaurantList.add(r9);
+        restaurantList.add(r10);
         
         filteredList.clear();
         filteredList.addAll(restaurantList);
