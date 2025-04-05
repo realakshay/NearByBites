@@ -3,68 +3,98 @@ package com.foodapp.models;
 import java.io.Serializable;
 
 public class MenuItem implements Serializable {
-    private String id;
+    private int id;
     private String name;
+    private String description;
     private double price;
-    private String discount;
-    private String image;
-
-    public MenuItem() {
-        // Empty constructor required for Serializable
-    }
-
-    public MenuItem(String id, String name, double price, String image) {
+    private String imageUrl;
+    private String category;
+    private boolean isRecommended;
+    private boolean isPopular;
+    
+    public MenuItem(int id, String name, String description, double price, String imageUrl, String category) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.price = price;
-        this.image = image;
+        this.imageUrl = imageUrl;
+        this.category = category;
+        this.isRecommended = false;
+        this.isPopular = false;
     }
-
-    public MenuItem(String id, String name, double price, String discount, String image) {
+    
+    public MenuItem(int id, String name, String description, double price, String imageUrl, String category, boolean isRecommended, boolean isPopular) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.price = price;
-        this.discount = discount;
-        this.image = image;
+        this.imageUrl = imageUrl;
+        this.category = category;
+        this.isRecommended = isRecommended;
+        this.isPopular = isPopular;
     }
-
-    public String getId() {
+    
+    public int getId() {
         return id;
     }
-
-    public void setId(String id) {
+    
+    public void setId(int id) {
         this.id = id;
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
-
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     public double getPrice() {
         return price;
     }
-
+    
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public String getDiscount() {
-        return discount;
+    
+    public String getImageUrl() {
+        return imageUrl;
     }
-
-    public void setDiscount(String discount) {
-        this.discount = discount;
+    
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
-
-    public String getImage() {
-        return image;
+    
+    public String getCategory() {
+        return category;
     }
-
-    public void setImage(String image) {
-        this.image = image;
+    
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
+    public boolean isRecommended() {
+        return isRecommended;
+    }
+    
+    public void setRecommended(boolean recommended) {
+        isRecommended = recommended;
+    }
+    
+    public boolean isPopular() {
+        return isPopular;
+    }
+    
+    public void setPopular(boolean popular) {
+        isPopular = popular;
     }
 }

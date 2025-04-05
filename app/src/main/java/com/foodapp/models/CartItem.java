@@ -1,83 +1,47 @@
 package com.foodapp.models;
 
-import java.io.Serializable;
-
-public class CartItem implements Serializable {
-    private String id;
-    private String restaurantId;
-    private String itemId;
-    private String name;
-    private double price;
+public class CartItem {
+    private MenuItem menuItem;
     private int quantity;
-    private String image;
-
-    public CartItem() {
-        // Empty constructor required for Serializable
-    }
-
-    public CartItem(String id, String restaurantId, String itemId, String name, double price, int quantity, String image) {
-        this.id = id;
-        this.restaurantId = restaurantId;
-        this.itemId = itemId;
-        this.name = name;
-        this.price = price;
+    private String remarks;
+    
+    public CartItem(MenuItem menuItem, int quantity) {
+        this.menuItem = menuItem;
         this.quantity = quantity;
-        this.image = image;
+        this.remarks = "";
     }
-
-    public String getId() {
-        return id;
+    
+    public CartItem(MenuItem menuItem, int quantity, String remarks) {
+        this.menuItem = menuItem;
+        this.quantity = quantity;
+        this.remarks = remarks;
     }
-
-    public void setId(String id) {
-        this.id = id;
+    
+    public MenuItem getMenuItem() {
+        return menuItem;
     }
-
-    public String getRestaurantId() {
-        return restaurantId;
+    
+    public void setMenuItem(MenuItem menuItem) {
+        this.menuItem = menuItem;
     }
-
-    public void setRestaurantId(String restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-    public String getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
+    
     public int getQuantity() {
         return quantity;
     }
-
+    
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    public String getImage() {
-        return image;
+    
+    public String getRemarks() {
+        return remarks;
     }
-
-    public void setImage(String image) {
-        this.image = image;
+    
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+    
+    public double getTotalPrice() {
+        return menuItem.getPrice() * quantity;
     }
 }

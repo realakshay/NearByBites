@@ -2,13 +2,10 @@ package com.foodapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,206 +13,150 @@ import com.foodapp.adapters.CategoryAdapter;
 import com.foodapp.adapters.RestaurantAdapter;
 import com.foodapp.models.Category;
 import com.foodapp.models.Restaurant;
-import com.foodapp.models.User;
-import com.foodapp.utils.CartManager;
-import com.foodapp.utils.DataGenerator;
-import com.foodapp.utils.PreferenceManager;
+import com.foodapp.utils.FilterManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import android.widget.TextView;
-import android.widget.Toast;
+public class HomeActivity extends AppCompatActivity implements RestaurantAdapter.RestaurantClickListener, CategoryAdapter.CategoryClickListener {
 
-public class HomeActivity extends AppCompatActivity implements 
-        CategoryAdapter.OnCategoryClickListener, 
-        RestaurantAdapter.OnRestaurantClickListener,
-        BottomNavigationView.OnNavigationItemSelectedListener {
-
-    private PreferenceManager preferenceManager;
-    private CartManager cartManager;
+    private ImageView ivFilter;
     private RecyclerView rvCategories;
     private RecyclerView rvRestaurants;
-    private TextView tvGreeting;
-    private TextView tvUsername;
-    private TextView tvAddressType;
-    private TextView tvAddressDetail;
     private BottomNavigationView bottomNavigation;
-    private Button btnViewCart;
-
+    
+    private List<Category> categories;
+    private List<Restaurant> restaurants;
+    private FilterManager filterManager;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        // Initialize PreferenceManager and CartManager
-        preferenceManager = new PreferenceManager(this);
-        cartManager = CartManager.getInstance(this);
-
-        // Initialize views
-        rvCategories = findViewById(R.id.rvCategories);
-        rvRestaurants = findViewById(R.id.rvRestaurants);
-        tvGreeting = findViewById(R.id.tvGreeting);
-        tvUsername = findViewById(R.id.tvUsername);
-        tvAddressType = findViewById(R.id.tvAddressType);
-        tvAddressDetail = findViewById(R.id.tvAddressDetail);
-        bottomNavigation = findViewById(R.id.bottomNavigation);
-        btnViewCart = findViewById(R.id.btnViewCart);
-
-        // Set up bottom navigation
-        bottomNavigation.setOnNavigationItemSelectedListener(this);
-        bottomNavigation.setSelectedItemId(R.id.menu_home);
-
-        // Set up greeting
-        setupGreeting();
-
-        // Set up address
-        setupAddress();
-
-        // Set up categories
-        setupCategories();
-
-        // Set up restaurants
-        setupRestaurants();
         
-        // Set up cart button
-        setupCartButton();
+        // Initialize FilterManager
+        filterManager = FilterManager.getInstance(this);
+        
+        // Initialize views
+        initViews();
+        
+        // Set up bottom navigation
+        setupBottomNavigation();
+        
+        // Load data
+        loadCategories();
+        loadRestaurants();
+        
+        // Set up filter icon click
+        ivFilter.setOnClickListener(v -> {
+            // Navigate to SetFilterActivity
+            Intent intent = new Intent(HomeActivity.this, SetFilterActivity.class);
+            startActivity(intent);
+        });
     }
     
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Update cart button whenever returning to this screen
-        updateCartButton();
+    private void initViews() {
+        ivFilter = findViewById(R.id.ivFilter);
+        rvCategories = findViewById(R.id.rvCategories);
+        rvRestaurants = findViewById(R.id.rvRestaurants);
+        bottomNavigation = findViewById(R.id.bottomNavigation);
     }
-
-    private void setupGreeting() {
-        // Get time of day for appropriate greeting
-        Calendar calendar = Calendar.getInstance();
-        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-
-        String greeting;
-        if (hourOfDay < 12) {
-            greeting = "Good Morning";
-        } else if (hourOfDay < 18) {
-            greeting = "Good Afternoon";
-        } else {
-            greeting = "Good Evening";
-        }
-
-        tvGreeting.setText(greeting);
-
-        // Get user's name
-        User user = preferenceManager.getUser();
-        if (user != null && user.getName() != null && !user.getName().isEmpty()) {
-            tvUsername.setText(user.getName());
-        } else {
-            tvUsername.setText("Codename One!");
-        }
+    
+    private void setupBottomNavigation() {
+        // Set selected item
+        bottomNavigation.setSelectedItemId(R.id.nav_home);
+        
+        bottomNavigation.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            
+            if (itemId == R.id.nav_home) {
+                return true;
+            } else if (itemId == R.id.nav_favorites) {
+                // Navigate to FavoritesActivity
+                Intent intent = new Intent(HomeActivity.this, FavoritesActivity.class);
+                startActivity(intent);
+                return true;
+            } else if (itemId == R.id.nav_orders) {
+                // Navigate to OrdersActivity
+                Intent intent = new Intent(HomeActivity.this, OrdersActivity.class);
+                startActivity(intent);
+                return true;
+            } else if (itemId == R.id.nav_profile) {
+                // Navigate to ProfileActivity
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            
+            return false;
+        });
     }
-
-    private void setupAddress() {
-        // Get selected address from preferences
-        com.foodapp.models.Address selectedAddress = preferenceManager.getSelectedAddress();
-        if (selectedAddress != null) {
-            tvAddressType.setText(selectedAddress.getType());
-            tvAddressDetail.setText(selectedAddress.getAddressLine());
-        } else {
-            tvAddressType.setText("Home");
-            tvAddressDetail.setText("Please add an address");
-        }
-    }
-
-    private void setupCategories() {
-        // Create a sample list of categories
-        List<Category> categoryList = new ArrayList<>();
-        categoryList.add(new Category(1, "Rice", getDrawable(R.drawable.ic_rice)));
-        categoryList.add(new Category(2, "Pizza", getDrawable(R.drawable.ic_pizza)));
-        categoryList.add(new Category(3, "Donut", getDrawable(R.drawable.ic_donut)));
-        categoryList.add(new Category(4, "Chicken", getDrawable(R.drawable.ic_chicken)));
-        categoryList.add(new Category(5, "Steak", getDrawable(R.drawable.ic_steak)));
-        categoryList.add(new Category(6, "Meal", getDrawable(R.drawable.ic_meal)));
-        categoryList.add(new Category(7, "Kebab", getDrawable(R.drawable.ic_kebab)));
-        categoryList.add(new Category(8, "All", getDrawable(R.drawable.ic_all)));
-
-        // Set up the adapter
-        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryList, this);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
-        rvCategories.setLayoutManager(gridLayoutManager);
+    
+    private void loadCategories() {
+        // Initialize categories
+        categories = new ArrayList<>();
+        categories.add(new Category(1, "Fast Food", R.drawable.category_fast_food, "Fast Food"));
+        categories.add(new Category(2, "Pizza", R.drawable.ic_pizza, "Pizza"));
+        categories.add(new Category(3, "Rice", R.drawable.ic_rice, "Rice"));
+        categories.add(new Category(4, "Chicken", R.drawable.ic_chicken, "Chicken"));
+        categories.add(new Category(5, "Steak", R.drawable.ic_steak, "Steak"));
+        categories.add(new Category(6, "Kebab", R.drawable.ic_kebab, "Kebab"));
+        
+        // Set up RecyclerView
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories, this);
+        rvCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvCategories.setAdapter(categoryAdapter);
     }
-
-    private void setupRestaurants() {
-        // Get restaurants from data generator
-        List<Restaurant> restaurantList = DataGenerator.getRestaurants();
-
-        // Set up the adapter
-        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(restaurantList, this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rvRestaurants.setLayoutManager(linearLayoutManager);
+    
+    private void loadRestaurants() {
+        // Initialize restaurants
+        restaurants = new ArrayList<>();
+        restaurants.add(new Restaurant(1, "McDonald's", "123 Main St", "Fast Food, American Food, Pasta", 4.2f, 20, 1.2f, R.drawable.restaurant_1, "Fast Food", "$"));
+        restaurants.add(new Restaurant(2, "Pizza Hut", "456 Main St", "Pizza, Italian Food, Pasta", 4.5f, 30, 2.5f, R.drawable.restaurant_2, "Pizza", "$$"));
+        restaurants.add(new Restaurant(3, "Jollibee", "789 Main St", "Fast Food, Filipino Food, Pasta", 4.7f, 25, 1.5f, R.drawable.restaurant_3, "Chicken", "$"));
+        restaurants.add(new Restaurant(4, "KFC", "101 Main St", "Fast Food, American Food, Chicken", 4.0f, 15, 0.8f, R.drawable.restaurant_4, "Chicken", "$"));
+        
+        // Set up RecyclerView
+        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(this, restaurants, this);
+        rvRestaurants.setLayoutManager(new LinearLayoutManager(this));
         rvRestaurants.setAdapter(restaurantAdapter);
     }
     
-    private void setupCartButton() {
-        btnViewCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // In a real app, we would navigate to a CartActivity here
-                Toast.makeText(HomeActivity.this, "View Cart functionality coming soon!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        
-        // Update the cart button state
-        updateCartButton();
+    @Override
+    public void onRestaurantClicked(Restaurant restaurant) {
+        // Navigate to RestaurantDetailsActivity
+        Intent intent = new Intent(this, RestaurantDetailsActivity.class);
+        intent.putExtra("restaurant_id", restaurant.getId());
+        intent.putExtra("restaurant_name", restaurant.getName());
+        intent.putExtra("restaurant_image", restaurant.getImageResourceId());
+        intent.putExtra("restaurant_rating", restaurant.getRating());
+        intent.putExtra("restaurant_cuisine", restaurant.getCuisine());
+        intent.putExtra("restaurant_delivery_time", restaurant.getDeliveryTime());
+        intent.putExtra("restaurant_distance", restaurant.getDistance());
+        startActivity(intent);
     }
     
-    private void updateCartButton() {
-        int itemCount = cartManager.getCartItemCount();
-        double totalPrice = cartManager.getCartTotal();
-        
-        // Always show the cart button, regardless of whether there are items in the cart
-        if (itemCount > 0) {
-            btnViewCart.setText("View Cart (" + itemCount + ") • $" + String.format("%.2f", totalPrice));
-        } else {
-            btnViewCart.setText("View Cart (0)");
-        }
-        
-        // Always make the button visible
-        btnViewCart.setVisibility(View.VISIBLE);
-    }
-
     @Override
-    public void onCategoryClick(Category category, int position) {
-        Toast.makeText(this, "Selected category: " + category.getName(), Toast.LENGTH_SHORT).show();
-        // In a real app, we would filter restaurants by category
-    }
-
-    @Override
-    public void onRestaurantClick(Restaurant restaurant, int position) {
-        Toast.makeText(this, "Selected restaurant: " + restaurant.getName(), Toast.LENGTH_SHORT).show();
-        // In a real app, we would navigate to the restaurant details screen
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
+    public void onCategoryClicked(Category category) {
+        // Reset filter manager
+        filterManager.resetFilters();
         
-        if (id == R.id.menu_home) {
-            // Already on home screen
-            return true;
-        } else if (id == R.id.menu_favorites) {
-            Toast.makeText(this, "Favorites feature coming soon!", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (id == R.id.menu_orders) {
-            Toast.makeText(this, "Orders feature coming soon!", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (id == R.id.menu_profile) {
-            Toast.makeText(this, "Profile feature coming soon!", Toast.LENGTH_SHORT).show();
-            return true;
-        }
+        // Set category filter
+        Set<String> selectedCategories = new HashSet<>();
+        selectedCategories.add(category.getFilterKey());
+        filterManager.setSelectedCategories(selectedCategories);
+        filterManager.setFilterActive(true);
+        filterManager.saveFilterSettings();
         
-        return false;
+        // Navigate to RestaurantsListActivity
+        Intent intent = new Intent(this, RestaurantsListActivity.class);
+        intent.putExtra("category_name", category.getName());
+        startActivity(intent);
+        
+        // Show toast for feedback
+        Toast.makeText(this, "Showing " + category.getName() + " restaurants", Toast.LENGTH_SHORT).show();
     }
 }

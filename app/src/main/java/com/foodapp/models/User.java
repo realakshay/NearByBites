@@ -1,62 +1,72 @@
 package com.foodapp.models;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
-    private String id;
-    private String name;
+public class User {
+    private String firstName;
+    private String lastName;
     private String email;
-    private String phone;
-    private String password; // Note: In a real app, we would not store the password locally
-
+    private String phoneNumber;
+    private String profileImageUri;
+    
     public User() {
-        // Empty constructor required for Serializable
+        // Default constructor
     }
-
-    public User(String id, String name, String email, String phone) {
-        this.id = id;
-        this.name = name;
+    
+    public User(String firstName, String lastName, String email, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
     }
-
-    public String getId() {
-        return id;
+    
+    public String getFirstName() {
+        return firstName;
     }
-
-    public void setId(String id) {
-        this.id = id;
+    
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-
-    public String getName() {
-        return name;
+    
+    public String getLastName() {
+        return lastName;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
-
+    
     public String getEmail() {
         return email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPhone() {
-        return phone;
+    
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-
-    public String getPassword() {
-        return password;
+    
+    public String getProfileImageUri() {
+        return profileImageUri;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
+    
+    public void setProfileImageUri(String profileImageUri) {
+        this.profileImageUri = profileImageUri;
+    }
+    
+    public String getFullName() {
+        if (firstName != null && lastName != null) {
+            return firstName + " " + lastName;
+        } else if (firstName != null) {
+            return firstName;
+        } else if (lastName != null) {
+            return lastName;
+        } else {
+            return "User";
+        }
     }
 }
