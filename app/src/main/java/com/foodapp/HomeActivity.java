@@ -175,20 +175,15 @@ public class HomeActivity extends AppCompatActivity implements
         int itemCount = cartManager.getCartItemCount();
         double totalPrice = cartManager.getCartTotal();
         
-        // For demonstration purposes, let's show the button with a simulated item in cart
-        // In a real app, this would only show when items are actually in the cart
+        // Always show the cart button, regardless of whether there are items in the cart
         if (itemCount > 0) {
             btnViewCart.setText("View Cart (" + itemCount + ") • $" + String.format("%.2f", totalPrice));
-            btnViewCart.setVisibility(View.VISIBLE);
         } else {
-            // For demo purposes, show the button with 0 items
-            // Later we can change this to hide the button when cart is empty
             btnViewCart.setText("View Cart (0)");
-            btnViewCart.setVisibility(View.VISIBLE); // For now, show it always
-            
-            // Uncomment the line below when you want to hide the button when cart is empty
-            // btnViewCart.setVisibility(View.GONE);
         }
+        
+        // Always make the button visible
+        btnViewCart.setVisibility(View.VISIBLE);
     }
 
     @Override
