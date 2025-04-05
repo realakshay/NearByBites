@@ -2746,7 +2746,15 @@ drawable promo_1
 drawable promo_2
 drawable promo_3
 drawable restaurant_1
+drawable restaurant_2
+drawable restaurant_3
+drawable restaurant_4
 drawable restaurant_background
+drawable restaurant_burger
+drawable restaurant_dessert
+drawable restaurant_pizza
+drawable restaurant_salad
+drawable restaurant_sushi
 drawable rounded_background_white
 drawable rounded_button_green
 drawable rounded_button_green_outline
@@ -2843,6 +2851,8 @@ id action_bar_title
 id action_container
 id action_context_bar
 id action_divider
+id action_favorites
+id action_home
 id action_image
 id action_logout
 id action_menu_divider
@@ -2850,6 +2860,8 @@ id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
+id action_orders
+id action_profile
 id action_text
 id actions
 id activity_chooser_view_content
@@ -3201,10 +3213,6 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
-id nav_favorites
-id nav_home
-id nav_orders
-id nav_profile
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view

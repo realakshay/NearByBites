@@ -60,6 +60,10 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/xml/file_paths.xml"
     },
     {
+        "merged": "com.foodapp-merged_res-30:/drawable_restaurant_burger.xml.flat",
+        "source": "com.foodapp-main-32:/drawable/restaurant_burger.xml"
+    },
+    {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_tab_indicator_inactive.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/tab_indicator_inactive.xml"
     },
@@ -108,10 +112,6 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/search_background.xml"
     },
     {
-        "merged": "com.foodapp-merged_res-30:/drawable_tab_indicator_active.xml.flat",
-        "source": "com.foodapp-main-32:/drawable/tab_indicator_active.xml"
-    },
-    {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_ic_restaurant.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/ic_restaurant.xml"
     },
@@ -126,10 +126,6 @@
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/menu_menu_tour.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/menu/menu_tour.xml"
-    },
-    {
-        "merged": "com.foodapp-merged_res-30:/color_bottom_nav_item_color.xml.flat",
-        "source": "com.foodapp-main-32:/color/bottom_nav_item_color.xml"
     },
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_tour_order.xml.flat",
@@ -168,12 +164,12 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/layout/activity_search_result.xml"
     },
     {
-        "merged": "com.foodapp-merged_res-30:/drawable_rounded_button_green_outline.xml.flat",
-        "source": "com.foodapp-main-32:/drawable/rounded_button_green_outline.xml"
-    },
-    {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/layout_activity_restaurant_list.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/layout/activity_restaurant_list.xml"
+    },
+    {
+        "merged": "com.foodapp-merged_res-30:/drawable_ic_profile.xml.flat",
+        "source": "com.foodapp-main-32:/drawable/ic_profile.xml"
     },
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_ic_flag.xml.flat",
@@ -216,6 +212,10 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/ic_back.xml"
     },
     {
+        "merged": "com.foodapp-merged_res-30:/drawable_restaurant_pizza.xml.flat",
+        "source": "com.foodapp-main-32:/drawable/restaurant_pizza.xml"
+    },
+    {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_rounded_background_white.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/rounded_background_white.xml"
     },
@@ -256,6 +256,10 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/ic_kfc.xml"
     },
     {
+        "merged": "com.foodapp-merged_res-30:/drawable_ic_favorite.xml.flat",
+        "source": "com.foodapp-main-32:/drawable/ic_favorite.xml"
+    },
+    {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_ic_google.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/ic_google.xml"
     },
@@ -280,8 +284,8 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/layout/activity_signup.xml"
     },
     {
-        "merged": "com.foodapp-merged_res-30:/drawable_bottom_nav_item_color.xml.flat",
-        "source": "com.foodapp-main-32:/drawable/bottom_nav_item_color.xml"
+        "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_restaurant_3.xml.flat",
+        "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/restaurant_3.xml"
     },
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/layout_item_menu.xml.flat",
@@ -372,6 +376,10 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/mipmap-mdpi/ic_launcher.png"
     },
     {
+        "merged": "com.foodapp-merged_res-30:/drawable_restaurant_dessert.xml.flat",
+        "source": "com.foodapp-main-32:/drawable/restaurant_dessert.xml"
+    },
+    {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_ic_rice.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/ic_rice.xml"
     },
@@ -396,16 +404,16 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/circular_button_green.xml"
     },
     {
+        "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_restaurant_4.xml.flat",
+        "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/restaurant_4.xml"
+    },
+    {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_bottom_sheet_background.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/bottom_sheet_background.xml"
     },
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_ic_star.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/ic_star.xml"
-    },
-    {
-        "merged": "com.foodapp-merged_res-30:/drawable_rounded_social_button.xml.flat",
-        "source": "com.foodapp-main-32:/drawable/rounded_social_button.xml"
     },
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_ic_meal.xml.flat",
@@ -432,6 +440,10 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/rounded_button_transparent.xml"
     },
     {
+        "merged": "com.foodapp-merged_res-30:/menu_bottom_navigation_menu.xml.flat",
+        "source": "com.foodapp-main-32:/menu/bottom_navigation_menu.xml"
+    },
+    {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/layout_item_restaurant_list.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/layout/item_restaurant_list.xml"
     },
@@ -454,6 +466,10 @@
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/layout_activity_track_order.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/layout/activity_track_order.xml"
+    },
+    {
+        "merged": "com.foodapp-merged_res-30:/drawable_menu_burger.xml.flat",
+        "source": "com.foodapp-main-32:/drawable/menu_burger.xml"
     },
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_rounded_edittext_light.xml.flat",
@@ -528,8 +544,8 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/menu_pasta.xml"
     },
     {
-        "merged": "com.foodapp-merged_res-30:/color_bottom_nav_selector.xml.flat",
-        "source": "com.foodapp-main-32:/color/bottom_nav_selector.xml"
+        "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_restaurant_2.xml.flat",
+        "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/restaurant_2.xml"
     },
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_restaurant_background.xml.flat",
@@ -604,6 +620,14 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/tour_tracking.xml"
     },
     {
+        "merged": "com.foodapp-merged_res-30:/drawable_ic_orders.xml.flat",
+        "source": "com.foodapp-main-32:/drawable/ic_orders.xml"
+    },
+    {
+        "merged": "com.foodapp-merged_res-30:/drawable_restaurant_sushi.xml.flat",
+        "source": "com.foodapp-main-32:/drawable/restaurant_sushi.xml"
+    },
+    {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_google_icon.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/google_icon.xml"
     },
@@ -644,6 +668,10 @@
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/circle_button_background.xml"
     },
     {
+        "merged": "com.foodapp-merged_res-30:/drawable_restaurant_salad.xml.flat",
+        "source": "com.foodapp-main-32:/drawable/restaurant_salad.xml"
+    },
+    {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/layout_activity_main.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/layout/activity_main.xml"
     },
@@ -666,10 +694,6 @@
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/layout_activity_add_credit_card.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/layout/activity_add_credit_card.xml"
-    },
-    {
-        "merged": "com.foodapp-merged_res-30:/color_bottom_nav_color.xml.flat",
-        "source": "com.foodapp-main-32:/color/bottom_nav_color.xml"
     },
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_ic_all.xml.flat",
@@ -706,6 +730,10 @@
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_orange_button_background.xml.flat",
         "source": "/home/runner/.gradle/daemon/7.4/com.foodapp-main-32:/drawable/orange_button_background.xml"
+    },
+    {
+        "merged": "com.foodapp-merged_res-30:/drawable_ic_home.xml.flat",
+        "source": "com.foodapp-main-32:/drawable/ic_home.xml"
     },
     {
         "merged": "/home/runner/.gradle/daemon/7.4/com.foodapp-merged_res-30:/drawable_rounded_button_red.xml.flat",

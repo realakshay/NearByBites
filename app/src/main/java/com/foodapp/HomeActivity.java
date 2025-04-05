@@ -162,7 +162,7 @@ public class HomeActivity extends AppCompatActivity {
         // Setup categories RecyclerView
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
         rvCategories.setLayoutManager(gridLayoutManager);
-        categoryAdapter = new CategoryAdapter(categories, category -> {
+        categoryAdapter = new CategoryAdapter(this, categories, category -> {
             // Navigate to RestaurantsListActivity with selected category
             Intent intent = new Intent(HomeActivity.this, RestaurantsListActivity.class);
             intent.putExtra("CATEGORY_ID", category.getId());
@@ -185,7 +185,7 @@ public class HomeActivity extends AppCompatActivity {
     
     private void setupCartButton() {
         // Show cart button only if there are items in cart
-        CartManager cartManager = CartManager.getInstance();
+        CartManager cartManager = CartManager.getInstance(this);
         fabCart.setVisibility(cartManager.getItemCount() > 0 ? android.view.View.VISIBLE : android.view.View.GONE);
         
         // Set click listener for cart button
@@ -228,7 +228,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
         
         // Update cart button visibility
-        CartManager cartManager = CartManager.getInstance();
+        CartManager cartManager = CartManager.getInstance(this);
         fabCart.setVisibility(cartManager.getItemCount() > 0 ? android.view.View.VISIBLE : android.view.View.GONE);
         
         // Update user location if changed

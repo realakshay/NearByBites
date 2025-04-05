@@ -12,99 +12,83 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.foodapp.R;
 import com.foodapp.models.Restaurant;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder> {
+
+    private Context context;
+    private List<Restaurant> restaurants;
+    private RestaurantClickListener listener;
+
+    public interface RestaurantClickListener {
+        void onRestaurantClick(Restaurant restaurant);
+    }
     
-    private final Context context;
-    private final List<Restaurant> restaurants;
-    private final RestaurantClickListener listener;
-    
+    // Constructor that doesn't require context - for compatibility with HomeActivity
+    public RestaurantAdapter(List<Restaurant> restaurants, RestaurantClickListener listener) {
+        this.restaurants = restaurants;
+        this.listener = listener;
+    }
+
     public RestaurantAdapter(Context context, List<Restaurant> restaurants, RestaurantClickListener listener) {
         this.context = context;
         this.restaurants = restaurants;
         this.listener = listener;
     }
-    
+
     @NonNull
     @Override
     public RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (context == null) {
+            context = parent.getContext();
+        }
         View view = LayoutInflater.from(context).inflate(R.layout.item_restaurant, parent, false);
         return new RestaurantViewHolder(view);
     }
-    
+
     @Override
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
         Restaurant restaurant = restaurants.get(position);
         
-        holder.tvRestaurantName.setText(restaurant.getName());
+        holder.tvName.setText(restaurant.getName());
         holder.tvCuisine.setText(restaurant.getCuisine());
-        holder.tvRating.setText(String.valueOf(restaurant.getRating()));
-        holder.tvDeliveryTime.setText(String.valueOf(restaurant.getDeliveryTime()) + " min");
-        holder.tvDistance.setText(String.valueOf(restaurant.getDistance()) + " km");
-        holder.ivRestaurantImage.setImageResource(restaurant.getImageResourceId());
+        holder.tvDeliveryTime.setText(restaurant.getDeliveryTime() + " min");
+        holder.tvDistance.setText(restaurant.getDistance() + " km");
         
-        // Set favorite icon
-        if (restaurant.isFavorite()) {
-            holder.ivFavorite.setImageResource(R.drawable.ic_favorite_filled);
-        } else {
-            holder.ivFavorite.setImageResource(R.drawable.ic_favorite_border);
+        if (restaurant.getImageResourceId() != 0) {
+            holder.imageView.setImageResource(restaurant.getImageResourceId());
+        } else if (restaurant.getImageUrl() != null && !restaurant.getImageUrl().isEmpty()) {
+            Picasso.get().load(restaurant.getImageUrl()).into(holder.imageView);
         }
-        
-        // Set click listeners
+
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onRestaurantClicked(restaurant);
-            }
-        });
-        
-        holder.ivFavorite.setOnClickListener(v -> {
-            // Toggle favorite status
-            restaurant.setFavorite(!restaurant.isFavorite());
-            
-            // Update favorite icon
-            if (restaurant.isFavorite()) {
-                holder.ivFavorite.setImageResource(R.drawable.ic_favorite_filled);
-            } else {
-                holder.ivFavorite.setImageResource(R.drawable.ic_favorite_border);
+                listener.onRestaurantClick(restaurant);
             }
         });
     }
-    
+
     @Override
     public int getItemCount() {
-        return restaurants.size();
+        return restaurants != null ? restaurants.size() : 0;
     }
-    
-    public void updateRestaurants(List<Restaurant> newRestaurants) {
-        this.restaurants.clear();
-        this.restaurants.addAll(newRestaurants);
-        notifyDataSetChanged();
-    }
-    
-    public class RestaurantViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivRestaurantImage;
-        TextView tvRestaurantName;
+
+    static class RestaurantViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView tvName;
         TextView tvCuisine;
-        TextView tvRating;
         TextView tvDeliveryTime;
         TextView tvDistance;
-        ImageView ivFavorite;
-        
-        public RestaurantViewHolder(@NonNull View itemView) {
+
+        RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivRestaurantImage = itemView.findViewById(R.id.ivRestaurantImage);
-            tvRestaurantName = itemView.findViewById(R.id.tvRestaurantName);
+            imageView = itemView.findViewById(R.id.ivRestaurant);
+            tvName = itemView.findViewById(R.id.tvRestaurantName);
             tvCuisine = itemView.findViewById(R.id.tvCuisine);
-            tvRating = itemView.findViewById(R.id.tvRating);
             tvDeliveryTime = itemView.findViewById(R.id.tvDeliveryTime);
             tvDistance = itemView.findViewById(R.id.tvDistance);
-            ivFavorite = itemView.findViewById(R.id.ivFavorite);
         }
-    }
-    
-    public interface RestaurantClickListener {
-        void onRestaurantClicked(Restaurant restaurant);
     }
 }

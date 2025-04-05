@@ -3,6 +3,7 @@ package com.foodapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.foodapp.models.CartItem;
 import com.foodapp.models.MenuItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -69,6 +70,12 @@ public class CartManager {
         saveCartItems();
     }
     
+    // For compatibility with DataGenerator
+    public void addItemToCart(MenuItem menuItem, int quantity) {
+        menuItem.setQuantity(quantity);
+        addItem(menuItem);
+    }
+    
     public void removeItem(int itemId) {
         cartItems.remove(itemId);
         saveCartItems();
@@ -124,13 +131,9 @@ public class CartManager {
     
     public double getTotal() {
         return getSubtotal() + getDeliveryFee() + getTax();
-    // Method to match what is used in OrderSuccessActivity
-    public double getCartTotal() {
-        return getSubtotal();
-    }
     }
     
-    // Method to match what's used in OrderSuccessActivity
+    // Method to match what is used in OrderSuccessActivity
     public double getCartTotal() {
         return getSubtotal();
     }
@@ -142,5 +145,19 @@ public class CartManager {
     
     public boolean isEmpty() {
         return cartItems.isEmpty();
+    }
+    
+    // For compatibility with OrderSuccessActivity which expects CartItem objects
+    public List<CartItem> getCartItemsAsCartItems() {
+        List<CartItem> cartItemList = new ArrayList<>();
+        for (MenuItem item : getCartItems()) {
+            cartItemList.add(new CartItem(item));
+        }
+        return cartItemList;
+    }
+    
+    // Aliased method name for HomeActivity
+    public int getItemCount() {
+        return getTotalItems();
     }
 }

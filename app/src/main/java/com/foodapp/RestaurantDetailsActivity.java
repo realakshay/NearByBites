@@ -87,11 +87,11 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Menu
         );
         
         // Add menu items
-        restaurant.addMenuItem(new MenuItem(1, "Classic Burger", "Juicy beef patty with lettuce, tomato, and special sauce", 9.99, R.drawable.menu_burger));
-        restaurant.addMenuItem(new MenuItem(2, "Cheeseburger", "Classic burger with melted cheddar cheese", 11.99, R.drawable.menu_burger));
-        restaurant.addMenuItem(new MenuItem(3, "Deluxe Burger", "Premium beef with bacon, cheese, and avocado", 13.99, R.drawable.menu_burger));
-        restaurant.addMenuItem(new MenuItem(4, "Chicken Sandwich", "Grilled chicken with lettuce and mayo", 10.99, R.drawable.menu_burger));
-        restaurant.addMenuItem(new MenuItem(5, "Veggie Burger", "Plant-based patty with fresh vegetables", 12.99, R.drawable.menu_burger));
+        restaurant.addMenuItem(new com.foodapp.models.MenuItem(1, "Classic Burger", "Juicy beef patty with lettuce, tomato, and special sauce", 9.99, R.drawable.menu_burger));
+        restaurant.addMenuItem(new com.foodapp.models.MenuItem(2, "Cheeseburger", "Classic burger with melted cheddar cheese", 11.99, R.drawable.menu_burger));
+        restaurant.addMenuItem(new com.foodapp.models.MenuItem(3, "Deluxe Burger", "Premium beef with bacon, cheese, and avocado", 13.99, R.drawable.menu_burger));
+        restaurant.addMenuItem(new com.foodapp.models.MenuItem(4, "Chicken Sandwich", "Grilled chicken with lettuce and mayo", 10.99, R.drawable.menu_burger));
+        restaurant.addMenuItem(new com.foodapp.models.MenuItem(5, "Veggie Burger", "Plant-based patty with fresh vegetables", 12.99, R.drawable.menu_burger));
         
         // Add promo items
         restaurant.addPromoItem(new PromoItem(1, "30% OFF", "First order discount", 0.3, "WELCOME30", R.drawable.placeholder_food));
@@ -162,7 +162,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Menu
     public void onAddToCartClicked(MenuItem menuItem) {
         // Check if the item is already in the cart
         boolean itemExists = false;
-        for (MenuItem item : cartItems) {
+        for (com.foodapp.models.MenuItem item : cartItems) {
             if (item.getId() == menuItem.getId()) {
                 itemExists = true;
                 item.setQuantity(menuItem.getQuantity());
@@ -188,7 +188,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Menu
             
             // Calculate total price
             double totalPrice = 0;
-            for (MenuItem item : cartItems) {
+            for (com.foodapp.models.MenuItem item : cartItems) {
                 totalPrice += item.getTotalPrice();
             }
             

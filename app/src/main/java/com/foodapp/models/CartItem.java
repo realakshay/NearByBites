@@ -1,20 +1,14 @@
 package com.foodapp.models;
 
-public class CartItem {
+import java.io.Serializable;
+
+// Compatibility class for OrderSuccessActivity that expects CartItem
+public class CartItem implements Serializable {
+    
     private MenuItem menuItem;
-    private int quantity;
-    private String remarks;
     
-    public CartItem(MenuItem menuItem, int quantity) {
+    public CartItem(MenuItem menuItem) {
         this.menuItem = menuItem;
-        this.quantity = quantity;
-        this.remarks = "";
-    }
-    
-    public CartItem(MenuItem menuItem, int quantity, String remarks) {
-        this.menuItem = menuItem;
-        this.quantity = quantity;
-        this.remarks = remarks;
     }
     
     public MenuItem getMenuItem() {
@@ -26,22 +20,10 @@ public class CartItem {
     }
     
     public int getQuantity() {
-        return quantity;
+        return menuItem.getQuantity();
     }
     
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-    
-    public String getRemarks() {
-        return remarks;
-    }
-    
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-    
-    public double getTotalPrice() {
-        return menuItem.getPrice() * quantity;
+        menuItem.setQuantity(quantity);
     }
 }

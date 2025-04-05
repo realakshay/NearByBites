@@ -1,5 +1,6 @@
 package com.foodapp.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.foodapp.R;
-import com.foodapp.model.Restaurant;
+import com.foodapp.models.Restaurant;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder> {
 
+    private Context context;
     private List<Restaurant> restaurants;
     private RestaurantClickListener listener;
 
@@ -24,7 +26,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         void onRestaurantClick(Restaurant restaurant);
     }
 
-    public RestaurantAdapter(List<Restaurant> restaurants, RestaurantClickListener listener) {
+    public RestaurantAdapter(Context context, List<Restaurant> restaurants, RestaurantClickListener listener) {
+        this.context = context;
         this.restaurants = restaurants;
         this.listener = listener;
     }
@@ -32,70 +35,51 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     @NonNull
     @Override
     public RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurant, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_restaurant, parent, false);
         return new RestaurantViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
         Restaurant restaurant = restaurants.get(position);
-        holder.bind(restaurant);
+        
+        holder.tvName.setText(restaurant.getName());
+        holder.tvCuisine.setText(restaurant.getCuisine());
+        holder.tvDeliveryTime.setText(restaurant.getDeliveryTime() + " min");
+        holder.tvDistance.setText(restaurant.getDistance() + " km");
+        
+        if (restaurant.getImageResourceId() != 0) {
+            holder.imageView.setImageResource(restaurant.getImageResourceId());
+        } else if (restaurant.getImageUrl() != null && !restaurant.getImageUrl().isEmpty()) {
+            Picasso.get().load(restaurant.getImageUrl()).into(holder.imageView);
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onRestaurantClick(restaurant);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return restaurants.size();
+        return restaurants != null ? restaurants.size() : 0;
     }
 
-    public class RestaurantViewHolder extends RecyclerView.ViewHolder {
-        private ImageView ivRestaurantImage;
-        private TextView tvRestaurantName;
-        private TextView tvCuisine;
-        private TextView tvRating;
-        private TextView tvDeliveryTime;
-        private TextView tvStatus;
+    static class RestaurantViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView tvName;
+        TextView tvCuisine;
+        TextView tvDeliveryTime;
+        TextView tvDistance;
 
-        public RestaurantViewHolder(@NonNull View itemView) {
+        RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivRestaurantImage = itemView.findViewById(R.id.ivRestaurantImage);
-            tvRestaurantName = itemView.findViewById(R.id.tvRestaurantName);
+            imageView = itemView.findViewById(R.id.ivRestaurant);
+            tvName = itemView.findViewById(R.id.tvRestaurantName);
             tvCuisine = itemView.findViewById(R.id.tvCuisine);
-            tvRating = itemView.findViewById(R.id.tvRating);
             tvDeliveryTime = itemView.findViewById(R.id.tvDeliveryTime);
-            tvStatus = itemView.findViewById(R.id.tvStatus);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION && listener != null) {
-                        listener.onRestaurantClick(restaurants.get(position));
-                    }
-                }
-            });
-        }
-
-        public void bind(Restaurant restaurant) {
-            tvRestaurantName.setText(restaurant.getName());
-            tvCuisine.setText(restaurant.getCuisine());
-            tvRating.setText(String.format("%.1f★", restaurant.getRating()));
-            tvDeliveryTime.setText(String.format("%d-%d min", restaurant.getMinDeliveryTime(), restaurant.getMaxDeliveryTime()));
-            
-            if (restaurant.isOpen()) {
-                tvStatus.setText("Open");
-                tvStatus.setTextColor(itemView.getContext().getResources().getColor(android.R.color.holo_green_dark));
-            } else {
-                tvStatus.setText("Closed");
-                tvStatus.setTextColor(itemView.getContext().getResources().getColor(android.R.color.holo_red_dark));
-            }
-
-            // Load image using Glide
-            // Since we don't have real image URLs, we'll use a placeholder with restaurant name
-            Glide.with(itemView.getContext())
-                    .load("https://via.placeholder.com/200x150?text=" + restaurant.getName().replace(" ", "+"))
-                    .placeholder(R.drawable.placeholder_restaurant)
-                    .error(R.drawable.placeholder_restaurant)
-                    .into(ivRestaurantImage);
+            tvDistance = itemView.findViewById(R.id.tvDistance);
         }
     }
 }

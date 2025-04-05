@@ -77,7 +77,7 @@ public class OrderSuccessActivity extends AppCompatActivity {
     
     private void getIntentData() {
         // Retrieve cart items before they are cleared
-        orderItems = cartManager.getCartItems();
+        orderItems = cartManager.getCartItemsAsCartItems();
         
         // Get payment method
         paymentMethod = paymentManager.getSelectedPaymentMethod();
