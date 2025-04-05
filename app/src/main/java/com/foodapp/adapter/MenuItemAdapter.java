@@ -1,5 +1,7 @@
 package com.foodapp.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.foodapp.R;
 import com.foodapp.models.MenuItem;
+import com.foodapp.sharing.SocialSharingActivity;
 
 import java.util.List;
 
@@ -58,6 +61,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         private TextView tvQuantity;
         private Button btnDecrement;
         private Button btnIncrement;
+        private ImageView ivShare; // New share button
 
         public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +73,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
             btnDecrement = itemView.findViewById(R.id.btnDecrement);
             btnIncrement = itemView.findViewById(R.id.btnIncrement);
+            ivShare = itemView.findViewById(R.id.ivShare);
         }
 
         public void bind(final MenuItem menuItem) {
@@ -118,6 +123,14 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
             btnDecrement.setOnClickListener(v -> {
                 menuItem.decrementQuantity();
                 notifyItemChanged(getAdapterPosition());
+            });
+            
+            // Set up share button click
+            ivShare.setOnClickListener(v -> {
+                Context context = itemView.getContext();
+                Intent shareIntent = new Intent(context, SocialSharingActivity.class);
+                shareIntent.putExtra("menu_item_id", menuItem.getId());
+                context.startActivity(shareIntent);
             });
         }
     }

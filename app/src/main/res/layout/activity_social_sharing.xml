@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".sharing.SocialSharingActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Your Food Share"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Editor View for the image and sticker -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F5F5F5">
+
+        <com.foodapp.sharing.StickerEditorView
+            android:id="@+id/stickerEditorView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp">
+
+            <Button
+                android:id="@+id/btnRotateLeft"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="↺"
+                android:textSize="18sp"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnRotateRight"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="↻"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Caption input -->
+    <EditText
+        android:id="@+id/etShareCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Add a caption to your share..."
+        android:inputType="textMultiLine"
+        android:minLines="2"
+        android:maxLines="4" />
+
+    <!-- Sticker selection -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose a Sticker"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/layoutStickers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+    </HorizontalScrollView>
+
+    <!-- Share button -->
+    <Button
+        android:id="@+id/btnShare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4CAF50"
+        android:text="Share to Social Media"
+        android:textColor="#FFFFFF"
+        android:padding="12dp"
+        android:textSize="16sp" />
+
+</LinearLayout>
