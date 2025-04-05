@@ -40,14 +40,3 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
-task checkDebug {}
-task assembleDebug {
-    doLast {
-        // Creating a dummy APK for demonstration
-        def outputDir = new File(project.buildDir, 'outputs/apk/debug')
-        outputDir.mkdirs()
-        def apkFile = new File(outputDir, 'app-debug.apk')
-        apkFile.text = 'This is a placeholder APK file'
-        println 'Created placeholder APK at ' + apkFile.absolutePath
-    }
-}
