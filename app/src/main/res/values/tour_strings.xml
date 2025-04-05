@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tour Guide Screen -->
+    <string name="tour_order_title">Order your Favorite</string>
+    <string name="tour_order_desc">Choose from a wide selection of your favorite restaurants and cuisines all in one app.</string>
+    
+    <string name="tour_delivery_title">Fast Delivery</string>
+    <string name="tour_delivery_desc">Get your food delivered to your doorstep as quickly as possible by our delivery partners.</string>
+    
+    <string name="tour_tracking_title">Live Tracking</string>
+    <string name="tour_tracking_desc">Track your order in real-time and know exactly when your delicious meal will arrive.</string>
+</resources>

@@ -2,14 +2,19 @@ package com.foodapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.foodapp.adapters.TourGuideAdapter;
+import com.foodapp.utils.PreferenceManager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -19,18 +24,30 @@ public class TourGuideActivity extends AppCompatActivity {
     private Button btnNext;
     private TextView tvSkip;
     private TabLayout tabLayout;
+    private Toolbar toolbar;
     private final int NUM_PAGES = 3;
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_guide);
 
+        // Initialize PreferenceManager
+        preferenceManager = new PreferenceManager(this);
+        
         // Initialize views
         viewPager = findViewById(R.id.viewPager);
         btnNext = findViewById(R.id.btnNext);
         tvSkip = findViewById(R.id.tvSkip);
         tabLayout = findViewById(R.id.tabLayout);
+        toolbar = findViewById(R.id.toolbar);
+        
+        // Set up toolbar
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Tour Guide");
+        }
 
         // Set up the adapter
         TourGuideAdapter adapter = new TourGuideAdapter(this, NUM_PAGES);
@@ -77,6 +94,34 @@ public class TourGuideActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_tour, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        
+        if (id == R.id.action_logout) {
+            logoutUser();
+            return true;
+        }
+        
+        return super.onOptionsItemSelected(item);
+    }
+    
+    private void logoutUser() {
+        preferenceManager.logoutUser();
+        
+        // Navigate back to login screen
+        Intent intent = new Intent(TourGuideActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void finishTourGuide() {

@@ -1,36 +1,30 @@
 package com.foodapp.models;
 
-import com.google.android.gms.maps.model.LatLng;
+import java.io.Serializable;
 
-/**
- * Model class representing a delivery address
- */
-public class Address {
+public class Address implements Serializable {
     private String id;
-    private String fullName;
-    private String streetAddress;
-    private String cityAddress;
-    private String landmark;
-    private String addressType; // "Home", "Office", or "Friends"
-    private LatLng location;
+    private String type;
+    private String addressLine;
+    private double latitude;
+    private double longitude;
+    private String city;
+    private String state;
+    private String country;
+    private String postalCode;
 
-    // Constructor
-    public Address(String id, String fullName, String streetAddress, String cityAddress, 
-                  String landmark, String addressType, LatLng location) {
-        this.id = id;
-        this.fullName = fullName;
-        this.streetAddress = streetAddress;
-        this.cityAddress = cityAddress;
-        this.landmark = landmark;
-        this.addressType = addressType;
-        this.location = location;
-    }
-
-    // Empty constructor
     public Address() {
+        // Empty constructor required for Serializable
     }
 
-    // Getters and Setters
+    public Address(String id, String type, String addressLine, double latitude, double longitude) {
+        this.id = id;
+        this.type = type;
+        this.addressLine = addressLine;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public String getId() {
         return id;
     }
@@ -39,75 +33,67 @@ public class Address {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getType() {
+        return type;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getStreetAddress() {
-        return streetAddress;
+    public String getAddressLine() {
+        return addressLine;
     }
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setAddressLine(String addressLine) {
+        this.addressLine = addressLine;
     }
 
-    public String getCityAddress() {
-        return cityAddress;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setCityAddress(String cityAddress) {
-        this.cityAddress = cityAddress;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public String getLandmark() {
-        return landmark;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLandmark(String landmark) {
-        this.landmark = landmark;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public String getAddressType() {
-        return addressType;
+    public String getCity() {
+        return city;
     }
 
-    public void setAddressType(String addressType) {
-        this.addressType = addressType;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public LatLng getLocation() {
-        return location;
+    public String getState() {
+        return state;
     }
 
-    public void setLocation(LatLng location) {
-        this.location = location;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return streetAddress + ", " + cityAddress + 
-               (landmark != null && !landmark.isEmpty() ? ", Near " + landmark : "");
+    public String getCountry() {
+        return country;
     }
 
-    /**
-     * Returns a formatted full address
-     */
-    public String getFormattedAddress() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(streetAddress);
-        
-        if (cityAddress != null && !cityAddress.isEmpty()) {
-            sb.append(", ").append(cityAddress);
-        }
-        
-        if (landmark != null && !landmark.isEmpty()) {
-            sb.append(", Near ").append(landmark);
-        }
-        
-        return sb.toString();
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 }

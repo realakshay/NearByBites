@@ -1,227 +1,208 @@
 package com.foodapp;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.foodapp.models.Address;
+import com.foodapp.utils.PreferenceManager;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-public class LocationSelectionActivity extends AppCompatActivity implements OnMapReadyCallback {
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.MapEventsOverlay;
+import org.osmdroid.views.overlay.Marker;
 
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private GoogleMap mMap;
-    private FusedLocationProviderClient fusedLocationClient;
-    private BottomSheetDialog bottomSheetDialog;
-    private LatLng selectedLocation;
+import java.util.UUID;
 
-    // UI elements
-    private Button btnHome, btnOffice, btnFriends, btnSaveAddress;
-    private EditText etFullName, etStreetAddress, etCityAddress, etLandmark;
-    private ImageButton btnClose;
+public class LocationSelectionActivity extends AppCompatActivity {
+
+    private MapView mapView;
+    private IMapController mapController;
+    private Marker locationMarker;
+    private Button btnContinue;
+    private PreferenceManager preferenceManager;
+    private GeoPoint selectedLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Initialize OSMDroid configuration
+        Configuration.getInstance().setUserAgentValue(getPackageName());
+        
         setContentView(R.layout.activity_location_selection);
 
-        // Set up toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        // Initialize PreferenceManager
+        preferenceManager = new PreferenceManager(this);
 
-        // Initialize the map fragment
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
-        }
+        // Initialize views
+        mapView = findViewById(R.id.mapView);
+        btnContinue = findViewById(R.id.btnContinue);
 
-        // Initialize FusedLocationProviderClient
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        // Set up the map
+        setupMap();
 
-        // Create bottom sheet dialog
-        createBottomSheetDialog();
+        // Set up the button
+        btnContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedLocation != null) {
+                    showAddressDetailsBottomSheet();
+                } else {
+                    Toast.makeText(LocationSelectionActivity.this, "Please select a location on the map", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    /**
-     * Creates and configures the bottom sheet dialog for address details
-     */
-    private void createBottomSheetDialog() {
-        bottomSheetDialog = new BottomSheetDialog(this);
-        View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_address_details, null);
-        bottomSheetDialog.setContentView(bottomSheetView);
+    private void setupMap() {
+        mapView.setTileSource(TileSourceFactory.MAPNIK);
+        mapView.setMultiTouchControls(true);
+        
+        mapController = mapView.getController();
+        mapController.setZoom(14.0);
+        
+        // Default location (City center or a default location)
+        GeoPoint startPoint = new GeoPoint(18.5204, 73.8567); // Pune, India
+        mapController.setCenter(startPoint);
+        
+        // Add a tap listener to the map
+        MapEventsReceiver mapEventsReceiver = new MapEventsReceiver() {
+            @Override
+            public boolean singleTapConfirmedHelper(GeoPoint p) {
+                updateMarker(p);
+                return true;
+            }
 
-        // Initialize UI elements
-        btnHome = bottomSheetView.findViewById(R.id.btnHome);
-        btnOffice = bottomSheetView.findViewById(R.id.btnOffice);
-        btnFriends = bottomSheetView.findViewById(R.id.btnFriends);
-        btnSaveAddress = bottomSheetView.findViewById(R.id.btnSaveAddress);
-        btnClose = bottomSheetView.findViewById(R.id.btnClose);
-        etFullName = bottomSheetView.findViewById(R.id.etFullName);
-        etStreetAddress = bottomSheetView.findViewById(R.id.etStreetAddress);
-        etCityAddress = bottomSheetView.findViewById(R.id.etCityAddress);
-        etLandmark = bottomSheetView.findViewById(R.id.etLandmark);
+            @Override
+            public boolean longPressHelper(GeoPoint p) {
+                return false;
+            }
+        };
+        
+        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(mapEventsReceiver);
+        mapView.getOverlays().add(0, mapEventsOverlay);
+    }
 
-        // Set up button click listeners
-        btnHome.setOnClickListener(v -> selectAddressType("Home"));
-        btnOffice.setOnClickListener(v -> selectAddressType("Office"));
-        btnFriends.setOnClickListener(v -> selectAddressType("Friends"));
-        btnClose.setOnClickListener(v -> bottomSheetDialog.dismiss());
+    private void updateMarker(GeoPoint point) {
+        selectedLocation = point;
+        
+        if (locationMarker == null) {
+            locationMarker = new Marker(mapView);
+            locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            mapView.getOverlays().add(locationMarker);
+        }
+        
+        locationMarker.setPosition(point);
+        locationMarker.setTitle("Selected Location");
+        mapView.invalidate();
+    }
 
-        btnSaveAddress.setOnClickListener(v -> {
-            if (validateAddressForm()) {
-                saveAddress();
+    private void showAddressDetailsBottomSheet() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        View bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_address_details, null);
+        
+        // Find views in bottom sheet
+        EditText etAddressLine = bottomSheetView.findViewById(R.id.etAddressLine);
+        EditText etCity = bottomSheetView.findViewById(R.id.etCity);
+        EditText etState = bottomSheetView.findViewById(R.id.etState);
+        EditText etZipCode = bottomSheetView.findViewById(R.id.etZipCode);
+        RadioGroup rgAddressType = bottomSheetView.findViewById(R.id.rgAddressType);
+        Button btnSaveAddress = bottomSheetView.findViewById(R.id.btnSaveAddress);
+        
+        // Set default values if needed
+        etCity.setText("Pune");
+        etState.setText("Maharashtra");
+        
+        // Save button click listener
+        btnSaveAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Validate inputs
+                String addressLine = etAddressLine.getText().toString().trim();
+                String city = etCity.getText().toString().trim();
+                String state = etState.getText().toString().trim();
+                String zipCode = etZipCode.getText().toString().trim();
+                
+                if (addressLine.isEmpty()) {
+                    etAddressLine.setError("Address is required");
+                    return;
+                }
+                
+                if (city.isEmpty()) {
+                    etCity.setError("City is required");
+                    return;
+                }
+                
+                if (state.isEmpty()) {
+                    etState.setError("State is required");
+                    return;
+                }
+                
+                // Get selected address type
+                int selectedId = rgAddressType.getCheckedRadioButtonId();
+                RadioButton selectedRadioButton = bottomSheetView.findViewById(selectedId);
+                String addressType = "Home"; // Default
+                
+                if (selectedRadioButton != null) {
+                    addressType = selectedRadioButton.getText().toString();
+                }
+                
+                // Create and save address
+                Address address = new Address(
+                    UUID.randomUUID().toString(),
+                    addressType,
+                    addressLine,
+                    selectedLocation.getLatitude(),
+                    selectedLocation.getLongitude()
+                );
+                
+                address.setCity(city);
+                address.setState(state);
+                address.setPostalCode(zipCode);
+                
+                preferenceManager.saveAddress(address);
+                
+                Toast.makeText(LocationSelectionActivity.this, "Address saved successfully", Toast.LENGTH_SHORT).show();
                 bottomSheetDialog.dismiss();
                 
-                // Navigate to Restaurant List screen
-                Intent intent = new Intent(LocationSelectionActivity.this, RestaurantListActivity.class);
-                startActivity(intent);
-                finish();
+                // Navigate to HomeActivity
+                navigateToHome();
             }
         });
-    }
-
-    /**
-     * Updates UI to reflect the selected address type button
-     */
-    private void selectAddressType(String type) {
-        // Reset all buttons
-        btnHome.setBackgroundResource(R.drawable.rounded_button_outline);
-        btnOffice.setBackgroundResource(R.drawable.rounded_button_outline);
-        btnFriends.setBackgroundResource(R.drawable.rounded_button_outline);
-        btnHome.setTextColor(getResources().getColor(android.R.color.black));
-        btnOffice.setTextColor(getResources().getColor(android.R.color.black));
-        btnFriends.setTextColor(getResources().getColor(android.R.color.black));
-
-        // Set the selected button
-        switch (type) {
-            case "Home":
-                btnHome.setBackgroundResource(R.drawable.rounded_button_orange);
-                btnHome.setTextColor(getResources().getColor(android.R.color.white));
-                break;
-            case "Office":
-                btnOffice.setBackgroundResource(R.drawable.rounded_button_orange);
-                btnOffice.setTextColor(getResources().getColor(android.R.color.white));
-                break;
-            case "Friends":
-                btnFriends.setBackgroundResource(R.drawable.rounded_button_orange);
-                btnFriends.setTextColor(getResources().getColor(android.R.color.white));
-                break;
-        }
-    }
-
-    /**
-     * Validates the form fields
-     */
-    private boolean validateAddressForm() {
-        if (etFullName.getText().toString().trim().isEmpty()) {
-            etFullName.setError("Name is required");
-            return false;
-        }
         
-        if (etStreetAddress.getText().toString().trim().isEmpty()) {
-            etStreetAddress.setError("Street address is required");
-            return false;
-        }
-        
-        return true;
-    }
-
-    /**
-     * Saves the address information
-     */
-    private void saveAddress() {
-        // Here you would save the address to your database or shared preferences
-        // For now, we'll just show a toast
-        String fullName = etFullName.getText().toString();
-        Toast.makeText(this, "Address saved for " + fullName, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Check and request location permissions
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    LOCATION_PERMISSION_REQUEST_CODE);
-        } else {
-            enableMyLocation();
-        }
-
-        // Set up the map click listener
-        mMap.setOnMapClickListener(latLng -> {
-            selectedLocation = latLng;
-            mMap.clear();
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-            
-            // Show bottom sheet dialog
-            bottomSheetDialog.show();
-        });
-    }
-
-    /**
-     * Enables location tracking on the map and centers on the user's location
-     */
-    private void enableMyLocation() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-            
-            // Get the last known location
-            fusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
-                if (location != null) {
-                    LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
-                }
-            });
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                          @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                enableMyLocation();
-            } else {
-                Toast.makeText(this, "Location permission is required to select your location",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
     }
     
+    private void navigateToHome() {
+        Intent intent = new Intent(LocationSelectionActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
     }
 }

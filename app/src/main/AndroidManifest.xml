@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.foodapp">
-    
-    <!-- Location permissions -->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,14 +14,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         
-        <!-- Google Maps API Key -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_GOOGLE_MAPS_API_KEY" />
-        
-        <!-- Splash Activity -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -30,28 +27,26 @@
             </intent-filter>
         </activity>
         
-        <!-- Login Activity -->
-        <activity 
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
             
-        <!-- Tour Guide Activity -->
-        <activity 
+        <activity
             android:name=".TourGuideActivity"
             android:exported="false" />
             
-        <!-- Location Selection Activity -->
-        <activity 
+        <activity
             android:name=".LocationSelectionActivity"
             android:exported="false" />
             
-        <!-- Restaurant List Activity -->
-        <activity 
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+            
+        <activity
             android:name=".RestaurantListActivity"
             android:exported="false" />
             
-        <!-- Other activities will be added here -->
-        
     </application>
 
 </manifest>

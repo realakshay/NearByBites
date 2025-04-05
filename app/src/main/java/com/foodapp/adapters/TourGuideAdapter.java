@@ -13,22 +13,19 @@ public class TourGuideAdapter extends FragmentStateAdapter {
 
     private final int numPages;
 
-    public TourGuideAdapter(@NonNull FragmentActivity fragmentActivity, int numPages) {
-        super(fragmentActivity);
+    public TourGuideAdapter(FragmentActivity fa, int numPages) {
+        super(fa);
         this.numPages = numPages;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        // Create a new fragment for each page
+        // Create a TourGuideFragment for each page
         TourGuideFragment fragment = new TourGuideFragment();
-        
-        // Pass the page number to the fragment
         Bundle args = new Bundle();
-        args.putInt("page_position", position);
+        args.putInt("position", position);
         fragment.setArguments(args);
-        
         return fragment;
     }
 

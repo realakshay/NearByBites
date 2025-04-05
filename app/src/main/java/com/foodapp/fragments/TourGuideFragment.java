@@ -15,46 +15,41 @@ import com.foodapp.R;
 
 public class TourGuideFragment extends Fragment {
 
-    private int pagePosition;
+    private int position;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            pagePosition = getArguments().getInt("page_position", 0);
+            position = getArguments().getInt("position", 0);
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tour_guide, container, false);
         
-        // Initialize views
-        ImageView ivTourIcon = view.findViewById(R.id.ivTourIcon);
+        ImageView ivTourImage = view.findViewById(R.id.ivTourImage);
         TextView tvTourTitle = view.findViewById(R.id.tvTourTitle);
         TextView tvTourDescription = view.findViewById(R.id.tvTourDescription);
         
-        // Set content based on page position
-        switch (pagePosition) {
+        // Set the content based on position
+        switch (position) {
             case 0:
-                // First page - Order your favorite
-                ivTourIcon.setImageResource(R.drawable.tour_order);
-                tvTourTitle.setText(R.string.tour_order_title);
-                tvTourDescription.setText(R.string.tour_order_desc);
+                ivTourImage.setImageResource(R.drawable.ic_location);
+                tvTourTitle.setText("Find Restaurants Near You");
+                tvTourDescription.setText("Discover the best restaurants, cafes, and bars in your area.");
                 break;
             case 1:
-                // Second page - Fast Delivery
-                ivTourIcon.setImageResource(R.drawable.tour_delivery);
-                tvTourTitle.setText(R.string.tour_delivery_title);
-                tvTourDescription.setText(R.string.tour_delivery_desc);
+                ivTourImage.setImageResource(R.drawable.ic_meal);
+                tvTourTitle.setText("Choose Your Favorite Food");
+                tvTourDescription.setText("Browse menus and select from a variety of delicious meals.");
                 break;
             case 2:
-                // Third page - Live Tracking
-                ivTourIcon.setImageResource(R.drawable.tour_tracking);
-                tvTourTitle.setText(R.string.tour_tracking_title);
-                tvTourDescription.setText(R.string.tour_tracking_desc);
+                ivTourImage.setImageResource(R.drawable.star);
+                tvTourTitle.setText("Fast Delivery");
+                tvTourDescription.setText("Get your food delivered to your doorstep with fast and reliable service.");
                 break;
         }
         

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Initialize buttons
+        // Initialize views
         btnSignUp = findViewById(R.id.btnSignUp);
         btnSignIn = findViewById(R.id.btnSignIn);
 
@@ -25,9 +26,9 @@ public class SplashActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to login activity in registration mode
+                // Navigate to Login Activity in sign up mode
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                intent.putExtra("MODE", "REGISTER");
+                intent.putExtra("is_signup_mode", true);
                 startActivity(intent);
             }
         });
@@ -35,9 +36,9 @@ public class SplashActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to login activity in login mode
+                // Navigate to Login Activity in sign in mode
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                intent.putExtra("MODE", "LOGIN");
+                intent.putExtra("is_signup_mode", false);
                 startActivity(intent);
             }
         });

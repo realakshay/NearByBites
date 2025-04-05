@@ -1,125 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottomSheetLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
-    android:padding="16dp"
-    app:behavior_hideable="true"
-    app:behavior_peekHeight="0dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    android:padding="16dp">
 
-    <!-- Title and close button -->
-    <RelativeLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
+        android:text="Address Details"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Address Details"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    <EditText
+        android:id="@+id/etAddressLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address Line"
+        android:textColorHint="@color/colorGray"
+        android:textColor="@android:color/white"
+        android:background="@drawable/search_background"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp" />
 
-        <ImageButton
-            android:id="@+id/btnClose"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_close_clear_cancel" />
-    </RelativeLayout>
+    <EditText
+        android:id="@+id/etCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="City"
+        android:textColorHint="@color/colorGray"
+        android:textColor="@android:color/white"
+        android:background="@drawable/search_background"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp" />
 
-    <!-- Address Type Selection -->
-    <LinearLayout
+    <EditText
+        android:id="@+id/etState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="State"
+        android:textColorHint="@color/colorGray"
+        android:textColor="@android:color/white"
+        android:background="@drawable/search_background"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/etZipCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Zip Code"
+        android:textColorHint="@color/colorGray"
+        android:textColor="@android:color/white"
+        android:background="@drawable/search_background"
+        android:padding="12dp"
+        android:inputType="number"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Address Type"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <RadioGroup
+        android:id="@+id/rgAddressType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="16dp">
 
-        <Button
-            android:id="@+id/btnHome"
-            android:layout_width="0dp"
+        <RadioButton
+            android:id="@+id/rbHome"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_button_orange"
             android:text="Home"
-            android:textColor="#FFFFFF" />
+            android:textColor="@android:color/white"
+            android:checked="true"
+            android:layout_marginRight="16dp" />
 
-        <Button
-            android:id="@+id/btnOffice"
-            android:layout_width="0dp"
+        <RadioButton
+            android:id="@+id/rbWork"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/rounded_button_outline"
-            android:text="Office"
-            android:textColor="#000000" />
+            android:text="Work"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="16dp" />
 
-        <Button
-            android:id="@+id/btnFriends"
-            android:layout_width="0dp"
+        <RadioButton
+            android:id="@+id/rbOther"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_button_outline"
-            android:text="Friends"
-            android:textColor="#000000" />
-    </LinearLayout>
+            android:text="Other"
+            android:textColor="@android:color/white" />
+    </RadioGroup>
 
-    <!-- Address Form Fields -->
-    <EditText
-        android:id="@+id/etFullName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/edit_text_border"
-        android:hint="Full Name*"
-        android:inputType="textPersonName"
-        android:padding="12dp" />
-
-    <EditText
-        android:id="@+id/etStreetAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/edit_text_border"
-        android:hint="Address (street name, building name)*"
-        android:inputType="textPostalAddress"
-        android:padding="12dp" />
-
-    <EditText
-        android:id="@+id/etCityAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/edit_text_border"
-        android:hint="Address (city/village name)"
-        android:inputType="textPostalAddress"
-        android:padding="12dp" />
-
-    <EditText
-        android:id="@+id/etLandmark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/edit_text_border"
-        android:hint="Nearby Landmark (optional)"
-        android:inputType="text"
-        android:padding="12dp" />
-
-    <!-- Save Button -->
     <Button
         android:id="@+id/btnSaveAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button_orange"
         android:text="Save Address"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold" />
+        android:textColor="@android:color/white"
+        android:background="@drawable/rounded_button_orange"
+        android:padding="12dp" />
 
 </LinearLayout>
