@@ -1,4 +1,4 @@
-name: Build APK
+name: Build Debug APK
 
 on:
   push:
@@ -7,25 +7,30 @@ on:
 
 jobs:
   build:
+    name: Build APK
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-        
+        uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
           distribution: 'temurin'
-          
-      - name: Make Gradle executable
+          java-version: 17
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Make gradlew executable
         run: chmod +x ./gradlew
-        
-      - name: Build with Gradle
+
+      - name: Build Debug APK
         run: ./gradlew assembleDebug
-        
-      - name: Upload APK
+
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v3
         with:
-          name: app-debug
+          name: debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
