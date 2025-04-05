@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Food App</string>
+    
+    <!-- Login and Registration -->
     <string name="login_subtitle">Login to your account</string>
     <string name="signup_subtitle">Create a new account</string>
     <string name="email_hint">Email</string>
@@ -14,10 +16,68 @@
     <string name="signup_now">Sign up now</string>
     <string name="have_account">Already have an account?</string>
     <string name="login_now">Login now</string>
+    
+    <!-- Menu -->
+    <string name="menu">Menu</string>
+    <string name="error_loading_menu">Error loading menu. Please try again.</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="view_cart">View Cart</string>
     <string name="share">Share</string>
+    
+    <!-- Tour Guide -->
     <string name="skip">Skip</string>
     <string name="next">Next</string>
     <string name="start">Start</string>
+    
+    <!-- Restaurant Details -->
+    <string name="restaurant_image">Restaurant Image</string>
+    <string name="address">Address</string>
+    <string name="restaurant_list">Restaurants</string>
+    <string name="view_menu">View Menu</string>
+    
+    <!-- Order -->
+    <string name="order_success">Order Success</string>
+    <string name="order_placed_successfully">Your order has been placed successfully!</string>
+    <string name="order_details">Order Details</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="delivery_fee">Delivery Fee</string>
+    <string name="total">Total</string>
+    <string name="return_to_home">Return to Home</string>
+    
+    <!-- Cart -->
+    <string name="remove">Remove</string>
+    <string name="checkout">Checkout</string>
+    <string name="apply_promo">Apply Promo</string>
+    
+    <!-- Checkout -->
+    <string name="delivery_address">Delivery Address</string>
+    <string name="change_address">Change</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="add_new_card">Add New Card</string>
+    <string name="place_order">Place Order</string>
+    
+    <!-- Payment -->
+    <string name="card_details">Card Details</string>
+    <string name="card_number">Card Number</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="cvv">CVV</string>
+    <string name="cardholder_name">Cardholder Name</string>
+    <string name="save_card">Save Card</string>
+    
+    <!-- Profile -->
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="logout">Logout</string>
+    <string name="saved_addresses">Saved Addresses</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="orders">Orders</string>
+    <string name="favorites">Favorites</string>
+    
+    <!-- Misc -->
+    <string name="retry">Retry</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+    <string name="done">Done</string>
+    <string name="home">Home</string>
 </resources>
