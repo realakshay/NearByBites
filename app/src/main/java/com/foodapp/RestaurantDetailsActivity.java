@@ -38,7 +38,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Menu
     
     private Restaurant restaurant;
     private boolean isFavorite = false;
-    private List<MenuItem> cartItems = new ArrayList<>();
+    private List<com.foodapp.models.MenuItem> cartItems = new ArrayList<>();
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +159,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Menu
     }
     
     @Override
-    public void onAddToCartClicked(MenuItem menuItem) {
+    public void onAddToCartClicked(com.foodapp.models.MenuItem menuItem) {
         // Check if the item is already in the cart
         boolean itemExists = false;
         for (com.foodapp.models.MenuItem item : cartItems) {
