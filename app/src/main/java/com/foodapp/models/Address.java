@@ -28,6 +28,18 @@ public class Address implements Serializable {
         this.country = country;
     }
 
+    public Address(String type, String addressLine1, String addressLine2, String city, String state, String zipCode, double latitude, double longitude) {
+        this.type = type;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+
     public int getId() {
         return id;
     }
@@ -115,6 +127,11 @@ public class Address implements Serializable {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public String getLabel() {
+        return type;
+    }
+
 
     @Override
     public String toString() {
