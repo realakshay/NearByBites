@@ -37,7 +37,7 @@ public class SetFilterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_filter);
         
         // Initialize FilterManager
-        filterManager = FilterManager.getInstance(this);
+        filterManager = FilterManager.getInstance();
         
         // Initialize views
         initViews();

@@ -38,7 +38,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Promo Description"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvPromoDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20% OFF"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPromoPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$12.99"
+                android:textColor="#FFFFFF"
                 android:textSize="14sp" />
+
 
         </LinearLayout>
 

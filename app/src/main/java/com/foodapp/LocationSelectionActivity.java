@@ -65,9 +65,9 @@ public class LocationSelectionActivity extends AppCompatActivity {
         savedAddresses = new ArrayList<>();
         
         // Add some dummy addresses for demo
-        savedAddresses.add(new Address("Home", "123 Main Street", "Apt 4B", "New York", "NY", "10001", "40.7128", "-74.0060"));
-        savedAddresses.add(new Address("Work", "456 Park Avenue", "Floor 20", "New York", "NY", "10022", "40.7624", "-73.9738"));
-        savedAddresses.add(new Address("Gym", "789 Fitness Way", "", "New York", "NY", "10013", "40.7254", "-74.0051"));
+        savedAddresses.add(new Address("Home", "123 Main Street", "Apt 4B", "New York", "NY", "10001", 40.7128, -74.0060));
+        savedAddresses.add(new Address("Work", "456 Park Avenue", "Floor 20", "New York", "NY", "10022", 40.7624, -73.9738));
+        savedAddresses.add(new Address("Gym", "789 Fitness Way", "", "New York", "NY", "10013", 40.7254, -74.0051));
     }
     
     private void setupRecyclerView() {
@@ -79,7 +79,7 @@ public class LocationSelectionActivity extends AppCompatActivity {
     private void setupButtonListeners() {
         btnUseCurrentLocation.setOnClickListener(v -> {
             // For demo purposes, create a current location address
-            Address currentLocation = new Address("Current Location", "Current Street", "", "Current City", "State", "12345", "0", "0");
+            Address currentLocation = new Address("Current Location", "Current Street", "", "Current City", "State", "12345", 0, 0);
             selectAddress(currentLocation);
         });
         

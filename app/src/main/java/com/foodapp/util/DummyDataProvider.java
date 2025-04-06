@@ -1,4 +1,4 @@
-package com.foodapp.util;
+package com.foodapp.utils;
 
 import com.foodapp.models.MenuItem;
 import com.foodapp.models.Restaurant;
@@ -20,16 +20,16 @@ public class DummyDataProvider {
     private DummyDataProvider() {
         // Initialize restaurants
         restaurants = new ArrayList<>();
-        restaurants.add(new Restaurant(1, "Italian Delight", "Italian", "123 Main St, New York, NY", 4.5f, 15, 25, true));
-        restaurants.add(new Restaurant(2, "Spice Garden", "Indian", "456 Oak Ave, New York, NY", 4.2f, 20, 35, true));
-        restaurants.add(new Restaurant(3, "Sushi World", "Japanese", "789 Pine Blvd, New York, NY", 4.7f, 25, 40, false));
-        restaurants.add(new Restaurant(4, "Taco Heaven", "Mexican", "101 Elm St, New York, NY", 4.0f, 10, 20, true));
-        restaurants.add(new Restaurant(5, "Burger Joint", "American", "202 Maple Dr, New York, NY", 4.3f, 12, 25, true));
-        restaurants.add(new Restaurant(6, "Noodle House", "Chinese", "303 Cherry Ln, New York, NY", 4.1f, 15, 30, true));
-        restaurants.add(new Restaurant(7, "Mediterranean Palace", "Mediterranean", "404 Olive Rd, New York, NY", 4.6f, 20, 30, true));
-        restaurants.add(new Restaurant(8, "Seoul Kitchen", "Korean", "505 Peach St, New York, NY", 4.4f, 25, 35, true));
-        restaurants.add(new Restaurant(9, "Thai Spice", "Thai", "606 Walnut Ave, New York, NY", 4.2f, 15, 25, false));
-        restaurants.add(new Restaurant(10, "Falafel King", "Middle Eastern", "707 Pineapple Blvd, New York, NY", 4.3f, 20, 30, true));
+        restaurants.add(new Restaurant(1, "Italian Delight", "Italian", "123 Main St, New York, NY", "4.5", "15", "5", true));
+        restaurants.add(new Restaurant(2, "Spice Garden", "Indian", "456 Oak Ave, New York, NY", "4.2", "20", "35", true));
+        restaurants.add(new Restaurant(3, "Sushi World", "Japanese", "789 Pine Blvd, New York, NY", "4.7", "25", "40", false));
+        restaurants.add(new Restaurant(4, "Taco Heaven", "Mexican", "101 Elm St, New York, NY", "4.0", "10", "20", true));
+        restaurants.add(new Restaurant(5, "Burger Joint", "American", "202 Maple Dr, New York, NY", "4.3", "12", "25", true));
+        restaurants.add(new Restaurant(6, "Noodle House", "Chinese", "303 Cherry Ln, New York, NY", "4.1", "15", "30", true));
+        restaurants.add(new Restaurant(7, "Mediterranean Palace", "Mediterranean", "404 Olive Rd, New York, NY", "4.6", "20", "30", true));
+        restaurants.add(new Restaurant(8, "Seoul Kitchen", "Korean", "505 Peach St, New York, NY", "4.4", "25", "35", true));
+        restaurants.add(new Restaurant(9, "Thai Spice", "Thai", "606 Walnut Ave, New York, NY", "4.2", "15", "25", false));
+        restaurants.add(new Restaurant(10, "Falafel King", "Middle Eastern", "707 Pineapple Blvd, New York, NY", "4.3", "20", "30", true));
 
         // Initialize menu items
         menuItemsMap = new HashMap<>();

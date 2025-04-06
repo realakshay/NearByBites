@@ -74,7 +74,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartI
         ivBack.setOnClickListener(v -> finish());
         
         // Get cart items
-        cartItems = cartManager.getCartItems();
+        cartItems = cartManager.getCartItemsAsCartItems();
         
         // Setup RecyclerView
         setupRecyclerView();

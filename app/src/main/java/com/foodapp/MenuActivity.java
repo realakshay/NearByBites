@@ -17,7 +17,7 @@ import com.foodapp.api.ApiClient;
 import com.foodapp.api.FoodService;
 import com.foodapp.models.CartItem;
 import com.foodapp.models.MenuItem;
-import com.foodapp.util.CartManager;
+import com.foodapp.utils.CartManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class MenuActivity extends AppCompatActivity implements MenuAdapter.MenuI
         btnViewCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (CartManager.getInstance().getCartItems().size() > 0) {
+                if (CartManager.getInstance(MenuActivity.this).getCartItems().size() > 0) {
                     Intent intent = new Intent(MenuActivity.this, CartActivity.class);
                     intent.putExtra("restaurant_name", restaurantName);
                     startActivity(intent);
@@ -229,13 +229,13 @@ public class MenuActivity extends AppCompatActivity implements MenuAdapter.MenuI
 
     @Override
     public void onAddToCart(MenuItem menuItem) {
-        CartManager.getInstance().addToCart(new CartItem(menuItem, restaurantId, restaurantName));
-        Toast.makeText(this, menuItem.getName() + " added to cart", Toast.LENGTH_SHORT).show();
+        CartManager.getInstance(MenuActivity.this).addItem(menuItem);
         updateCartButton();
+        Toast.makeText(this, menuItem.getName() + " added to cart", Toast.LENGTH_SHORT).show();
     }
 
     private void updateCartButton() {
-        int cartSize = CartManager.getInstance().getCartItems().size();
+        int cartSize = CartManager.getInstance(MenuActivity.this).getCartItems().size();
         if (cartSize > 0) {
             btnViewCart.setText("View Cart (" + cartSize + ")");
             btnViewCart.setEnabled(true);

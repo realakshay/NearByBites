@@ -42,7 +42,7 @@ public class RestaurantsListActivity extends AppCompatActivity implements Filter
         setContentView(R.layout.activity_restaurants_list);
         
         // Initialize FilterManager
-        filterManager = FilterManager.getInstance(this);
+        filterManager = FilterManager.getInstance();
         
         // Initialize views
         initViews();
@@ -126,24 +126,20 @@ public class RestaurantsListActivity extends AppCompatActivity implements Filter
         allRestaurants = new ArrayList<>();
         
         // Add some restaurants with different categories
-        allRestaurants.add(new Restaurant(1, "McDonald's", "123 Main St", "Fast Food, Burger, Chicken", 4.2f, 20, 1.2f, R.drawable.restaurant_1, "Fast Food", "$"));
-        allRestaurants.add(new Restaurant(2, "Pizza Hut", "456 Main St", "Pizza, Italian", 4.5f, 30, 2.5f, R.drawable.restaurant_2, "Pizza", "$$"));
-        allRestaurants.add(new Restaurant(3, "Papa John's", "789 Elm St", "Pizza, Italian", 4.6f, 25, 1.5f, R.drawable.restaurant_3, "Pizza", "$$"));
-        allRestaurants.add(new Restaurant(4, "KFC", "101 Oak St", "Fast Food, Chicken", 4.0f, 15, 0.8f, R.drawable.restaurant_4, "Chicken", "$"));
-        allRestaurants.add(new Restaurant(5, "Subway", "202 Pine St", "Sandwiches, Healthy", 4.3f, 10, 1.7f, R.drawable.restaurant_1, "Fast Food", "$"));
-        allRestaurants.add(new Restaurant(6, "Taco Bell", "303 Maple St", "Mexican, Fast Food", 3.9f, 25, 3.2f, R.drawable.restaurant_2, "Fast Food", "$"));
-        allRestaurants.add(new Restaurant(7, "Outback Steakhouse", "404 Birch St", "Steak, American", 4.7f, 40, 4.5f, R.drawable.restaurant_3, "Steak", "$$$"));
-        allRestaurants.add(new Restaurant(8, "Jollibee", "505 Cedar St", "Filipino, Chicken, Fast Food", 4.6f, 20, 2.1f, R.drawable.restaurant_4, "Chicken", "$"));
-        allRestaurants.add(new Restaurant(9, "Dunkin' Donuts", "606 Walnut St", "Donuts, Coffee, Breakfast", 4.4f, 10, 1.3f, R.drawable.restaurant_1, "Donut", "$"));
-        allRestaurants.add(new Restaurant(10, "Starbucks", "707 Maple St", "Coffee, Breakfast", 4.5f, 5, 0.5f, R.drawable.restaurant_2, "Coffee", "$$"));
-        allRestaurants.add(new Restaurant(11, "Nando's", "808 Oak St", "Chicken, Portuguese", 4.8f, 30, 3.7f, R.drawable.restaurant_3, "Chicken", "$$"));
-        allRestaurants.add(new Restaurant(12, "Chipotle", "909 Pine St", "Mexican, Healthy", 4.5f, 15, 1.9f, R.drawable.restaurant_4, "Mexican", "$$"));
-        allRestaurants.add(new Restaurant(13, "Olive Garden", "111 Main St", "Italian, Pasta", 4.3f, 35, 4.2f, R.drawable.restaurant_1, "Italian", "$$$"));
-        allRestaurants.add(new Restaurant(14, "Burger King", "222 Elm St", "Fast Food, Burger", 3.8f, 15, 1.4f, R.drawable.restaurant_2, "Fast Food", "$"));
-        allRestaurants.add(new Restaurant(15, "Red Lobster", "333 Oak St", "Seafood, American", 4.6f, 45, 5.3f, R.drawable.restaurant_3, "Seafood", "$$$$"));
-        allRestaurants.add(new Restaurant(16, "Asian Rice Bowl", "444 Pine St", "Asian, Rice", 4.5f, 20, 2.0f, R.drawable.restaurant_4, "Rice", "$$"));
-        allRestaurants.add(new Restaurant(17, "Rice Palace", "555 Oak St", "Asian, Rice, Thai", 4.7f, 25, 2.3f, R.drawable.restaurant_1, "Rice", "$$"));
-        allRestaurants.add(new Restaurant(18, "Kebab King", "666 Elm St", "Middle Eastern, Kebab", 4.3f, 15, 1.8f, R.drawable.restaurant_2, "Kebab", "$"));
+        allRestaurants.add(new Restaurant(1, "McDonald's", "123 Main St", "Fast Food, Burger, Chicken", "4.2", "20", "1.2", R.drawable.restaurant_1, "$"));
+        allRestaurants.add(new Restaurant(2, "Pizza Hut", "456 Main St", "Pizza, Italian", "4.5", "30", "2.5", R.drawable.restaurant_2,  "$$"));
+        allRestaurants.add(new Restaurant(3, "Papa John's", "789 Elm St", "Pizza, Italian", "4.6", "25", "1.5", R.drawable.restaurant_3,  "$$"));
+        allRestaurants.add(new Restaurant(4, "KFC", "101 Oak St", "Fast Food, Chicken", "4.0", "15", "0.8", R.drawable.restaurant_4,  "$"));
+        allRestaurants.add(new Restaurant(5, "Subway", "202 Pine St", "Sandwiches, Healthy", "4.0", "15", "0.8", R.drawable.restaurant_1,  "$"));
+        allRestaurants.add(new Restaurant(6, "Taco Bell", "303 Maple St", "Mexican, Fast Food", "4.7", "5", "1.8", R.drawable.restaurant_2, "$"));
+        allRestaurants.add(new Restaurant(7, "Outback Steakhouse", "404 Birch St", "Steak, American", "4.7", "5", "1.8", R.drawable.restaurant_3, "$$$"));
+        allRestaurants.add(new Restaurant(8, "Jollibee", "505 Cedar St", "Filipino, Chicken, Fast Food","4.0", "15", "0.8", R.drawable.restaurant_4,  "$"));
+        allRestaurants.add(new Restaurant(9, "Dunkin' Donuts", "606 Walnut St", "Donuts, Coffee, Breakfast", "4.7", "5", "1.8", R.drawable.restaurant_1,  "$"));
+        allRestaurants.add(new Restaurant(10, "Starbucks", "707 Maple St", "Coffee, Breakfast", "4.0", "15", "0.8", R.drawable.restaurant_2, "$$"));
+        allRestaurants.add(new Restaurant(11, "Nando's", "808 Oak St", "Chicken, Portuguese", "4.2", "15", "1.8", R.drawable.restaurant_3,  "$$"));
+        allRestaurants.add(new Restaurant(12, "Chipotle", "909 Pine St", "Mexican, Healthy", "4.0", "15", "0.8", R.drawable.restaurant_4,  "$$"));
+        allRestaurants.add(new Restaurant(13, "Olive Garden", "111 Main St", "Italian, Pasta", "4.3", "25", "1.8", R.drawable.restaurant_1, "$$$"));
+        allRestaurants.add(new Restaurant(14, "Burger King", "222 Elm St", "Fast Food, Burger", "3.0", "15", "1.8", R.drawable.restaurant_2,  "$"));
         
         // Create filtered list initially with all restaurants
         filteredRestaurants = new ArrayList<>(allRestaurants);
@@ -155,7 +151,7 @@ public class RestaurantsListActivity extends AppCompatActivity implements Filter
     
     private void applyFiltersAndUpdateUI() {
         // Apply filters if they are active
-        if (filterManager.isFilterActive()) {
+        if (filterManager.isFilterApplied()) {
             applyFilters();
         } else {
             // If filters are not active, show all restaurants
@@ -205,21 +201,17 @@ public class RestaurantsListActivity extends AppCompatActivity implements Filter
     private void sortRestaurants(String sortOption) {
         switch (sortOption) {
             case "Fast Delivery":
-                filteredRestaurants.sort((r1, r2) -> 
-                        Integer.compare(r1.getDeliveryTime(), r2.getDeliveryTime()));
+                filteredRestaurants.sort((r1, r2) ->
+                        Integer.compare(Integer.parseInt(r1.getDeliveryTime()), Integer.parseInt(r2.getDeliveryTime())));
                 break;
             case "Near You":
-                filteredRestaurants.sort((r1, r2) -> 
-                        Float.compare(r1.getDistance(), r2.getDistance()));
+                filteredRestaurants.sort((r1, r2) ->
+                        Float.compare(Float.parseFloat(r1.getDistance()), Float.parseFloat(r2.getDistance())));
                 break;
             case "Popular":
-                filteredRestaurants.sort((r1, r2) -> 
-                        Float.compare(r2.getRating(), r1.getRating()));
-                break;
             case "Trending":
-                // For demo, just do the same as popular
-                filteredRestaurants.sort((r1, r2) -> 
-                        Float.compare(r2.getRating(), r1.getRating()));
+                filteredRestaurants.sort((r1, r2) ->
+                        Float.compare(Float.parseFloat(r2.getRating()), Float.parseFloat(r1.getRating())));
                 break;
         }
     }

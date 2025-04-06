@@ -160,4 +160,12 @@ public class CartManager {
     public int getItemCount() {
         return getTotalItems();
     }
+
+    public void removeItemFromCart(int itemId){
+        // Remove item from cart
+        if (cartItems.containsKey(itemId)) {
+            cartItems.remove(itemId);
+            saveCartItems();
+        }
+    }
 }

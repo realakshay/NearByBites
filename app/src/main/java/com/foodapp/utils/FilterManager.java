@@ -16,6 +16,7 @@ public class FilterManager {
     private int maxDeliveryTime;
     private float minRating;
     private boolean filterApplied;
+    private String selectedSort = "";
     
     private FilterManager() {
         selectedCategories = new HashSet<>();
@@ -112,5 +113,44 @@ public class FilterManager {
     
     public boolean isFilterApplied() {
         return filterApplied;
+    }
+
+    public boolean isCategorySelected(String category) {
+        return selectedCategories.contains(category);
+    }
+
+    public boolean isPriceSelected(String price) {
+        return selectedPrices.contains(price);
+    }
+
+    public boolean isSortSelected(String sort) {
+        return selectedSort.equals(sort);
+    }
+
+    public void setSelectedSort(String sort) {
+        selectedSort = sort;
+        filterApplied = true;
+    }
+
+    public String getSelectedSort() {
+        return selectedSort;
+    }
+
+    public void setSelectedCategories(Set<String> categories) {
+        selectedCategories.clear();
+        selectedCategories.addAll(categories);
+        filterApplied = true;
+    }
+
+    public void resetFilters() {
+        clearFilters();
+    }
+
+    public void setFilterActive(boolean isActive) {
+        filterApplied = isActive;
+    }
+
+    public void saveFilterSettings() {
+        // Future implementation (e.g., shared preferences)
     }
 }

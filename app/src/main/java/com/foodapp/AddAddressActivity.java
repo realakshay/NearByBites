@@ -127,8 +127,8 @@ public class AddAddressActivity extends AppCompatActivity {
                 city,
                 state,
                 zipCode,
-                "0", // latitude (placeholder)
-                "0"  // longitude (placeholder)
+                0, // latitude (placeholder)
+                0  // longitude (placeholder)
         );
         
         // Save address and set as selected

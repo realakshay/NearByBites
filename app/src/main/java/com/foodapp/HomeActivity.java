@@ -123,20 +123,20 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 
-                if (itemId == R.id.action_home) {
+                if (itemId == R.id.nav_home) {
                     // Already on HomeActivity
                     return true;
-                } else if (itemId == R.id.action_orders) {
+                } else if (itemId == R.id.nav_orders) {
                     // Navigate to OrdersActivity
                     Intent intent = new Intent(HomeActivity.this, OrdersActivity.class);
                     startActivity(intent);
                     return true;
-                } else if (itemId == R.id.action_favorites) {
+                } else if (itemId == R.id.nav_favorites) {
                     // Navigate to FavoritesActivity
                     Intent intent = new Intent(HomeActivity.this, FavoritesActivity.class);
                     startActivity(intent);
                     return true;
-                } else if (itemId == R.id.action_profile) {
+                } else if (itemId == R.id.nav_profile) {
                     // Navigate to ProfileActivity
                     Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                     startActivity(intent);

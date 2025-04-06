@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 import com.foodapp.models.Address;
 import com.foodapp.models.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Utility class for managing shared preferences.
@@ -16,6 +20,7 @@ public class PreferenceManager {
     private static final String KEY_ADDRESS = "key_address";
     private static final String KEY_IS_LOGGED_IN = "key_is_logged_in";
     private static final String KEY_IS_FIRST_TIME = "key_is_first_time";
+    private static final String KEY_ADDRESS_LIST = "key_address_list";
 
     private SharedPreferences preferences;
     private Gson gson;
@@ -48,6 +53,19 @@ public class PreferenceManager {
         return null;
     }
 
+    public User loginUser(String email, String password) {
+        User savedUser = getCurrentUser();
+
+        if (savedUser != null &&
+            savedUser.getEmail().equalsIgnoreCase(email) &&
+            savedUser.getPassword().equals(password)) {
+            setLoggedIn(true);
+            return savedUser;
+        }
+
+        return null;
+    }
+
     /**
      * Save user selected address to shared preferences.
      *
@@ -70,6 +88,27 @@ public class PreferenceManager {
         }
         return null;
     }
+    
+    /**
+     * Save list of addresses to SharedPreferences.
+     */
+    public void saveAddressList(List<Address> addressList) {
+        String json = gson.toJson(addressList);
+        preferences.edit().putString(KEY_ADDRESS_LIST, json).apply();
+    }
+
+    /**
+     * Get the list of saved addresses from SharedPreferences.
+     */
+    public List<Address> getAddresses() {
+        // String json = preferences.getString(KEY_ADDRESS_LIST, null);
+        // if (json != null) {
+        //     Type type = new TypeToken<List<Address>>() {}.getType();
+        //     return gson.fromJson(json, type);
+        // }
+        return new ArrayList<>();
+    }
+    
 
     /**
      * Set login status.
@@ -112,5 +151,24 @@ public class PreferenceManager {
      */
     public void clearPreferences() {
         preferences.edit().clear().apply();
+    }
+
+    public void logoutCurrentUser() {
+        clearPreferences();
+    }
+
+    /**
+     * Sets the current user and marks them as logged in.
+     *
+     * @param user The user to set as current
+     */
+    public void setCurrentUser(User user) {
+        saveUser(user);
+        setLoggedIn(true);
+    }
+
+    public boolean registerUser(User user){
+        saveUser(user);
+        return true;
     }
 }

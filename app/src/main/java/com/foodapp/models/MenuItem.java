@@ -3,7 +3,8 @@ package com.foodapp.models;
 import java.io.Serializable;
 
 public class MenuItem implements Serializable {
-    private int id;
+    private int id;    
+    private int restaurentId;
     private String name;
     private String description;
     private double price;
@@ -11,6 +12,31 @@ public class MenuItem implements Serializable {
     private String imageUrl;
     private int quantity;
     private String category;
+    private boolean isVeg;
+    private boolean isSpicy;
+
+    // Constructor with resource ID
+    public MenuItem(int id, int restaurentId, String name, String description, double price) {
+        this.id = id;
+        this.id = restaurentId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = 0;
+    }
+
+    // Constructor with resto ID
+    public MenuItem(int id, int restaurentId, String name, String description, double price, String imageUrl, String category, boolean isVeg, boolean isSpicy) {
+        this.id = id;
+        this.id = restaurentId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.category = category;
+        this.isVeg = isVeg;
+        this.isSpicy = isSpicy;
+    }
 
     // Constructor with resource ID
     public MenuItem(int id, String name, String description, double price, int imageResourceId) {
@@ -23,13 +49,15 @@ public class MenuItem implements Serializable {
     }
 
     // Constructor with image URL
-    public MenuItem(int id, String name, String description, double price, String imageUrl) {
+    public MenuItem(int id, String name, String description, double price, String imageUrl, boolean isVeg, boolean isSpicy) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.imageUrl = imageUrl;
         this.quantity = 0;
+        this.isVeg = isVeg;
+        this.isSpicy = isSpicy;
     }
 
     // Constructor with category
@@ -115,5 +143,9 @@ public class MenuItem implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public double getTotalPrice() {
+        return price * quantity;
     }
 }

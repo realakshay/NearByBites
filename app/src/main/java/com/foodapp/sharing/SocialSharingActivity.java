@@ -83,7 +83,7 @@ public class SocialSharingActivity extends AppCompatActivity {
         if (getIntent().hasExtra("restaurant_id")) {
             int restaurantId = getIntent().getIntExtra("restaurant_id", 0);
             // In a real app, you would load the actual Restaurant from your database
-            restaurant = new Restaurant(restaurantId, "Restaurant Name", "123 Main St", "Cuisine", 4.5f, 30, 1.5f, R.drawable.restaurant_1);
+            restaurant = new Restaurant(restaurantId, "Restaurant Name", "123 Main St", "Cuisine", "4.5", "30", "1.5", R.drawable.restaurant_1);
         }
     }
     

@@ -59,9 +59,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuItemViewHo
 
         public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivFoodImage = itemView.findViewById(R.id.ivFoodImage);
+            ivFoodImage = itemView.findViewById(R.id.ivMenuItem);
             tvItemName = itemView.findViewById(R.id.tvItemName);
-            tvItemDescription = itemView.findViewById(R.id.tvItemDescription);
+            tvItemDescription = itemView.findViewById(R.id.tvMenuItemDescription);
             tvItemPrice = itemView.findViewById(R.id.tvItemPrice);
             btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
         }

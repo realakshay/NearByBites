@@ -62,7 +62,7 @@ public class PromoItemAdapter extends RecyclerView.Adapter<PromoItemAdapter.Prom
         
         public PromoItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivPromoImage = itemView.findViewById(R.id.ivPromoImage);
+            ivPromoImage = itemView.findViewById(R.id.ivPromo);
             tvPromoDescription = itemView.findViewById(R.id.tvPromoDescription);
             tvPromoDiscount = itemView.findViewById(R.id.tvPromoDiscount);
             tvPromoPrice = itemView.findViewById(R.id.tvPromoPrice);

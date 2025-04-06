@@ -204,4 +204,9 @@ public class SignupActivity extends AppCompatActivity {
         // Simply go back to previous screen, typically LoginActivity
         super.onBackPressed();
     }
+
+    public boolean registerUser(User user) {
+        // Dummy logic for now
+        return true;
+    }
 }

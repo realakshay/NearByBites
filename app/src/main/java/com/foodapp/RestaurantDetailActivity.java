@@ -63,7 +63,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         tvRestaurantName.setText(restaurant.getName());
         tvCuisine.setText(restaurant.getCuisine());
         tvRating.setText(String.format("%.1f★", restaurant.getRating()));
-        tvDeliveryTime.setText(String.format("%d-%d min", restaurant.getMinDeliveryTime(), restaurant.getMaxDeliveryTime()));
+        tvDeliveryTime.setText(restaurant.getDeliveryTimeMinutes());
         tvAddress.setText(restaurant.getAddress());
 
         // Load image using Glide

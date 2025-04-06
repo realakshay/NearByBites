@@ -57,9 +57,10 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         // Setup RecyclerView for order items
         recyclerViewOrderItems.setLayoutManager(new LinearLayoutManager(this));
-        cartAdapter = new CartAdapter(order.getItems(), null);
+        cartAdapter = new CartAdapter(this, order.getItems());
         cartAdapter.setReadOnly(true);
         recyclerViewOrderItems.setAdapter(cartAdapter);
+
 
         // Setup button to return to main screen
         btnReturnHome.setOnClickListener(new View.OnClickListener() {

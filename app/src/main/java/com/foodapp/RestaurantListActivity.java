@@ -71,7 +71,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     private void loadUserInfo() {
         User currentUser = preferenceManager.getCurrentUser();
         if (currentUser != null) {
-            tvUserName.setText("Hello, " + currentUser.getName());
+            tvUserName.setText("Hello, " + currentUser.getFirstName());
         }
     }
     
@@ -107,7 +107,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     }
     
     private void logoutUser() {
-        preferenceManager.logoutUser();
+        preferenceManager.logoutCurrentUser();
         
         // Navigate back to login screen
         Intent intent = new Intent(RestaurantListActivity.this, LoginActivity.class);

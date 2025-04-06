@@ -78,9 +78,9 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Menu
                 "Burger Palace",
                 "123 Main Street, New York",
                 "American, Fast Food",
-                4.5f,
-                30,
-                15,
+                "4.5",
+                "30",
+                "15",
                 R.drawable.restaurant_1
         );
 

@@ -34,6 +34,15 @@ public class PromoItem implements Serializable {
         this.expiryDate = expiryDate;
     }
 
+    public PromoItem(int id, String title, String description, double discount, String code,  int imageResourceId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.discount = discount;
+        this.imageResourceId = imageResourceId;
+    }
+
     public int getId() {
         return id;
     }

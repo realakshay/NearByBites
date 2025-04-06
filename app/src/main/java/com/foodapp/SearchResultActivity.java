@@ -89,15 +89,18 @@ public class SearchResultActivity extends AppCompatActivity implements Restauran
     private void loadRestaurants() {
         // Initialize restaurants (in a real app, this would come from a database or API)
         allRestaurants = new ArrayList<>();
-        allRestaurants.add(new Restaurant(1, "McDonald's", "123 Main St", "Fast Food, American Food, Pasta", 4.2f, 20, 1.2f, R.drawable.restaurant_1, "Fast Food", "$"));
-        allRestaurants.add(new Restaurant(2, "Pizza Hut", "456 Main St", "Pizza, Italian Food, Pasta", 4.5f, 30, 2.5f, R.drawable.restaurant_2, "Pizza", "$$"));
-        allRestaurants.add(new Restaurant(3, "Jollibee", "789 Main St", "Fast Food, Filipino Food, Pasta", 4.7f, 25, 1.5f, R.drawable.restaurant_3, "Chicken", "$"));
-        allRestaurants.add(new Restaurant(4, "KFC", "101 Main St", "Fast Food, American Food, Chicken", 4.0f, 15, 0.8f, R.drawable.restaurant_4, "Chicken", "$"));
-        allRestaurants.add(new Restaurant(5, "Burger King", "202 Main St", "Fast Food, Burgers", 3.8f, 25, 1.0f, R.drawable.restaurant_1, "Fast Food", "$"));
-        allRestaurants.add(new Restaurant(6, "Domino's Pizza", "303 Main St", "Pizza, Italian Food", 4.3f, 35, 3.0f, R.drawable.restaurant_2, "Pizza", "$$"));
-        allRestaurants.add(new Restaurant(7, "Taco Bell", "404 Main St", "Fast Food, Mexican Food", 3.9f, 20, 1.8f, R.drawable.restaurant_3, "Fast Food", "$"));
-        allRestaurants.add(new Restaurant(8, "Subway", "505 Main St", "Sandwiches, Healthy Food", 4.1f, 15, 0.5f, R.drawable.restaurant_4, "Fast Food", "$"));
-    }
+        allRestaurants.add(new Restaurant(1, "McDonald's", "123 Main St", "Fast Food, Burger, Chicken", "4.2", "20", "1.2", R.drawable.restaurant_1, "$"));
+        allRestaurants.add(new Restaurant(2, "Pizza Hut", "456 Main St", "Pizza, Italian", "4.5", "30", "2.5", R.drawable.restaurant_2,  "$$"));
+        allRestaurants.add(new Restaurant(3, "Papa John's", "789 Elm St", "Pizza, Italian", "4.6", "25", "1.5", R.drawable.restaurant_3,  "$$"));
+        allRestaurants.add(new Restaurant(4, "KFC", "101 Oak St", "Fast Food, Chicken", "4.0", "15", "0.8", R.drawable.restaurant_4,  "$"));
+        allRestaurants.add(new Restaurant(5, "Subway", "202 Pine St", "Sandwiches, Healthy", "4.0", "15", "0.8", R.drawable.restaurant_1,  "$"));
+        allRestaurants.add(new Restaurant(6, "Taco Bell", "303 Maple St", "Mexican, Fast Food", "4.7", "5", "1.8", R.drawable.restaurant_2, "$"));
+        allRestaurants.add(new Restaurant(7, "Outback Steakhouse", "404 Birch St", "Steak, American", "4.7", "5", "1.8", R.drawable.restaurant_3, "$$$"));
+        allRestaurants.add(new Restaurant(8, "Jollibee", "505 Cedar St", "Filipino, Chicken, Fast Food","4.0", "15", "0.8", R.drawable.restaurant_4,  "$"));
+        allRestaurants.add(new Restaurant(9, "Dunkin' Donuts", "606 Walnut St", "Donuts, Coffee, Breakfast", "4.7", "5", "1.8", R.drawable.restaurant_1,  "$"));
+        allRestaurants.add(new Restaurant(10, "Starbucks", "707 Maple St", "Coffee, Breakfast", "4.0", "15", "0.8", R.drawable.restaurant_2, "$$"));
+
+    };
     
     private void filterRestaurants() {
         filteredRestaurants = new ArrayList<>();
@@ -122,7 +125,7 @@ public class SearchResultActivity extends AppCompatActivity implements Restauran
     }
     
     @Override
-    public void onRestaurantClicked(Restaurant restaurant) {
+    public void onRestaurantClick(Restaurant restaurant) {
         // Navigate to RestaurantDetailsActivity
         Intent intent = new Intent(this, RestaurantDetailsActivity.class);
         intent.putExtra("restaurant_id", restaurant.getId());

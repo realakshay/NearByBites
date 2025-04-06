@@ -19,9 +19,9 @@ public class TourGuideFragment extends Fragment {
     
     // Tour guide content arrays
     private final int[] IMAGE_RESOURCES = {
-            R.drawable.tour_page_1,
-            R.drawable.tour_page_2,
-            R.drawable.tour_page_3
+            R.drawable.tour_delivery,
+            R.drawable.tour_order,
+            R.drawable.tour_tracking
     };
     
     private final String[] TITLES = {

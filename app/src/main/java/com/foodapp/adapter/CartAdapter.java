@@ -4,12 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.foodapp.R;
 import com.foodapp.models.CartItem;
@@ -17,54 +16,67 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class CartAdapter extends ArrayAdapter<CartItem> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private Context context;
     private List<CartItem> cartItems;
+    private boolean isReadOnly = false;
 
     public CartAdapter(Context context, List<CartItem> cartItems) {
-        super(context, 0, cartItems);
         this.context = context;
         this.cartItems = cartItems;
     }
 
+    public void setReadOnly(boolean readOnly) {
+        isReadOnly = readOnly;
+    }
+
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listItem = convertView;
-        if (listItem == null) {
-            listItem = LayoutInflater.from(context).inflate(R.layout.item_cart, parent, false);
-        }
+    public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_cart, parent, false);
+        return new CartViewHolder(view);
+    }
 
+    @Override
+    public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         CartItem currentItem = cartItems.get(position);
 
-        ImageView ivItemImage = listItem.findViewById(R.id.ivItemImage);
-        TextView tvItemName = listItem.findViewById(R.id.tvItemName);
-        TextView tvItemPrice = listItem.findViewById(R.id.tvItemPrice);
-        TextView tvItemQuantity = listItem.findViewById(R.id.tvItemQuantity);
-        TextView tvItemTotal = listItem.findViewById(R.id.tvItemTotal);
-        TextView tvItemRemarks = listItem.findViewById(R.id.tvItemRemarks);
-
-        // Set the data
-        tvItemName.setText(currentItem.getMenuItem().getName());
-        tvItemPrice.setText("$" + String.format("%.2f", currentItem.getMenuItem().getPrice()));
-        tvItemQuantity.setText("x" + currentItem.getQuantity());
+        holder.tvItemName.setText(currentItem.getMenuItem().getName());
+        holder.tvItemPrice.setText("$" + String.format("%.2f", currentItem.getMenuItem().getPrice()));
+        holder.tvItemQuantity.setText("x" + currentItem.getQuantity());
         double totalPrice = currentItem.getMenuItem().getPrice() * currentItem.getQuantity();
-        tvItemTotal.setText("$" + String.format("%.2f", totalPrice));
-        
-        // Handle remarks
+        holder.tvItemTotal.setText("$" + String.format("%.2f", totalPrice));
+
         if (currentItem.getRemarks() != null && !currentItem.getRemarks().isEmpty()) {
-            tvItemRemarks.setVisibility(View.VISIBLE);
-            tvItemRemarks.setText("Note: " + currentItem.getRemarks());
+            holder.tvItemRemarks.setVisibility(View.VISIBLE);
+            holder.tvItemRemarks.setText("Note: " + currentItem.getRemarks());
         } else {
-            tvItemRemarks.setVisibility(View.GONE);
+            holder.tvItemRemarks.setVisibility(View.GONE);
         }
 
-        // Load the image using Picasso
         if (currentItem.getMenuItem().getImageUrl() != null && !currentItem.getMenuItem().getImageUrl().isEmpty()) {
-            Picasso.get().load(currentItem.getMenuItem().getImageUrl()).into(ivItemImage);
+            Picasso.get().load(currentItem.getMenuItem().getImageUrl()).into(holder.ivItemImage);
         }
+    }
 
-        return listItem;
+    @Override
+    public int getItemCount() {
+        return cartItems.size();
+    }
+
+    public static class CartViewHolder extends RecyclerView.ViewHolder {
+        ImageView ivItemImage;
+        TextView tvItemName, tvItemPrice, tvItemQuantity, tvItemTotal, tvItemRemarks;
+
+        public CartViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ivItemImage = itemView.findViewById(R.id.ivItemImage);
+            tvItemName = itemView.findViewById(R.id.tvItemName);
+            tvItemPrice = itemView.findViewById(R.id.tvItemPrice);
+            tvItemQuantity = itemView.findViewById(R.id.tvQuantity);
+            tvItemTotal = itemView.findViewById(R.id.tvItemTotal);
+            tvItemRemarks = itemView.findViewById(R.id.tvItemRemarks);
+        }
     }
 }

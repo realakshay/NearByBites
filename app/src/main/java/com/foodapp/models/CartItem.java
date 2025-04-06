@@ -26,4 +26,8 @@ public class CartItem implements Serializable {
     public void setQuantity(int quantity) {
         menuItem.setQuantity(quantity);
     }
+
+    public String getRemarks(){
+        return menuItem.getDescription();
+    }
 }

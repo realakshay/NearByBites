@@ -57,7 +57,7 @@ public class FavoriteRestaurantAdapter extends RecyclerView.Adapter<FavoriteRest
         holder.ivRestaurantImage.setImageResource(restaurant.getImageResourceId());
         
         // Set favorite status
-        boolean isFavorite = favoriteManager.isRestaurantFavorite(restaurant.getId());
+        boolean isFavorite = favoriteManager.isFavorite(restaurant.getId());
         holder.ivFavorite.setImageResource(isFavorite ? 
                 R.drawable.ic_heart_filled : R.drawable.ic_heart_outline);
         
@@ -71,7 +71,7 @@ public class FavoriteRestaurantAdapter extends RecyclerView.Adapter<FavoriteRest
         // Set click listener on the favorite icon only
         holder.ivFavorite.setOnClickListener(v -> {
             if (listener != null) {
-                boolean newFavoriteStatus = !favoriteManager.isRestaurantFavorite(restaurant.getId());
+                boolean newFavoriteStatus = !favoriteManager.isFavorite(restaurant.getId());
                 listener.onFavoriteToggled(restaurant, newFavoriteStatus);
                 
                 // Update icon
