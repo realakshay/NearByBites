@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.foodapp.R;
-import com.foodapp.model.MenuItem;
+import com.foodapp.models.MenuItem;
 
 import java.text.DecimalFormat;
 import java.util.List;

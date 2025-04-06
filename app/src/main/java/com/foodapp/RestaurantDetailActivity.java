@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.foodapp.model.Restaurant;
+import com.foodapp.models.Restaurant;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
 

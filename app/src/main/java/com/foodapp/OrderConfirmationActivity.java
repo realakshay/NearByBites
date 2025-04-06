@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.foodapp.adapter.CartAdapter;
-import com.foodapp.model.Order;
+import com.foodapp.models.Order;
 
 import java.text.DecimalFormat;
 import java.util.Random;

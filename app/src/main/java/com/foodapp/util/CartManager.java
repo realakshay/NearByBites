@@ -1,6 +1,6 @@
 package com.foodapp.util;
 
-import com.foodapp.model.CartItem;
+import com.foodapp.models.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;

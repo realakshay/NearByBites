@@ -1,7 +1,7 @@
 package com.foodapp.api;
 
-import com.foodapp.model.MenuItem;
-import com.foodapp.model.Restaurant;
+import com.foodapp.models.MenuItem;
+import com.foodapp.models.Restaurant;
 
 import java.util.List;
 
