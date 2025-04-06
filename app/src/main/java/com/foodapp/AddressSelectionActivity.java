@@ -71,9 +71,10 @@ public class AddressSelectionActivity extends AppCompatActivity implements Addre
         selectedAddress = preferenceManager.getSelectedAddress();
         
         // Add some sample addresses for demo
-        savedAddresses.add(new Address("Home", "123 Main Street", "Apt 4B", "New York", "NY", "10001", "40.7128", "-74.0060"));
-        savedAddresses.add(new Address("Work", "456 Park Avenue", "Floor 20", "New York", "NY", "10022", "40.7624", "-73.9738"));
-        savedAddresses.add(new Address("Gym", "789 Fitness Way", "", "New York", "NY", "10013", "40.7254", "-74.0051"));
+        savedAddresses.add(new Address("Home", "123 Main Street", "Apt 4B", "New York", "NY", "10001", 40.7128, -74.0060));
+        savedAddresses.add(new Address("Work", "456 Park Avenue", "Floor 20", "New York", "NY", "10022", 40.7624, -73.9738));
+        savedAddresses.add(new Address("Gym", "789 Fitness Way", "", "New York", "NY", "10013", 40.7254, -74.0051));
+
         
         // If we have a selected address that's not in the list (like "Current Location"),
         // add it to the list
@@ -110,15 +111,16 @@ public class AddressSelectionActivity extends AppCompatActivity implements Addre
             // In a real app, we would use location services to get the current location
             // For now, we'll create a dummy address
             Address currentLocation = new Address(
-                    "Current Location",
-                    "Current Street",
-                    "",
-                    "Current City",
-                    "State",
-                    "12345",
-                    "0",
-                    "0"
+                "Current Location",
+                "Current Street",
+                "",
+                "Current City",
+                "State",
+                "12345",
+                0.0,
+                0.0
             );
+
             
             // Save the selected address
             preferenceManager.saveSelectedAddress(currentLocation);
