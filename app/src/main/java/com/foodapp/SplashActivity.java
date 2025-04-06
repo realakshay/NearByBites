@@ -71,28 +71,43 @@ public class SplashActivity extends AppCompatActivity {
     }
     
     private void setupSplashAnimation() {
-        // Fade-in animation for logo and app name
+        // Logo scale and fade animation
+        Animation scaleAndFade = new android.view.animation.AnimationSet(true);
+        Animation scale = new android.view.animation.ScaleAnimation(
+            0.5f, 1.0f, 0.5f, 1.0f,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        );
         Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+        
+        scale.setDuration(1000);
         fadeIn.setDuration(1000);
-        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+        
+        scaleAndFade.addAnimation(scale);
+        scaleAndFade.addAnimation(fadeIn);
+        
+        scaleAndFade.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {}
             
             @Override
             public void onAnimationEnd(Animation animation) {
-                // Show buttons after logo animation completes
+                // Show buttons with bounce effect
                 containerButtons.setVisibility(View.VISIBLE);
-                Animation buttonFadeIn = new AlphaAnimation(0.0f, 1.0f);
-                buttonFadeIn.setDuration(500);
-                containerButtons.startAnimation(buttonFadeIn);
+                Animation buttonAnimation = new android.view.animation.TranslateAnimation(
+                    0, 0, 50, 0
+                );
+                buttonAnimation.setDuration(500);
+                buttonAnimation.setInterpolator(new android.view.animation.OvershootInterpolator());
+                containerButtons.startAnimation(buttonAnimation);
             }
             
             @Override
             public void onAnimationRepeat(Animation animation) {}
         });
         
-        ivLogo.startAnimation(fadeIn);
-        tvAppName.startAnimation(fadeIn);
+        ivLogo.startAnimation(scaleAndFade);
+        tvAppName.startAnimation(scaleAndFade);
     }
     
     private void navigateToMainFlow() {
