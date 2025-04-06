@@ -72,7 +72,7 @@ public class SplashActivity extends AppCompatActivity {
     
     private void setupSplashAnimation() {
         // Logo scale and fade animation
-        Animation scaleAndFade = new android.view.animation.AnimationSet(true);
+        AnimationSet scaleAndFade = new android.view.animation.AnimationSet(true);
         Animation scale = new android.view.animation.ScaleAnimation(
             0.5f, 1.0f, 0.5f, 1.0f,
             Animation.RELATIVE_TO_SELF, 0.5f,
