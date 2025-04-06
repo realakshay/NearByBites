@@ -80,7 +80,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Menu
                 "American, Fast Food",
                 4.5f,
                 30,
-                1.5f,
+                15,
                 R.drawable.restaurant_1
         );
 
