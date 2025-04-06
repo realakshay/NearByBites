@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.foodapp.adapter.MenuAdapter;
 import com.foodapp.api.ApiClient;
 import com.foodapp.api.FoodService;
-import com.foodapp.model.CartItem;
-import com.foodapp.model.MenuItem;
+import com.foodapp.models.CartItem;
+import com.foodapp.models.MenuItem;
 import com.foodapp.util.CartManager;
 
 import java.util.ArrayList;
