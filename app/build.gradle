@@ -39,7 +39,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
     
     // Picasso for image loading
-    implementation 'com.squareup.picasso:picasso:2.8'
+    // Picasso for image loading
+    implementation 'com.squareup.picasso:picasso:2.71828'
     
     // CircleImageView for circular images
     implementation 'de.hdodenhof:circleimageview:3.1.0'
